@@ -29,6 +29,8 @@ class GameScene: SKScene {
     var tapCount = 0 // 3 taps and game is over
     let player1 = SKSpriteNode(imageNamed: "bluePenguin")
     let player2 = SKSpriteNode(imageNamed: "redPenguin")
+    let iceLaser = SKSpriteNode(imageNamed: "iceLaser")
+    let fish = SKSpriteNode(imageNamed: "fish")
     
     // init
     init(size: CGSize, scaleMode:SKSceneScaleMode, levelNum:Int, totalScore:Int, sceneManager:GameViewController) {
@@ -52,6 +54,12 @@ class GameScene: SKScene {
         player2.setScale(0.24)
         player2.position = CGPoint(x: size.width/2 + 425, y: size.height/2)
         addChild(player2)
+        iceLaser.setScale(0.54)
+        iceLaser.position = CGPoint(x: size.width/2 + 225, y: size.height/2)
+        addChild(iceLaser)
+        fish.setScale(0.54)
+        fish.position = CGPoint(x: size.width/2 + 75, y: size.height/2)
+        addChild(fish)
     }
     
     deinit {
