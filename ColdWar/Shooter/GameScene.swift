@@ -1,8 +1,8 @@
 //
 //  GameScene.swift
-//  ColdWar
+//  Shooter
 //
-//  Created by Sneha Vaswani on 9/25/17.
+//  Created by Sneha Vaswani on 9/19/17.
 //  Copyright © 2017 Sneha Vaswani. All rights reserved.
 //
 

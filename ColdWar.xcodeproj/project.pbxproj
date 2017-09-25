@@ -15,19 +15,37 @@
 		DB2A895E1F7952B200A13B8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB2A895C1F7952B200A13B8B /* Main.storyboard */; };
 		DB2A89601F7952B200A13B8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB2A895F1F7952B200A13B8B /* Assets.xcassets */; };
 		DB2A89631F7952B200A13B8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB2A89611F7952B200A13B8B /* LaunchScreen.storyboard */; };
+		DB2A899A1F79542D00A13B8B /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89981F79542D00A13B8B /* CGPoint+Extensions.swift */; };
+		DB2A899B1F79542D00A13B8B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89991F79542D00A13B8B /* CGFloat+Extensions.swift */; };
+		DB2A899E1F79549000A13B8B /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A899D1F79549000A13B8B /* GameOverScene.swift */; };
+		DB2A89A01F7954C400A13B8B /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A899F1F7954C400A13B8B /* HomeScene.swift */; };
+		DB2A89A21F7954E900A13B8B /* LevelFinishScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89A11F7954E900A13B8B /* LevelFinishScene.swift */; };
+		DB2A89A91F79555100A13B8B /* LevelResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89A81F79555100A13B8B /* LevelResults.swift */; };
+		DB2A89AC1F7955BB00A13B8B /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89AB1F7955BB00A13B8B /* GameData.swift */; };
+		DB2A89AE1F7955EF00A13B8B /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89AD1F7955EF00A13B8B /* MyUtils.swift */; };
+		DB2A89B01F79564200A13B8B /* DiamondSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89AF1F79564200A13B8B /* DiamondSprite.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DB2A894F1F7952B200A13B8B /* ColdWar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColdWar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB2A89521F7952B200A13B8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DB2A89541F7952B200A13B8B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		DB2A89561F7952B200A13B8B /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		DB2A89541F7952B200A13B8B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = ColdWar/GameScene.sks; sourceTree = "<group>"; };
+		DB2A89561F7952B200A13B8B /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Actions.sks; path = ColdWar/Actions.sks; sourceTree = "<group>"; };
 		DB2A89581F7952B200A13B8B /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		DB2A895A1F7952B200A13B8B /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		DB2A895D1F7952B200A13B8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		DB2A895F1F7952B200A13B8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DB2A895F1F7952B200A13B8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ColdWar/Assets.xcassets; sourceTree = "<group>"; };
 		DB2A89621F7952B200A13B8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		DB2A89641F7952B200A13B8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB2A89641F7952B200A13B8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ColdWar/Info.plist; sourceTree = "<group>"; };
+		DB2A89981F79542D00A13B8B /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
+		DB2A89991F79542D00A13B8B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
+		DB2A899D1F79549000A13B8B /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		DB2A899F1F7954C400A13B8B /* HomeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
+		DB2A89A11F7954E900A13B8B /* LevelFinishScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelFinishScene.swift; sourceTree = "<group>"; };
+		DB2A89A81F79555100A13B8B /* LevelResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelResults.swift; sourceTree = "<group>"; };
+		DB2A89AB1F7955BB00A13B8B /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
+		DB2A89AD1F7955EF00A13B8B /* MyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
+		DB2A89AF1F79564200A13B8B /* DiamondSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiamondSprite.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,7 +62,18 @@
 		DB2A89461F7952B100A13B8B = {
 			isa = PBXGroup;
 			children = (
+				DB2A89541F7952B200A13B8B /* GameScene.sks */,
+				DB2A89561F7952B200A13B8B /* Actions.sks */,
+				DB2A895C1F7952B200A13B8B /* Main.storyboard */,
+				DB2A895F1F7952B200A13B8B /* Assets.xcassets */,
+				DB2A89611F7952B200A13B8B /* LaunchScreen.storyboard */,
+				DB2A89641F7952B200A13B8B /* Info.plist */,
 				DB2A89511F7952B200A13B8B /* ColdWar */,
+				DB2A89971F79541400A13B8B /* Lib */,
+				DB2A89A31F7954FA00A13B8B /* VC */,
+				DB2A899C1F79543F00A13B8B /* Scene */,
+				DB2A89A41F79551B00A13B8B /* Sprite */,
+				DB2A89A71F79554100A13B8B /* Model */,
 				DB2A89501F7952B200A13B8B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,16 +89,59 @@
 		DB2A89511F7952B200A13B8B /* ColdWar */ = {
 			isa = PBXGroup;
 			children = (
+				DB2A89AB1F7955BB00A13B8B /* GameData.swift */,
 				DB2A89521F7952B200A13B8B /* AppDelegate.swift */,
-				DB2A89541F7952B200A13B8B /* GameScene.sks */,
-				DB2A89561F7952B200A13B8B /* Actions.sks */,
-				DB2A89581F7952B200A13B8B /* GameScene.swift */,
-				DB2A895A1F7952B200A13B8B /* GameViewController.swift */,
-				DB2A895C1F7952B200A13B8B /* Main.storyboard */,
-				DB2A895F1F7952B200A13B8B /* Assets.xcassets */,
-				DB2A89611F7952B200A13B8B /* LaunchScreen.storyboard */,
-				DB2A89641F7952B200A13B8B /* Info.plist */,
+				DB2A89AD1F7955EF00A13B8B /* MyUtils.swift */,
 			);
+			path = ColdWar;
+			sourceTree = "<group>";
+		};
+		DB2A89971F79541400A13B8B /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				DB2A89981F79542D00A13B8B /* CGPoint+Extensions.swift */,
+				DB2A89991F79542D00A13B8B /* CGFloat+Extensions.swift */,
+			);
+			name = Lib;
+			path = ColdWar;
+			sourceTree = "<group>";
+		};
+		DB2A899C1F79543F00A13B8B /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				DB2A89581F7952B200A13B8B /* GameScene.swift */,
+				DB2A899D1F79549000A13B8B /* GameOverScene.swift */,
+				DB2A899F1F7954C400A13B8B /* HomeScene.swift */,
+				DB2A89A11F7954E900A13B8B /* LevelFinishScene.swift */,
+			);
+			name = Scene;
+			path = ColdWar;
+			sourceTree = "<group>";
+		};
+		DB2A89A31F7954FA00A13B8B /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				DB2A895A1F7952B200A13B8B /* GameViewController.swift */,
+			);
+			name = VC;
+			path = ColdWar;
+			sourceTree = "<group>";
+		};
+		DB2A89A41F79551B00A13B8B /* Sprite */ = {
+			isa = PBXGroup;
+			children = (
+				DB2A89AF1F79564200A13B8B /* DiamondSprite.swift */,
+			);
+			name = Sprite;
+			path = ColdWar;
+			sourceTree = "<group>";
+		};
+		DB2A89A71F79554100A13B8B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DB2A89A81F79555100A13B8B /* LevelResults.swift */,
+			);
+			name = Model;
 			path = ColdWar;
 			sourceTree = "<group>";
 		};
@@ -148,8 +220,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB2A89A21F7954E900A13B8B /* LevelFinishScene.swift in Sources */,
 				DB2A89591F7952B200A13B8B /* GameScene.swift in Sources */,
+				DB2A899B1F79542D00A13B8B /* CGFloat+Extensions.swift in Sources */,
+				DB2A89A91F79555100A13B8B /* LevelResults.swift in Sources */,
+				DB2A89AC1F7955BB00A13B8B /* GameData.swift in Sources */,
 				DB2A895B1F7952B200A13B8B /* GameViewController.swift in Sources */,
+				DB2A89AE1F7955EF00A13B8B /* MyUtils.swift in Sources */,
+				DB2A89A01F7954C400A13B8B /* HomeScene.swift in Sources */,
+				DB2A899A1F79542D00A13B8B /* CGPoint+Extensions.swift in Sources */,
+				DB2A89B01F79564200A13B8B /* DiamondSprite.swift in Sources */,
+				DB2A899E1F79549000A13B8B /* GameOverScene.swift in Sources */,
 				DB2A89531F7952B200A13B8B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -163,6 +244,7 @@
 				DB2A895D1F7952B200A13B8B /* Base */,
 			);
 			name = Main.storyboard;
+			path = ColdWar;
 			sourceTree = "<group>";
 		};
 		DB2A89611F7952B200A13B8B /* LaunchScreen.storyboard */ = {
@@ -171,6 +253,7 @@
 				DB2A89621F7952B200A13B8B /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = ColdWar;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -314,6 +397,7 @@
 				DB2A89691F7952B200A13B8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

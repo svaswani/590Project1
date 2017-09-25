@@ -1,8 +1,8 @@
 //
 //  GameViewController.swift
-//  ColdWar
+//  Shooter
 //
-//  Created by Sneha Vaswani on 9/25/17.
+//  Created by Sneha Vaswani on 9/19/17.
 //  Copyright © 2017 Sneha Vaswani. All rights reserved.
 //
 
@@ -61,7 +61,7 @@ class GameViewController: UIViewController {
         let reveal = SKTransition.crossFade(withDuration: 1)
         skView.presentScene(scene, transition: reveal)
     }
-    
+        
     // lifecycle
     override var shouldAutorotate: Bool {
         return false;
@@ -71,8 +71,8 @@ class GameViewController: UIViewController {
         return .portrait
     }
     
-    override var prefersStatusBarHidden: Bool {
+     override var prefersStatusBarHidden: Bool {
         return true
     }
-    
+
 }
