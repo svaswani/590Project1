@@ -46,14 +46,12 @@ class GameScene: SKScene {
     // lifecycle
     override func didMove(to view: SKView) {
         setupUI()
-        makeSprites(howMany: 10)
         player1.setScale(0.32)
         player1.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
         addChild(player1)
         player2.setScale(0.24)
         player2.position = CGPoint(x: size.width/2 + 425, y: size.height/2)
         addChild(player2)
-        unpuaseSprites()
     }
     
     deinit {
@@ -75,13 +73,7 @@ class GameScene: SKScene {
             sceneManager.loadGameOverScene(results: results)
         }
     }
-    func unpuaseSprites() {
-        let unpauseAction = SKAction.sequence([
-            SKAction.wait(forDuration: 2),
-            SKAction.run ({self.spritesMoving = true})
-            ])
-        run(unpauseAction)
-    }
+
     private func setupUI(){
         playableRect = getPlayableRectPhonePortrait(size: size)
         let fontSize = GameData.hud.fontSize
@@ -123,18 +115,6 @@ class GameScene: SKScene {
         addChild(otherLabel)
     }
     
-    func makeSprites(howMany:Int) {
-        totalSprites = totalSprites + howMany
-        otherLabel.text = "Num Sprites: \(totalSprites)"
-        var s:DiamondSprite
-        for _ in 0...howMany-1 {
-            s = DiamondSprite(size: CGSize(width: 60, height: 100), lineWidth:10, strokeColor: SKColor.green, fillColor: SKColor.magenta)
-            s.name = "diamond"
-            s.position = randomCGPointInRect(playableRect, margin: 300)
-            s.fwd = CGPoint.randomUnitVector()
-            addChild(s)
-        }
-    }
     
     func calculateDeltaTime(currentTime: TimeInterval) {
         if lastUpdateTime > 0 {
@@ -145,40 +125,11 @@ class GameScene: SKScene {
         lastUpdateTime = currentTime
     }
     
-    func moveSprites(dt:CGFloat) {
-        if spritesMoving {
-            enumerateChildNodes(withName: "diamond", using: {
-                node, stop in
-                let s = node as! DiamondSprite
-                let halfWidth = s.frame.width/2
-                let halfHeight = s.frame.height/2
-                
-                s.update(dt: dt)
-                
-                // check left/right
-                if s.position.x <= halfWidth || s.position.x >= self.size.width - halfWidth {
-                    s.reflectX() // bounce
-                    s.update(dt: dt) // make an extra move
-                    self.levelScore = self.levelScore + 1 // lamest game ever = bounce n win
-                    
-                }
-                
-                // check top/bottom
-                if s.position.y <= self.playableRect.minY + halfHeight || s.position.y >= self.playableRect.maxY - halfHeight {
-                    s.reflecyY() // bounce
-                    s.update(dt: dt) // make extra move
-                    self.levelScore = self.levelScore + 1
-                }
-            })
-        }
-    }
-    
     // events
     
     // game loop
     override func update(_ currentTime: TimeInterval) {
         calculateDeltaTime(currentTime: currentTime)
-        moveSprites(dt: CGFloat(dt))
     }
     
     
