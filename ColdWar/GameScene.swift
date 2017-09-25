@@ -114,13 +114,6 @@ class GameScene: SKScene {
         scoreLabel.position = CGPoint(x: playableRect.maxX - scoreLabelWidth - marginH,y: playableRect.maxY - marginV)
         addChild(scoreLabel)
         
-        otherLabel.fontColor = fontColor
-        otherLabel.fontSize = fontSize
-        otherLabel.position = CGPoint(x: marginH, y: playableRect.minY + marginV)
-        otherLabel.verticalAlignmentMode = .bottom
-        otherLabel.horizontalAlignmentMode = .left
-        otherLabel.text = "Num Sprites: 0"
-        addChild(otherLabel)
     }
     
     
