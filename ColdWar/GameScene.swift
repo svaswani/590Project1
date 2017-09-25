@@ -27,6 +27,8 @@ class GameScene: SKScene {
     var dt: TimeInterval = 0
     var spritesMoving = false
     var tapCount = 0 // 3 taps and game is over
+    let player1 = SKSpriteNode(imageNamed: "bluePenguin")
+    let player2 = SKSpriteNode(imageNamed: "redPenguin")
     
     // init
     init(size: CGSize, scaleMode:SKSceneScaleMode, levelNum:Int, totalScore:Int, sceneManager:GameViewController) {
@@ -45,6 +47,12 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         setupUI()
         makeSprites(howMany: 10)
+        player1.setScale(0.32)
+        player1.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
+        addChild(player1)
+        player2.setScale(0.24)
+        player2.position = CGPoint(x: size.width/2 + 425, y: size.height/2)
+        addChild(player2)
         unpuaseSprites()
     }
     
