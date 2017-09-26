@@ -79,6 +79,31 @@ class GameScene: SKScene {
                 
                 if (playerBlueTouchCount > 0) {
                     //Shoot
+                    guard let touch = touches.first else {
+                        return
+                    }
+                    let touchLocation = touch.location(in: self)
+                    let projectile = SKSpriteNode(imageNamed: "fish")
+                    projectile.position = playerBlue.position
+                    projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
+                    projectile.physicsBody?.isDynamic = true
+
+                    let offset = touchLocation - projectile.position
+                    
+                    if (offset.x < 0) { return }
+                    
+                    addChild(projectile)
+                    
+                    let direction = offset.normalized()
+                    
+                    let shootAmount = direction * 1000
+                    
+                    let realDest = shootAmount + projectile.position
+                    
+                    let actionMove = SKAction.move(to: realDest, duration: 2.0)
+                    let actionMoveDone = SKAction.removeFromParent()
+                    projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
+                    
                 } else {
                     playerBlue.position = location;
                     playerBlueTouchCount = 1;
@@ -91,6 +116,30 @@ class GameScene: SKScene {
                 
                 if (playerRedTouchCount > 0) {
                     //Shoot
+                    guard let touch = touches.first else {
+                        return
+                    }
+                    let touchLocation = touch.location(in: self)
+                    let projectile2 = SKSpriteNode(imageNamed: "fish")
+                    projectile2.position = playerRed.position
+                    projectile2.physicsBody = SKPhysicsBody(circleOfRadius: projectile2.size.width/2)
+                    projectile2.physicsBody?.isDynamic = true
+                    
+                    let offset = touchLocation - projectile2.position
+                    
+                    if (offset.x < 0) { return }
+                    
+                    addChild(projectile2)
+                    
+                    let direction = offset.normalized()
+                    
+                    let shootAmount = direction * 1000
+                    
+                    let realDest = shootAmount + projectile2.position
+                    
+                    let actionMove = SKAction.move(to: realDest, duration: 2.0)
+                    let actionMoveDone = SKAction.removeFromParent()
+                    projectile2.run(SKAction.sequence([actionMove, actionMoveDone]))
                 } else {
                     playerRed.position = location;
                     playerRedTouchCount = 1;
