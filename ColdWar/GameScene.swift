@@ -237,10 +237,9 @@ class GameScene: SKScene {
         enumerateChildNodes(withName: "fish", using: {
             node, stop in
             let s = node as! FishProjectile
+            s.update(dt: dt)
             let halfWidth = s.frame.width/2
             let halfHeight = s.frame.height/2
-            s.update(dt: dt)
-            
 
             if (s.timer < 0) {
                 s.removeFromParent()
@@ -265,6 +264,16 @@ class GameScene: SKScene {
             node, stop in
             let s = node as! IceProjectile
             s.update(dt: dt)
+            
+            let halfWidth = s.frame.width/2
+            let halfHeight = s.frame.height/2
+            
+            if s.position.x <= halfWidth || s.position.x >= self.size.width - halfWidth {
+                s.removeFromParent()
+            }
+            if s.position.y <= self.playableRect.minY + halfHeight || s.position.y >= self.playableRect.maxY - halfHeight {
+                s.removeFromParent()
+            }
             
         })
             

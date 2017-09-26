@@ -31,9 +31,6 @@ class IceProjectile : SKSpriteNode {
     func update(dt:CGFloat) {
         velocity = fwd * projectileSpeed
         position = position + velocity * dt
-    }
-    
-    func offScreen() -> Bool {
-        return false;
+        
     }
 }
