@@ -79,11 +79,13 @@ class GameScene: SKScene {
                 //print("Blue player \(playerBlueTouchCount)")
                 
                 if (playerBlueTouchCount > 0) {
+
                     let f:FishProjectile = FishProjectile(position: location, projectileSpeed: 1, fwd: CGPoint(x: 1, y: 0))
                     f.name = "fish"
                     addChild(f);
                     
                     playerBlueTouchCount += 1;
+
                 } else {
                     playerBlue.position = location;
                     playerBlueTouchCount = 1;
@@ -95,11 +97,13 @@ class GameScene: SKScene {
                 //print("Red Player \(playerRedTouchCount)")
                 
                 if (playerRedTouchCount > 0) {
+
                     let f:FishProjectile = FishProjectile(position: location, projectileSpeed: 1, fwd: CGPoint(x: 1, y: 0))
                     f.name = "fish"
                     addChild(f);
                     
                     playerRedTouchCount += 1;
+
                 } else {
                     playerRed.position = location;
                     playerRedTouchCount = 1;
