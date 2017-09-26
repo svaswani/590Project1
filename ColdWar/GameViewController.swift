@@ -64,11 +64,11 @@ class GameViewController: UIViewController {
     
     // lifecycle
     override var shouldAutorotate: Bool {
-        return false;
+        return false
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
+        return .landscape
     }
     
     override var prefersStatusBarHidden: Bool {

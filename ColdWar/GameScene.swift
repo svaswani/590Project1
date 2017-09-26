@@ -27,10 +27,14 @@ class GameScene: SKScene {
     var dt: TimeInterval = 0
     var spritesMoving = false
     var tapCount = 0 // 3 taps and game is over
-    let player1 = SKSpriteNode(imageNamed: "bluePenguin")
-    let player2 = SKSpriteNode(imageNamed: "redPenguin")
+    let playerBlue = SKSpriteNode(imageNamed: "bluePenguin")
+    let playerRed = SKSpriteNode(imageNamed: "redPenguin")
     let iceLaser = SKSpriteNode(imageNamed: "iceLaser")
     let fish = SKSpriteNode(imageNamed: "fish")
+    
+    
+    var player1TouchCount = 0;
+    var player2TouchCount = 0;
     
     // init
     init(size: CGSize, scaleMode:SKSceneScaleMode, levelNum:Int, totalScore:Int, sceneManager:GameViewController) {
@@ -48,12 +52,12 @@ class GameScene: SKScene {
     // lifecycle
     override func didMove(to view: SKView) {
         setupUI()
-        player1.setScale(0.32)
-        player1.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
-        addChild(player1)
-        player2.setScale(0.24)
-        player2.position = CGPoint(x: size.width/2 + 425, y: size.height/2)
-        addChild(player2)
+        playerBlue.setScale(0.32)
+        playerBlue.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
+        addChild(playerBlue)
+        playerRed.setScale(0.24)
+        playerRed.position = CGPoint(x: size.width/2 + 425, y: size.height/2)
+        addChild(playerRed)
         iceLaser.setScale(0.54)
         iceLaser.position = CGPoint(x: size.width/2 + 225, y: size.height/2)
         addChild(iceLaser)
@@ -68,7 +72,18 @@ class GameScene: SKScene {
     
     // helpers
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let location = touch.location(in: self)
+            if (location.x < size.width / 2.0) {
+                print("Blue player \(location)")
+            } else {
+                print("Red Player \(location)")
+            }
+            
+        }
+        
         tapCount = tapCount + 1
+        return;
         if tapCount < 3 {
             return
         }
@@ -81,6 +96,22 @@ class GameScene: SKScene {
             sceneManager.loadGameOverScene(results: results)
         }
     }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let location = touch.location(in: self)
+            if (location.x < size.width / 2.0) {
+                
+                print("Blue player \(location)")
+                playerBlue.position = location;
+            } else {
+                print("Red Player \(location)")
+                playerRed.position = location;
+            }
+            
+        }
+    }
+    
 
     private func setupUI(){
         playableRect = getPlayableRectPhonePortrait(size: size)
@@ -133,5 +164,8 @@ class GameScene: SKScene {
         calculateDeltaTime(currentTime: currentTime)
     }
     
+    func movePlayer(dt:CGFloat) {
+        
+    }
     
 }
