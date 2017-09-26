@@ -57,10 +57,10 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         setupUI()
         playerBlue.setScale(0.32)
-        playerBlue.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
+        playerBluePos = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
         addChild(playerBlue)
         playerRed.setScale(0.24)
-        playerRed.position = CGPoint(x: size.width/2 + 425, y: size.height/2)
+        playerRedPos = CGPoint(x: size.width/2 + 425, y: size.height/2)
         addChild(playerRed)
     }
     
