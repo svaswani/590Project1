@@ -29,7 +29,7 @@ class FishProjectile:SKSpriteNode {
     
     // methods
     func update(dt:CGFloat) {
-        velocity = fwd * speed
+        velocity = fwd * projectileSpeed
         position = position + velocity * dt
     }
     
