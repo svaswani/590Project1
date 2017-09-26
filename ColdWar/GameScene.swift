@@ -239,6 +239,7 @@ class GameScene: SKScene {
             node, stop in
             let s = node as! FishProjectile
             s.update(dt: dt)
+            s.setScale(0.5)
             let halfWidth = s.frame.width/2
             let halfHeight = s.frame.height/2
 
@@ -267,6 +268,8 @@ class GameScene: SKScene {
             node, stop in
             let s = node as! IceProjectile
             s.update(dt: dt)
+            
+            s.setScale(0.5)
             
             let halfWidth = s.frame.width/2
 
