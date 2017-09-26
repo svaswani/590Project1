@@ -243,25 +243,26 @@ class GameScene: SKScene {
         enumerateChildNodes(withName: "fish", using: {
             node, stop in
             let s = node as! FishProjectile
+            let halfWidth = s.frame.width/2
+            let halfHeight = s.frame.height/2
             s.update(dt: dt)
             
+
             if (s.timer < 0) {
                 s.removeFromParent()
             }
             
-            /*
+
             if s.position.x <= halfWidth || s.position.x >= self.size.width - halfWidth {
                 s.reflectX()
                 s.update(dt: dt)
-                self.levelScore = self.levelScore + 1
             }
             
             if s.position.y <= self.playableRect.minY + halfHeight || s.position.y >= self.playableRect.maxY - halfHeight {
                 s.reflectY()
                 s.update(dt:dt)
-                self.levelScore = self.levelScore + 1
             }
- */
+ 
         })
     }
     

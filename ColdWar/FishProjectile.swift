@@ -41,7 +41,7 @@ class FishProjectile:SKSpriteNode {
         fwd.x *= CGFloat(-1.0)
     }
     
-    func reflecyY() {
+    func reflectY() {
         fwd.y *= CGFloat(-1.0)
     }
 }
