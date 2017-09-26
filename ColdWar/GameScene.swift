@@ -32,13 +32,13 @@ class GameScene: SKScene {
     let iceLaser = SKSpriteNode(imageNamed: "iceLaser")
     let fish = SKSpriteNode(imageNamed: "fish")
     
-    var playerBlueTouchCount = 0;
-    var playerBluePos:CGPoint = CGPoint.zero;
+    var playerBlueTouchCount = 0
+    var playerBluePos:CGPoint = CGPoint(x: 100, y: 100)
     
-    var playerRedTouchCount = 0;
-    var playerRedPos:CGPoint = CGPoint.zero;
+    var playerRedTouchCount = 0
+    var playerRedPos:CGPoint = CGPoint(x: 300, y: 100)
     
-    var shootTimer:CGFloat = CGFloat(3);
+    var shootTimer:CGFloat = CGFloat(3)
     
     // init
     init(size: CGSize, scaleMode:SKSceneScaleMode, levelNum:Int, totalScore:Int, sceneManager:GameViewController) {
@@ -62,12 +62,6 @@ class GameScene: SKScene {
         playerRed.setScale(0.24)
         playerRed.position = CGPoint(x: size.width/2 + 425, y: size.height/2)
         addChild(playerRed)
-        iceLaser.setScale(0.54)
-        iceLaser.position = CGPoint(x: size.width/2 + 225, y: size.height/2)
-        addChild(iceLaser)
-        fish.setScale(0.54)
-        fish.position = CGPoint(x: size.width/2 + 75, y: size.height/2)
-        addChild(fish)
     }
     
     deinit {
@@ -244,10 +238,9 @@ class GameScene: SKScene {
         enumerateChildNodes(withName: "fish", using: {
             node, stop in
             let s = node as! FishProjectile
+            s.update(dt: dt)
             let halfWidth = s.frame.width/2
             let halfHeight = s.frame.height/2
-            s.update(dt: dt)
-            
 
             if (s.timer < 0) {
                 s.removeFromParent()
@@ -274,6 +267,16 @@ class GameScene: SKScene {
             node, stop in
             let s = node as! IceProjectile
             s.update(dt: dt)
+            
+            let halfWidth = s.frame.width/2
+            let halfHeight = s.frame.height/2
+            
+            if s.position.x <= halfWidth || s.position.x >= self.size.width - halfWidth {
+                s.removeFromParent()
+            }
+            if s.position.y <= self.playableRect.minY + halfHeight || s.position.y >= self.playableRect.maxY - halfHeight {
+                s.removeFromParent()
+            }
             
         })
             
