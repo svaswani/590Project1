@@ -33,11 +33,7 @@ class IceProjectile : SKSpriteNode {
         position = position + velocity * dt
     }
     
-    func reflectX() {
-        fwd.x *= CGFloat(-1.0)
-    }
-    
-    func reflecyY() {
-        fwd.y *= CGFloat(-1.0)
+    func offScreen() -> Bool {
+        return false;
     }
 }

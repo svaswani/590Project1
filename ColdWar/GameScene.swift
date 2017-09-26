@@ -32,12 +32,13 @@ class GameScene: SKScene {
     let iceLaser = SKSpriteNode(imageNamed: "iceLaser")
     let fish = SKSpriteNode(imageNamed: "fish")
     
-    
     var playerBlueTouchCount = 0;
     var playerBluePos:CGPoint = CGPoint.zero;
     
     var playerRedTouchCount = 0;
     var playerRedPos:CGPoint = CGPoint.zero;
+    
+    var shootTimer:CGFloat = CGFloat(3);
     
     // init
     init(size: CGSize, scaleMode:SKSceneScaleMode, levelNum:Int, totalScore:Int, sceneManager:GameViewController) {
@@ -82,7 +83,7 @@ class GameScene: SKScene {
                 
                 if (playerBlueTouchCount > 0) {
 
-                    let f:FishProjectile = FishProjectile(position: location, projectileSpeed: 200, fwd: (location - playerBluePos).normalized())
+                    let f:FishProjectile = FishProjectile(position: location, projectileSpeed: 300, fwd: (location - playerBluePos).normalized(), timer: CGFloat(6))
                     f.name = "fish"
                     addChild(f);
                     
@@ -100,7 +101,7 @@ class GameScene: SKScene {
                 
                 if (playerRedTouchCount > 0) {
 
-                    let f:FishProjectile = FishProjectile(position: location, projectileSpeed: 200, fwd: (location - playerRedPos).normalized())
+                    let f:FishProjectile = FishProjectile(position: location, projectileSpeed: 300, fwd: (location - playerRedPos).normalized(), timer: CGFloat(6))
                     f.name = "fish"
                     addChild(f);
                     
@@ -116,6 +117,7 @@ class GameScene: SKScene {
         
         tapCount = tapCount + 1
         return;
+        /*
         if tapCount < 3 {
             return
         }
@@ -127,6 +129,7 @@ class GameScene: SKScene {
             let results = LevelResults(levelNum: levelNum, levelScore: levelScore, totalScore: totalScore, msg: "You finished level \(levelNum)")
             sceneManager.loadGameOverScene(results: results)
         }
+        */
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -231,6 +234,9 @@ class GameScene: SKScene {
         calculateDeltaTime(currentTime: currentTime)
         updateFish(dt: CGFloat(dt))
         movePlayer(dt: CGFloat(dt))
+        
+        shootIcicle(dt: CGFloat(dt))
+        updateIcicle(dt: CGFloat(dt))
     }
     
     func updateFish(dt: CGFloat) {
@@ -238,6 +244,10 @@ class GameScene: SKScene {
             node, stop in
             let s = node as! FishProjectile
             s.update(dt: dt)
+            
+            if (s.timer < 0) {
+                s.removeFromParent()
+            }
             
             /*
             if s.position.x <= halfWidth || s.position.x >= self.size.width - halfWidth {
@@ -255,9 +265,34 @@ class GameScene: SKScene {
         })
     }
     
+    func updateIcicle(dt: CGFloat) {
+        enumerateChildNodes(withName: "ice", using: {
+            node, stop in
+            let s = node as! IceProjectile
+            s.update(dt: dt)
+            
+        })
+            
+    }
+    
     func movePlayer(dt:CGFloat) {
         playerRed.position = playerRedPos
         playerBlue.position = playerBluePos
+    }
+    
+    func shootIcicle(dt: CGFloat) {
+        if shootTimer < 0 {
+            shootTimer = 3;
+            let i = IceProjectile(position: playerRedPos, projectileSpeed: 300, fwd: CGPoint(x: -1, y:0))
+            i.name = "ice"
+            addChild(i);
+            
+            let i2 = IceProjectile(position: playerBluePos, projectileSpeed: 300, fwd: CGPoint(x: 1, y: 0))
+            i2.name = "ice"
+            addChild(i2);
+        } else {
+            shootTimer -= dt;
+        }
     }
     
 }
