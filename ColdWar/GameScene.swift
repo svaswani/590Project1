@@ -86,7 +86,7 @@ class GameScene: SKScene {
                     let f:FishProjectile = FishProjectile(position: location, projectileSpeed: 300, fwd: (location - playerBluePos).normalized(), timer: CGFloat(6))
                     f.name = "fish"
                     addChild(f);
-                    
+                    print((location - playerBluePos).normalized())
                     playerBlueTouchCount += 1;
 
                 } else {
@@ -107,6 +107,7 @@ class GameScene: SKScene {
                     
                     playerRedTouchCount += 1;
 
+                    print((location - playerRedPos).normalized())
                 } else {
                     playerRedPos = location
                     playerRedTouchCount = 1;
@@ -183,8 +184,8 @@ class GameScene: SKScene {
     
     private func setupUI(){
         backgroundColor = GameData.hud.backgroundColor
+        playableRect = getPlayableRectPhoneLandscape(size: size)
         /*
-         playableRect = getPlayableRectPhonePortrait(size: size)
          let fontSize = GameData.hud.fontSize
          let fontColor = GameData.hud.fontColorWhite
          let marginH = GameData.hud.marginH
@@ -258,6 +259,8 @@ class GameScene: SKScene {
                 s.update(dt: dt)
             }
             
+            //print("\(s.position.y) is between \(self.playableRect.minY + halfHeight) & \(self.playableRect.maxY - halfHeight)")
+            //print("\(s.position.y) & \(self.playableRect.maxY - halfHeight)")
             if s.position.y <= self.playableRect.minY + halfHeight || s.position.y >= self.playableRect.maxY - halfHeight {
                 s.reflectY()
                 s.update(dt:dt)
