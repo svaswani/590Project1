@@ -32,5 +32,6 @@ class IceProjectile : SKSpriteNode {
         velocity = fwd * projectileSpeed
         position = position + velocity * dt
         
+        zRotation = -atan2(fwd.y, fwd.x)
     }
 }

@@ -35,7 +35,7 @@ class FishProjectile:SKSpriteNode {
         position = position + velocity * dt
         
         timer -= dt;
-        print(fwd)
+        zRotation = -atan2(-fwd.y, fwd.x)
     }
     
     func reflectX() {
