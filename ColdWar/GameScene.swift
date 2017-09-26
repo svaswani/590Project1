@@ -178,7 +178,7 @@ class GameScene: SKScene {
     
     private func setupUI(){
         backgroundColor = GameData.hud.backgroundColor
-        playableRect = getPlayableRectPhoneLandscape(size: size)
+        playableRect = getPlayableRectPhonePortrait(size: size)
         /*
          let fontSize = GameData.hud.fontSize
          let fontColor = GameData.hud.fontColorWhite
@@ -269,12 +269,9 @@ class GameScene: SKScene {
             s.update(dt: dt)
             
             let halfWidth = s.frame.width/2
-            let halfHeight = s.frame.height/2
+
             
-            if s.position.x <= halfWidth || s.position.x >= self.size.width - halfWidth {
-                s.removeFromParent()
-            }
-            if s.position.y <= self.playableRect.minY + halfHeight || s.position.y >= self.playableRect.maxY - halfHeight {
+            if s.position.x <= -halfWidth || s.position.x >= self.size.width + halfWidth {
                 s.removeFromParent()
             }
             
