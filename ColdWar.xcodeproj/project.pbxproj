@@ -24,6 +24,7 @@
 		DB2A89AC1F7955BB00A13B8B /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89AB1F7955BB00A13B8B /* GameData.swift */; };
 		DB2A89AE1F7955EF00A13B8B /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89AD1F7955EF00A13B8B /* MyUtils.swift */; };
 		DBC5BC1F1F79F348000D717F /* FishProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC5BC1E1F79F348000D717F /* FishProjectile.swift */; };
+		DBC5BC211F79FD48000D717F /* IceProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC5BC201F79FD48000D717F /* IceProjectile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		DB2A89AB1F7955BB00A13B8B /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		DB2A89AD1F7955EF00A13B8B /* MyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
 		DBC5BC1E1F79F348000D717F /* FishProjectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FishProjectile.swift; sourceTree = "<group>"; };
+		DBC5BC201F79FD48000D717F /* IceProjectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IceProjectile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 		DB2A89A41F79551B00A13B8B /* Sprite */ = {
 			isa = PBXGroup;
 			children = (
+				DBC5BC201F79FD48000D717F /* IceProjectile.swift */,
 				DBC5BC1E1F79F348000D717F /* FishProjectile.swift */,
 			);
 			name = Sprite;
@@ -230,6 +233,7 @@
 				DB2A89AE1F7955EF00A13B8B /* MyUtils.swift in Sources */,
 				DB2A89A01F7954C400A13B8B /* HomeScene.swift in Sources */,
 				DB2A899A1F79542D00A13B8B /* CGPoint+Extensions.swift in Sources */,
+				DBC5BC211F79FD48000D717F /* IceProjectile.swift in Sources */,
 				DB2A899E1F79549000A13B8B /* GameOverScene.swift in Sources */,
 				DB2A89531F7952B200A13B8B /* AppDelegate.swift in Sources */,
 			);
