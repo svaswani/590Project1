@@ -11,17 +11,17 @@ import GameplayKit
 
 class GameScene: SKScene {
     var levelNum:Int
-    var levelScore:Int = 0 {
-        didSet {
-            scoreLabel.text = "Score: \(levelScore)"
-        }
-    }
+    var levelScore:Int = 0 //{
+    //didSet {
+    //    scoreLabel.text = "Score: \(levelScore)"
+    //}
+    //}
     var totalScore:Int
     let sceneManager:GameViewController
     var playableRect = CGRect.zero
     var totalSprites = 0
-    let levelLabel = SKLabelNode(fontNamed: "Futura")
-    let scoreLabel = SKLabelNode(fontNamed: "Futura")
+    //let levelLabel = SKLabelNode(fontNamed: "Futura")
+    //let scoreLabel = SKLabelNode(fontNamed: "Futura")
     let otherLabel = SKLabelNode(fontNamed: "Futura")
     var lastUpdateTime: TimeInterval = 0
     var dt: TimeInterval = 0
@@ -33,8 +33,8 @@ class GameScene: SKScene {
     let fish = SKSpriteNode(imageNamed: "fish")
     
     
-    var player1TouchCount = 0;
-    var player2TouchCount = 0;
+    var playerBlueTouchCount = 0;
+    var playerRedTouchCount = 0;
     
     // init
     init(size: CGSize, scaleMode:SKSceneScaleMode, levelNum:Int, totalScore:Int, sceneManager:GameViewController) {
@@ -75,11 +75,28 @@ class GameScene: SKScene {
         for touch in touches {
             let location = touch.location(in: self)
             if (location.x < size.width / 2.0) {
-                print("Blue player \(location)")
+                print("Blue player \(playerBlueTouchCount)")
+                
+                if (playerBlueTouchCount > 0) {
+                    //Shoot
+                } else {
+                    playerBlue.position = location;
+                    playerBlueTouchCount = 1;
+                }
+                
+                
+                
             } else {
-                print("Red Player \(location)")
+                print("Red Player \(playerRedTouchCount)")
+                
+                if (playerRedTouchCount > 0) {
+                    //Shoot
+                } else {
+                    playerRed.position = location;
+                    playerRedTouchCount = 1;
+                    
+                }
             }
-            
         }
         
         tapCount = tapCount + 1
@@ -98,52 +115,86 @@ class GameScene: SKScene {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        var currTouchRed = 0;
+        var currTouchBlue = 0;
+        
         for touch in touches {
+            
+            
             let location = touch.location(in: self)
             if (location.x < size.width / 2.0) {
                 
-                print("Blue player \(location)")
-                playerBlue.position = location;
+                if (currTouchBlue < 1) {
+                    print("Blue player \(location)")
+                    currTouchBlue = 1;
+                    playerBlue.position = location;
+                }
             } else {
-                print("Red Player \(location)")
-                playerRed.position = location;
+                
+                if (currTouchRed < 1) {
+                    print("Red Player \(location)")
+                    currTouchRed = 1;
+                    playerRed.position = location;
+                }
             }
             
         }
     }
     
-
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let location = touch.location(in: self)
+            if (location.x < size.width / 2.0) {
+                print("Blue player \(location)")
+                
+                if (playerBlueTouchCount > 0) {
+                    playerBlueTouchCount -= 1;
+                }
+                
+            } else {
+                print("Red Player \(location)")
+                
+                if (playerRedTouchCount > 0) {
+                    playerRedTouchCount -= 1;
+                }
+            }
+        }
+    }
+    
+    
     private func setupUI(){
-        playableRect = getPlayableRectPhonePortrait(size: size)
-        let fontSize = GameData.hud.fontSize
-        let fontColor = GameData.hud.fontColorWhite
-        let marginH = GameData.hud.marginH
-        let marginV = GameData.hud.marginV
-        
-        backgroundColor = GameData.hud.backgroundColor
-        
-        levelLabel.fontColor = fontColor
-        levelLabel.fontSize = fontSize
-        levelLabel.position = CGPoint(x: marginH,y: playableRect.maxY - marginV)
-        levelLabel.verticalAlignmentMode = .top
-        levelLabel.horizontalAlignmentMode = .left
-        levelLabel.text = "Level: \(levelNum)"
-        addChild(levelLabel)
-        
-        scoreLabel.fontColor = fontColor
-        scoreLabel.fontSize = fontSize
-        
-        scoreLabel.verticalAlignmentMode = .top
-        scoreLabel.horizontalAlignmentMode = .left
-        // next 2 lines calculate the max width of scoreLabel
-        scoreLabel.text = "Score: 000"
-        let scoreLabelWidth = scoreLabel.frame.size.width
-        
-        // here is the starting text of scoreLabel
-        scoreLabel.text = "Score: \(levelScore)"
-        
-        scoreLabel.position = CGPoint(x: playableRect.maxX - scoreLabelWidth - marginH,y: playableRect.maxY - marginV)
-        addChild(scoreLabel)
+        /*
+         playableRect = getPlayableRectPhonePortrait(size: size)
+         let fontSize = GameData.hud.fontSize
+         let fontColor = GameData.hud.fontColorWhite
+         let marginH = GameData.hud.marginH
+         let marginV = GameData.hud.marginV
+         
+         backgroundColor = GameData.hud.backgroundColor
+         
+         levelLabel.fontColor = fontColor
+         levelLabel.fontSize = fontSize
+         levelLabel.position = CGPoint(x: marginH,y: playableRect.maxY - marginV)
+         levelLabel.verticalAlignmentMode = .top
+         levelLabel.horizontalAlignmentMode = .left
+         levelLabel.text = "Level: \(levelNum)"
+         addChild(levelLabel)
+         
+         scoreLabel.fontColor = fontColor
+         scoreLabel.fontSize = fontSize
+         
+         scoreLabel.verticalAlignmentMode = .top
+         scoreLabel.horizontalAlignmentMode = .left
+         // next 2 lines calculate the max width of scoreLabel
+         scoreLabel.text = "Score: 000"
+         let scoreLabelWidth = scoreLabel.frame.size.width
+         
+         // here is the starting text of scoreLabel
+         scoreLabel.text = "Score: \(levelScore)"
+         
+         scoreLabel.position = CGPoint(x: playableRect.maxX - scoreLabelWidth - marginH,y: playableRect.maxY - marginV)
+         addChild(scoreLabel)
+         */
         
     }
     
