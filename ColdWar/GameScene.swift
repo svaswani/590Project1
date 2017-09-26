@@ -34,8 +34,10 @@ class GameScene: SKScene {
     
     
     var playerBlueTouchCount = 0;
+    var playerBluePos:CGPoint = CGPoint.zero;
+    
     var playerRedTouchCount = 0;
-
+    var playerRedPos:CGPoint = CGPoint.zero;
     
     // init
     init(size: CGSize, scaleMode:SKSceneScaleMode, levelNum:Int, totalScore:Int, sceneManager:GameViewController) {
@@ -80,14 +82,14 @@ class GameScene: SKScene {
                 
                 if (playerBlueTouchCount > 0) {
 
-                    let f:FishProjectile = FishProjectile(position: location, projectileSpeed: 1, fwd: CGPoint(x: 1, y: 0))
+                    let f:FishProjectile = FishProjectile(position: location, projectileSpeed: 200, fwd: (location - playerBluePos).normalized())
                     f.name = "fish"
                     addChild(f);
                     
                     playerBlueTouchCount += 1;
 
                 } else {
-                    playerBlue.position = location;
+                    playerBluePos = location
                     playerBlueTouchCount = 1;
                 }
                 
@@ -98,14 +100,14 @@ class GameScene: SKScene {
                 
                 if (playerRedTouchCount > 0) {
 
-                    let f:FishProjectile = FishProjectile(position: location, projectileSpeed: 1, fwd: CGPoint(x: 1, y: 0))
+                    let f:FishProjectile = FishProjectile(position: location, projectileSpeed: 200, fwd: (location - playerRedPos).normalized())
                     f.name = "fish"
                     addChild(f);
                     
                     playerRedTouchCount += 1;
 
                 } else {
-                    playerRed.position = location;
+                    playerRedPos = location
                     playerRedTouchCount = 1;
                     
                 }
@@ -140,14 +142,15 @@ class GameScene: SKScene {
                 if (currTouchBlue < 1) {
                     //print("Blue player \(location)")
                     currTouchBlue = 1;
-                    playerBlue.position = location;
+
+                    playerBluePos = location;
                 }
             } else {
                 
                 if (currTouchRed < 1) {
                     //print("Red Player \(location)")
                     currTouchRed = 1;
-                    playerRed.position = location;
+                    playerRedPos = location;
                 }
             }
             
@@ -227,7 +230,7 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         calculateDeltaTime(currentTime: currentTime)
         updateFish(dt: CGFloat(dt))
-        
+        movePlayer(dt: CGFloat(dt))
     }
     
     func updateFish(dt: CGFloat) {
@@ -253,7 +256,8 @@ class GameScene: SKScene {
     }
     
     func movePlayer(dt:CGFloat) {
-        
+        playerRed.position = playerRedPos
+        playerBlue.position = playerBluePos
     }
     
 }
