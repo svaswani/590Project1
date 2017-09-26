@@ -35,6 +35,7 @@ class GameScene: SKScene {
     
     var playerBlueTouchCount = 0;
     var playerRedTouchCount = 0;
+
     
     // init
     init(size: CGSize, scaleMode:SKSceneScaleMode, levelNum:Int, totalScore:Int, sceneManager:GameViewController) {
@@ -75,10 +76,14 @@ class GameScene: SKScene {
         for touch in touches {
             let location = touch.location(in: self)
             if (location.x < size.width / 2.0) {
-                print("Blue player \(playerBlueTouchCount)")
+                //print("Blue player \(playerBlueTouchCount)")
                 
                 if (playerBlueTouchCount > 0) {
-                    //Shoot
+                    let f:FishProjectile = FishProjectile(position: location, projectileSpeed: 1, fwd: CGPoint(x: 1, y: 0))
+                    f.name = "fish"
+                    addChild(f);
+                    
+                    playerBlueTouchCount += 1;
                 } else {
                     playerBlue.position = location;
                     playerBlueTouchCount = 1;
@@ -87,10 +92,14 @@ class GameScene: SKScene {
                 
                 
             } else {
-                print("Red Player \(playerRedTouchCount)")
+                //print("Red Player \(playerRedTouchCount)")
                 
                 if (playerRedTouchCount > 0) {
-                    //Shoot
+                    let f:FishProjectile = FishProjectile(position: location, projectileSpeed: 1, fwd: CGPoint(x: 1, y: 0))
+                    f.name = "fish"
+                    addChild(f);
+                    
+                    playerRedTouchCount += 1;
                 } else {
                     playerRed.position = location;
                     playerRedTouchCount = 1;
@@ -125,14 +134,14 @@ class GameScene: SKScene {
             if (location.x < size.width / 2.0) {
                 
                 if (currTouchBlue < 1) {
-                    print("Blue player \(location)")
+                    //print("Blue player \(location)")
                     currTouchBlue = 1;
                     playerBlue.position = location;
                 }
             } else {
                 
                 if (currTouchRed < 1) {
-                    print("Red Player \(location)")
+                    //print("Red Player \(location)")
                     currTouchRed = 1;
                     playerRed.position = location;
                 }
@@ -145,14 +154,14 @@ class GameScene: SKScene {
         for touch in touches {
             let location = touch.location(in: self)
             if (location.x < size.width / 2.0) {
-                print("Blue player \(location)")
+                //print("Blue player \(location)")
                 
                 if (playerBlueTouchCount > 0) {
                     playerBlueTouchCount -= 1;
                 }
                 
             } else {
-                print("Red Player \(location)")
+                //print("Red Player \(location)")
                 
                 if (playerRedTouchCount > 0) {
                     playerRedTouchCount -= 1;
@@ -163,6 +172,7 @@ class GameScene: SKScene {
     
     
     private func setupUI(){
+        backgroundColor = GameData.hud.backgroundColor
         /*
          playableRect = getPlayableRectPhonePortrait(size: size)
          let fontSize = GameData.hud.fontSize
@@ -170,7 +180,6 @@ class GameScene: SKScene {
          let marginH = GameData.hud.marginH
          let marginV = GameData.hud.marginV
          
-         backgroundColor = GameData.hud.backgroundColor
          
          levelLabel.fontColor = fontColor
          levelLabel.fontSize = fontSize
@@ -213,6 +222,30 @@ class GameScene: SKScene {
     // game loop
     override func update(_ currentTime: TimeInterval) {
         calculateDeltaTime(currentTime: currentTime)
+        updateFish(dt: CGFloat(dt))
+        
+    }
+    
+    func updateFish(dt: CGFloat) {
+        enumerateChildNodes(withName: "fish", using: {
+            node, stop in
+            let s = node as! FishProjectile
+            s.update(dt: dt)
+            
+            /*
+            if s.position.x <= halfWidth || s.position.x >= self.size.width - halfWidth {
+                s.reflectX()
+                s.update(dt: dt)
+                self.levelScore = self.levelScore + 1
+            }
+            
+            if s.position.y <= self.playableRect.minY + halfHeight || s.position.y >= self.playableRect.maxY - halfHeight {
+                s.reflectY()
+                s.update(dt:dt)
+                self.levelScore = self.levelScore + 1
+            }
+ */
+        })
     }
     
     func movePlayer(dt:CGFloat) {
