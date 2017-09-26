@@ -23,7 +23,7 @@
 		DB2A89A91F79555100A13B8B /* LevelResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89A81F79555100A13B8B /* LevelResults.swift */; };
 		DB2A89AC1F7955BB00A13B8B /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89AB1F7955BB00A13B8B /* GameData.swift */; };
 		DB2A89AE1F7955EF00A13B8B /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89AD1F7955EF00A13B8B /* MyUtils.swift */; };
-		DB2A89B01F79564200A13B8B /* DiamondSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89AF1F79564200A13B8B /* DiamondSprite.swift */; };
+		DBC5BC1F1F79F348000D717F /* FishProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC5BC1E1F79F348000D717F /* FishProjectile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +45,7 @@
 		DB2A89A81F79555100A13B8B /* LevelResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelResults.swift; sourceTree = "<group>"; };
 		DB2A89AB1F7955BB00A13B8B /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		DB2A89AD1F7955EF00A13B8B /* MyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
-		DB2A89AF1F79564200A13B8B /* DiamondSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiamondSprite.swift; sourceTree = "<group>"; };
+		DBC5BC1E1F79F348000D717F /* FishProjectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FishProjectile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +130,7 @@
 		DB2A89A41F79551B00A13B8B /* Sprite */ = {
 			isa = PBXGroup;
 			children = (
-				DB2A89AF1F79564200A13B8B /* DiamondSprite.swift */,
+				DBC5BC1E1F79F348000D717F /* FishProjectile.swift */,
 			);
 			name = Sprite;
 			path = ColdWar;
@@ -177,7 +177,7 @@
 				TargetAttributes = {
 					DB2A894E1F7952B200A13B8B = {
 						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = 9KRWQ3BBM5;
+						DevelopmentTeam = 5WMSVF3JT7;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -222,6 +222,7 @@
 			files = (
 				DB2A89A21F7954E900A13B8B /* LevelFinishScene.swift in Sources */,
 				DB2A89591F7952B200A13B8B /* GameScene.swift in Sources */,
+				DBC5BC1F1F79F348000D717F /* FishProjectile.swift in Sources */,
 				DB2A899B1F79542D00A13B8B /* CGFloat+Extensions.swift in Sources */,
 				DB2A89A91F79555100A13B8B /* LevelResults.swift in Sources */,
 				DB2A89AC1F7955BB00A13B8B /* GameData.swift in Sources */,
@@ -229,7 +230,6 @@
 				DB2A89AE1F7955EF00A13B8B /* MyUtils.swift in Sources */,
 				DB2A89A01F7954C400A13B8B /* HomeScene.swift in Sources */,
 				DB2A899A1F79542D00A13B8B /* CGPoint+Extensions.swift in Sources */,
-				DB2A89B01F79564200A13B8B /* DiamondSprite.swift in Sources */,
 				DB2A899E1F79549000A13B8B /* GameOverScene.swift in Sources */,
 				DB2A89531F7952B200A13B8B /* AppDelegate.swift in Sources */,
 			);
@@ -356,10 +356,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9KRWQ3BBM5;
+				DEVELOPMENT_TEAM = 5WMSVF3JT7;
 				INFOPLIST_FILE = ColdWar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tanatb.ColdWar;
+				PRODUCT_BUNDLE_IDENTIFIER = com.svaswani.ColdWar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -370,10 +370,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9KRWQ3BBM5;
+				DEVELOPMENT_TEAM = 5WMSVF3JT7;
 				INFOPLIST_FILE = ColdWar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tanatb.ColdWar;
+				PRODUCT_BUNDLE_IDENTIFIER = com.svaswani.ColdWar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 2;
