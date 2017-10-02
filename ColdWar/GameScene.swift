@@ -31,12 +31,29 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
     let playerRed = SKSpriteNode(imageNamed: "redPenguin")
     let iceLaser = SKSpriteNode(imageNamed: "iceLaser")
     let fish = SKSpriteNode(imageNamed: "fish")
+    let blueLife1 = SKSpriteNode(imageNamed: "heart")
+    let blueLife2 = SKSpriteNode(imageNamed: "heart")
+    let blueLife3 = SKSpriteNode(imageNamed: "heart")
+    let redLife1 = SKSpriteNode(imageNamed: "heart")
+    let redLife2 = SKSpriteNode(imageNamed: "heart")
+    let redLife3 = SKSpriteNode(imageNamed: "heart")
+
+
     
     var playerBlueTouchCount = 0
     var playerBluePos:CGPoint = CGPoint(x: 100, y: 100)
     
     var playerRedTouchCount = 0
     var playerRedPos:CGPoint = CGPoint(x: 300, y: 100)
+    
+    var blueLife1Pos:CGPoint = CGPoint(x:10, y:10)
+    var blueLife2Pos:CGPoint = CGPoint(x:10, y:10)
+    var blueLife3Pos:CGPoint = CGPoint(x:10, y:10)
+    
+    var redLife1Pos:CGPoint = CGPoint(x:10, y:10)
+    var redLife2Pos:CGPoint = CGPoint(x:10, y:10)
+    var redLife3Pos:CGPoint = CGPoint(x:10, y:10)
+
     
     var shootTimer:CGFloat = CGFloat(3)
     
@@ -67,9 +84,41 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
         playerBlue.setScale(0.32)
         playerBluePos = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
         addChild(playerBlue)
+        
         playerRed.setScale(0.24)
         playerRedPos = CGPoint(x: size.width/2 + 425, y: size.height/2)
         addChild(playerRed)
+        
+        blueLife1.setScale(0.02)
+        blueLife1Pos = CGPoint(x: size.width/2 - 500, y: size.height - 600)
+        blueLife1.position = blueLife1Pos
+        addChild(blueLife1)
+        
+        blueLife2.setScale(0.02)
+        blueLife2Pos = CGPoint(x: size.width/2 - 460, y: size.height - 600)
+        blueLife2.position = blueLife2Pos
+        addChild(blueLife2)
+        
+        blueLife3.setScale(0.02)
+        blueLife3Pos = CGPoint(x: size.width/2 - 420, y: size.height - 600)
+        blueLife3.position = blueLife3Pos
+        addChild(blueLife3)
+        
+        redLife1.setScale(0.02)
+        redLife1Pos = CGPoint(x: size.width/2 + 420, y: size.height - 600)
+        redLife1.position = redLife1Pos
+        addChild(redLife1)
+        
+        redLife2.setScale(0.02)
+        redLife2Pos = CGPoint(x: size.width/2 + 460, y: size.height - 600)
+        redLife2.position = redLife2Pos
+        addChild(redLife2)
+        
+        redLife3.setScale(0.02)
+        redLife3Pos = CGPoint(x: size.width/2 + 500, y: size.height - 600)
+        redLife3.position = redLife3Pos
+        addChild(redLife3)
+        
         spritesMoving = false
         physicsWorld.speed = 0.0
         setupGestures()
