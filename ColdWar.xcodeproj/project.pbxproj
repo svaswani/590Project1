@@ -23,6 +23,7 @@
 		DB2A89A91F79555100A13B8B /* LevelResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89A81F79555100A13B8B /* LevelResults.swift */; };
 		DB2A89AC1F7955BB00A13B8B /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89AB1F7955BB00A13B8B /* GameData.swift */; };
 		DB2A89AE1F7955EF00A13B8B /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89AD1F7955EF00A13B8B /* MyUtils.swift */; };
+		DB3B595D1F82B28400C19023 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3B595C1F82B28400C19023 /* Line.swift */; };
 		DBC5BC1F1F79F348000D717F /* FishProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC5BC1E1F79F348000D717F /* FishProjectile.swift */; };
 		DBC5BC211F79FD48000D717F /* IceProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC5BC201F79FD48000D717F /* IceProjectile.swift */; };
 /* End PBXBuildFile section */
@@ -46,6 +47,7 @@
 		DB2A89A81F79555100A13B8B /* LevelResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelResults.swift; sourceTree = "<group>"; };
 		DB2A89AB1F7955BB00A13B8B /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		DB2A89AD1F7955EF00A13B8B /* MyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
+		DB3B595C1F82B28400C19023 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		DBC5BC1E1F79F348000D717F /* FishProjectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FishProjectile.swift; sourceTree = "<group>"; };
 		DBC5BC201F79FD48000D717F /* IceProjectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IceProjectile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,6 +136,7 @@
 			children = (
 				DBC5BC201F79FD48000D717F /* IceProjectile.swift */,
 				DBC5BC1E1F79F348000D717F /* FishProjectile.swift */,
+				DB3B595C1F82B28400C19023 /* Line.swift */,
 			);
 			name = Sprite;
 			path = ColdWar;
@@ -228,6 +231,7 @@
 				DBC5BC1F1F79F348000D717F /* FishProjectile.swift in Sources */,
 				DB2A899B1F79542D00A13B8B /* CGFloat+Extensions.swift in Sources */,
 				DB2A89A91F79555100A13B8B /* LevelResults.swift in Sources */,
+				DB3B595D1F82B28400C19023 /* Line.swift in Sources */,
 				DB2A89AC1F7955BB00A13B8B /* GameData.swift in Sources */,
 				DB2A895B1F7952B200A13B8B /* GameViewController.swift in Sources */,
 				DB2A89AE1F7955EF00A13B8B /* MyUtils.swift in Sources */,

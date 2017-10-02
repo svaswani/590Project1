@@ -54,6 +54,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
         self.sceneManager = sceneManager
         super.init(size: size)
         self.scaleMode = scaleMode
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -72,6 +73,8 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
         spritesMoving = false
         physicsWorld.speed = 0.0
         setupGestures()
+        drawLine()
+        
     }
     
     deinit {
@@ -220,6 +223,13 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
             }
             
         }
+    }
+    
+    func drawLine(){
+        var l:Line
+        l = Line(size:CGSize(width:size.width, height:size.height), lineWidth:5, strokeColor: SKColor.black, fillColor: SKColor.gray)
+        addChild(l)
+        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
