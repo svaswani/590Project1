@@ -9,7 +9,7 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene,UIGestureRecognizerDelegate {
     var levelNum:Int
     var levelScore:Int = 0 //{
     //didSet {
@@ -40,6 +40,13 @@ class GameScene: SKScene {
     
     var shootTimer:CGFloat = CGFloat(3)
     
+    var gameLoopPaused:Bool = true {
+        didSet {
+            print("gameLoopPaused=\(gameLoopPaused)")
+            gameLoopPaused ? runPauseAction() : runUnpauseAction()
+        }
+    }
+    
     // init
     init(size: CGSize, scaleMode:SKSceneScaleMode, levelNum:Int, totalScore:Int, sceneManager:GameViewController) {
         self.levelNum = levelNum
@@ -62,6 +69,9 @@ class GameScene: SKScene {
         playerRed.setScale(0.24)
         playerRedPos = CGPoint(x: size.width/2 + 425, y: size.height/2)
         addChild(playerRed)
+        spritesMoving = false
+        physicsWorld.speed = 0.0
+        setupGestures()
     }
     
     deinit {
@@ -127,6 +137,63 @@ class GameScene: SKScene {
         */
     }
     
+    private func setupGestures(){
+        // taps
+        let tap = UITapGestureRecognizer(target: self, action: #selector(togglePaused))
+        tap.numberOfTapsRequired = 2
+        tap.numberOfTouchesRequired = 3
+        tap.delegate = self
+        view!.addGestureRecognizer(tap)
+    }
+    
+    func togglePaused(){
+        gameLoopPaused = !gameLoopPaused
+    }
+    
+    private func runPauseAction() {
+        print(#function)
+        physicsWorld.speed = 0.0
+        spritesMoving = false
+        let fadeAction = SKAction.customAction(withDuration: 0.25, actionBlock: {
+            node,elapsedTime in
+            let totalAnimationTime:CGFloat = 0.25
+            let percentDone = elapsedTime/totalAnimationTime
+            let amountToFade:CGFloat = 0.5
+            node.alpha = 1.0 - (percentDone * amountToFade)
+            self.alpha = 0.08
+
+        })
+        
+        let pauseAction = SKAction.run({
+            self.view?.isPaused = true
+        })
+        
+        let pauseViewAfterFadeAction = SKAction.sequence([
+            fadeAction,
+            pauseAction
+            ])
+        
+        run(pauseViewAfterFadeAction)
+    }
+    
+    private func runUnpauseAction() {
+        print(#function)
+        view?.isPaused = false
+        lastUpdateTime = 0
+        dt = 0
+        spritesMoving = false
+        
+        let unPauseAction = SKAction.sequence([
+            SKAction.fadeIn(withDuration: 1.0),
+            SKAction.run({
+                self.physicsWorld.speed = 1.0
+                self.spritesMoving = true
+            })
+            ])
+        unPauseAction.timingMode = .easeIn
+        run(unPauseAction)
+    }
+
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         var currTouchRed = 0;
         var currTouchBlue = 0;
