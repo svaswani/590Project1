@@ -23,6 +23,8 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
     //let levelLabel = SKLabelNode(fontNamed: "Futura")
     //let scoreLabel = SKLabelNode(fontNamed: "Futura")
     let otherLabel = SKLabelNode(fontNamed: "Futura")
+    let pauseLabel = SKLabelNode(fontNamed: "Futura")
+
     var lastUpdateTime: TimeInterval = 0
     var dt: TimeInterval = 0
     var spritesMoving = false
@@ -57,7 +59,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
     
     var shootTimer:CGFloat = CGFloat(3)
     
-    var gameLoopPaused:Bool = true {
+    var gameLoopPaused:Bool = false {
         didSet {
             print("gameLoopPaused=\(gameLoopPaused)")
             gameLoopPaused ? runPauseAction() : runUnpauseAction()
@@ -71,6 +73,10 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
         self.sceneManager = sceneManager
         super.init(size: size)
         self.scaleMode = scaleMode
+        self.pauseLabel.text = "Paused"
+        pauseLabel.position = CGPoint(x:size.width/2, y:size.height/2)
+        pauseLabel.alpha = 0.0
+        self.addChild(self.pauseLabel)
 
     }
     
@@ -199,6 +205,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
     }
     
     func togglePaused(){
+
         gameLoopPaused = !gameLoopPaused
     }
     
@@ -212,7 +219,8 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
             let percentDone = elapsedTime/totalAnimationTime
             let amountToFade:CGFloat = 0.5
             node.alpha = 1.0 - (percentDone * amountToFade)
-            self.alpha = 0.08
+            self.alpha = 0.09
+            self.pauseLabel.alpha = 1.0
 
         })
         
@@ -226,6 +234,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
             ])
         
         run(pauseViewAfterFadeAction)
+        
     }
     
     private func runUnpauseAction() {
@@ -234,6 +243,8 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
         lastUpdateTime = 0
         dt = 0
         spritesMoving = false
+        self.pauseLabel.alpha = 0.0
+
         
         let unPauseAction = SKAction.sequence([
             SKAction.fadeIn(withDuration: 1.0),
