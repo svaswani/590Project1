@@ -25,7 +25,7 @@ class FishProjectile:SKSpriteNode {
         self.fwd = fwd
         
         self.physicsBody = SKPhysicsBody(rectangleOf: texture.size())
-        self.physicsBody?.isDynamic = true
+        self.physicsBody?.isDynamic = false
         self.physicsBody?.categoryBitMask = PhysicsCategory.All
         self.physicsBody?.contactTestBitMask = PhysicsCategory.All
         self.physicsBody?.usesPreciseCollisionDetection = true
