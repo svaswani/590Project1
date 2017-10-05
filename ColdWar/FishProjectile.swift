@@ -23,6 +23,12 @@ class FishProjectile:SKSpriteNode {
         self.position = position;
         self.projectileSpeed = projectileSpeed
         self.fwd = fwd
+        
+        self.physicsBody = SKPhysicsBody(rectangleOf: texture.size())
+        self.physicsBody?.isDynamic = true
+        self.physicsBody?.categoryBitMask = PhysicsCategory.All
+        self.physicsBody?.contactTestBitMask = PhysicsCategory.All
+        self.physicsBody?.usesPreciseCollisionDetection = true
     }
     
     required init?(coder aDecoder: NSCoder) {

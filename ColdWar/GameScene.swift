@@ -9,7 +9,14 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene,UIGestureRecognizerDelegate {
+struct PhysicsCategory {
+    static let None      : UInt32 = 0
+    //static let Player    : UInt32 = 1     // 1
+    //static let Projectile: UInt32 = 2
+    static let All       : UInt32 = UInt32.max
+}
+
+class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  {
     var levelNum:Int
     var levelScore:Int = 0 //{
     //didSet {
@@ -24,6 +31,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
     //let scoreLabel = SKLabelNode(fontNamed: "Futura")
     let otherLabel = SKLabelNode(fontNamed: "Futura")
     let pauseLabel = SKLabelNode(fontNamed: "Futura")
+    let winLabel = SKLabelNode(fontNamed: "Futura")
 
     var lastUpdateTime: TimeInterval = 0
     var dt: TimeInterval = 0
@@ -39,6 +47,9 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
     let redLife1 = SKSpriteNode(imageNamed: "heart")
     let redLife2 = SKSpriteNode(imageNamed: "heart")
     let redLife3 = SKSpriteNode(imageNamed: "heart")
+    
+    let playerRedSpeed = CGFloat(0.2);
+    let playerBlueSpeed = CGFloat(0.2);
 
 
     
@@ -66,6 +77,49 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
         }
     }
     
+    var redHealth:Int = 3 {
+        didSet {
+            switch (oldValue) {
+            case 3:
+                redLife3.removeFromParent()
+                break;
+            case 2:
+                redLife2.removeFromParent()
+                break;
+            case 1:
+                redLife1.removeFromParent()
+                winLabel.text = "Blue wins!"
+                physicsWorld.speed = 0
+                winLabel.position = CGPoint(x: size.width / 2, y: size.height / 2)
+                addChild(winLabel)
+                break;
+                
+            default:break;
+            }
+        }
+    }
+    
+    var blueHealth : Int = 3{
+        didSet {
+            switch(oldValue) {
+            case 3:
+                blueLife3.removeFromParent()
+                break;
+            case 2:
+                blueLife2.removeFromParent()
+                break;
+            case 1:
+                blueLife1.removeFromParent()
+                winLabel.text = "Red wins!"
+                physicsWorld.speed = 0
+                winLabel.position = CGPoint(x: size.width / 2, y: size.height / 2)
+                addChild(winLabel)
+                break;
+            default:break;
+            }
+        }
+    }
+    
     // init
     init(size: CGSize, scaleMode:SKSceneScaleMode, levelNum:Int, totalScore:Int, sceneManager:GameViewController) {
         self.levelNum = levelNum
@@ -86,13 +140,26 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
     
     // lifecycle
     override func didMove(to view: SKView) {
+        physicsWorld.gravity = CGVector.zero
+        physicsWorld.contactDelegate = self
+        
         setupUI()
         playerBlue.setScale(0.32)
         playerBluePos = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
+        
+        playerBlue.physicsBody = SKPhysicsBody(rectangleOf: playerBlue.size)
+        playerBlue.physicsBody?.isDynamic = false
+        playerBlue.physicsBody?.categoryBitMask = PhysicsCategory.All
+        playerBlue.physicsBody?.contactTestBitMask = PhysicsCategory.All
         addChild(playerBlue)
         
         playerRed.setScale(0.24)
         playerRedPos = CGPoint(x: size.width/2 + 425, y: size.height/2)
+        
+        playerRed.physicsBody = SKPhysicsBody(rectangleOf: playerRed.size)
+        playerRed.physicsBody?.isDynamic = false
+        playerRed.physicsBody?.categoryBitMask = PhysicsCategory.All
+        playerRed.physicsBody?.contactTestBitMask = PhysicsCategory.All
         addChild(playerRed)
         
         blueLife1.setScale(0.02)
@@ -126,10 +193,11 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
         addChild(redLife3)
         
         spritesMoving = false
-        physicsWorld.speed = 0.0
+        //physicsWorld.speed = 0.0
         setupGestures()
         drawLine()
         
+
     }
     
     deinit {
@@ -409,7 +477,8 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
             s.setScale(0.5)
             
             let halfWidth = s.frame.width/2
-
+            //print("Icicile: \(s.physicsBody?.collisionBitMask)")
+            //print("Player: \(self.playerBlue.physicsBody?.contactTestBitMask)")
             
             if s.position.x <= -halfWidth || s.position.x >= self.size.width + halfWidth {
                 s.removeFromParent()
@@ -420,23 +489,69 @@ class GameScene: SKScene,UIGestureRecognizerDelegate {
     }
     
     func movePlayer(dt:CGFloat) {
-        playerRed.position = playerRedPos
-        playerBlue.position = playerBluePos
+        playerRed.position = playerRed.position + (playerRedPos - playerRed.position) * playerRedSpeed;
+        playerBlue.position = playerBlue.position + (playerBluePos - playerBlue.position) * playerBlueSpeed;
     }
     
     func shootIcicle(dt: CGFloat) {
         if shootTimer < 0 {
             shootTimer = 3;
-            let i = IceProjectile(position: playerRedPos, projectileSpeed: 300, fwd: CGPoint(x: -1, y:0))
+            let i = IceProjectile(position: playerRedPos, projectileSpeed: 300, fwd: CGPoint(x: -1, y:0), isRed:true)
             i.name = "ice"
             addChild(i);
             
-            let i2 = IceProjectile(position: playerBluePos, projectileSpeed: 300, fwd: CGPoint(x: 1, y: 0))
+            let i2 = IceProjectile(position: playerBluePos, projectileSpeed: 300, fwd: CGPoint(x: 1, y: 0), isRed:false)
             i2.name = "ice"
             addChild(i2);
+            
+            
         } else {
             shootTimer -= dt;
         }
     }
     
+    func didBegin(_ contact: SKPhysicsContact) {
+        var firstBody: SKPhysicsBody = contact.bodyA
+        var secondBody: SKPhysicsBody = contact.bodyB
+        
+        
+        //print("First: \(firstBody.categoryBitMask) Second: \(secondBody.categoryBitMask)")
+        if (firstBody.node?.name != "ice") {
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+        }
+        
+        
+        //print("firstBody: \(firstBody.categoryBitMask)")
+        if (firstBody.node?.name == "ice") {
+            
+            if (secondBody.node?.name == "ice") {
+                if let proj1 = secondBody.node as? IceProjectile,
+                    let proj2 = firstBody.node as? IceProjectile {
+                    print("Ice hits ice")
+                    proj1.removeFromParent()
+                    proj2.removeFromParent()
+                }
+            } else {
+                print("Ice hits penguin?")
+                if let player = secondBody.node as? SKSpriteNode,
+                    let projectile = firstBody.node as? IceProjectile {
+                    if(player.position.x > size.width / 2) {
+                        if (!projectile.isRed) {
+                            print("Player Red gets hurt")
+                            projectile.removeFromParent()
+                            redHealth -= 1
+                        }
+                    } else {
+                        if (projectile.isRed) {
+                            print("Player Blue gets hurt")
+                            projectile.removeFromParent()
+                            blueHealth -= 1
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
 }
