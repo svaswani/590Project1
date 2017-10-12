@@ -9,11 +9,7 @@
 import Foundation
 import SpriteKit
 
-enum PowerUpType {
-    case Ice
-    case Fish
-    case Shield
-}
+
 
 class PowerUp : SKSpriteNode {
     var type:PowerUpType

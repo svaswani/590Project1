@@ -3,7 +3,7 @@
 //  ColdWar
 //
 //  Created by Student on 10/12/17.
-//  Copyright © 2017 Sneha Vaswani. All rights reserved.
+//  Copyright © 2017 Tanat Boozayaangool. All rights reserved.
 //
 
 import Foundation

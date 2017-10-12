@@ -30,6 +30,11 @@ func / (point: CGPoint, scalar: CGFloat) -> CGPoint {
 #endif
 
 extension CGPoint {
+    public static func randomUnitVector()->CGPoint{
+        let vector = CGPoint(x:CGFloat.random(min:-1.0,max:1.0),y:CGFloat.random(min:-1.0,max:1.0))
+        return vector.normalized()
+    }
+    
     func length() -> CGFloat {
         return sqrt(x*x + y*y)
     }

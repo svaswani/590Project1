@@ -16,6 +16,7 @@
 		3F09574D1F8FFAA600546EB5 /* Landing.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F09574C1F8FFAA600546EB5 /* Landing.sks */; };
 		3F09574F1F8FFCC600546EB5 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F09574E1F8FFCC600546EB5 /* Shadow.swift */; };
 		3F0957511F900AF200546EB5 /* AmmoBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0957501F900AF200546EB5 /* AmmoBar.swift */; };
+		3F0957531F90142700546EB5 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0957521F90142700546EB5 /* GameData.swift */; };
 		3F4842791F8EE09000E5679F /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4842781F8EE09000E5679F /* Player.swift */; };
 		3F48427B1F8EF18900E5679F /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F48427A1F8EF18900E5679F /* Projectile.swift */; };
 		DB2A89531F7952B200A13B8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89521F7952B200A13B8B /* AppDelegate.swift */; };
@@ -32,7 +33,6 @@
 		DB2A89A01F7954C400A13B8B /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A899F1F7954C400A13B8B /* HomeScene.swift */; };
 		DB2A89A21F7954E900A13B8B /* LevelFinishScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89A11F7954E900A13B8B /* LevelFinishScene.swift */; };
 		DB2A89A91F79555100A13B8B /* LevelResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89A81F79555100A13B8B /* LevelResults.swift */; };
-		DB2A89AC1F7955BB00A13B8B /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89AB1F7955BB00A13B8B /* GameData.swift */; };
 		DB2A89AE1F7955EF00A13B8B /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89AD1F7955EF00A13B8B /* MyUtils.swift */; };
 		DB3B595D1F82B28400C19023 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3B595C1F82B28400C19023 /* Line.swift */; };
 		DBC5BC1F1F79F348000D717F /* FishProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC5BC1E1F79F348000D717F /* FishProjectile.swift */; };
@@ -49,6 +49,7 @@
 		3F09574C1F8FFAA600546EB5 /* Landing.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Landing.sks; sourceTree = "<group>"; };
 		3F09574E1F8FFCC600546EB5 /* Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
 		3F0957501F900AF200546EB5 /* AmmoBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmmoBar.swift; sourceTree = "<group>"; };
+		3F0957521F90142700546EB5 /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		3F4842781F8EE09000E5679F /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3F48427A1F8EF18900E5679F /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
 		DB2A894F1F7952B200A13B8B /* ColdWar.swiftmodule */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = ColdWar.swiftmodule; path = "../Debug-iphoneos/ColdWar.swiftmodule"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,7 +68,6 @@
 		DB2A899F1F7954C400A13B8B /* HomeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
 		DB2A89A11F7954E900A13B8B /* LevelFinishScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelFinishScene.swift; sourceTree = "<group>"; };
 		DB2A89A81F79555100A13B8B /* LevelResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelResults.swift; sourceTree = "<group>"; };
-		DB2A89AB1F7955BB00A13B8B /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		DB2A89AD1F7955EF00A13B8B /* MyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
 		DB3B595C1F82B28400C19023 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		DBC5BC1E1F79F348000D717F /* FishProjectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FishProjectile.swift; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 				DB2A89971F79541400A13B8B /* Lib */,
 				DB2A89A31F7954FA00A13B8B /* VC */,
 				DB2A899C1F79543F00A13B8B /* Scene */,
-				DB2A89A41F79551B00A13B8B /* Sprite */,
+				DB2A89A41F79551B00A13B8B /* SpriteAndEmitter */,
 				DB2A89A71F79554100A13B8B /* Model */,
 				DB2A89501F7952B200A13B8B /* Products */,
 			);
@@ -115,7 +115,7 @@
 		DB2A89511F7952B200A13B8B /* ColdWar */ = {
 			isa = PBXGroup;
 			children = (
-				DB2A89AB1F7955BB00A13B8B /* GameData.swift */,
+				3F0957521F90142700546EB5 /* GameData.swift */,
 				DB2A89521F7952B200A13B8B /* AppDelegate.swift */,
 				DB2A89AD1F7955EF00A13B8B /* MyUtils.swift */,
 			);
@@ -154,7 +154,7 @@
 			path = ColdWar;
 			sourceTree = "<group>";
 		};
-		DB2A89A41F79551B00A13B8B /* Sprite */ = {
+		DB2A89A41F79551B00A13B8B /* SpriteAndEmitter */ = {
 			isa = PBXGroup;
 			children = (
 				3F0957481F8FF61E00546EB5 /* PowerUp.sks */,
@@ -166,7 +166,7 @@
 				3F09574E1F8FFCC600546EB5 /* Shadow.swift */,
 				3F0957501F900AF200546EB5 /* AmmoBar.swift */,
 			);
-			name = Sprite;
+			name = SpriteAndEmitter;
 			path = ColdWar;
 			sourceTree = "<group>";
 		};
@@ -265,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F09574F1F8FFCC600546EB5 /* Shadow.swift in Sources */,
+				3F0957531F90142700546EB5 /* GameData.swift in Sources */,
 				DB2A89A21F7954E900A13B8B /* LevelFinishScene.swift in Sources */,
 				DB2A89591F7952B200A13B8B /* GameScene.swift in Sources */,
 				3F0957471F8FF2CB00546EB5 /* CGVector+Extensions.swift in Sources */,
@@ -273,7 +274,6 @@
 				DB2A899B1F79542D00A13B8B /* CGFloat+Extensions.swift in Sources */,
 				DB2A89A91F79555100A13B8B /* LevelResults.swift in Sources */,
 				DB3B595D1F82B28400C19023 /* Line.swift in Sources */,
-				DB2A89AC1F7955BB00A13B8B /* GameData.swift in Sources */,
 				DB2A895B1F7952B200A13B8B /* GameViewController.swift in Sources */,
 				DB2A89AE1F7955EF00A13B8B /* MyUtils.swift in Sources */,
 				DB2A89A01F7954C400A13B8B /* HomeScene.swift in Sources */,

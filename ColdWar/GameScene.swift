@@ -9,73 +9,65 @@
 import SpriteKit
 import GameplayKit
 
-struct PhysicsCategory {
-    static let None      : UInt32 = 0x1 << 0
-    static let Player    : UInt32 = 0x1 << 1
-    static let RedProj   : UInt32 = 0x1 << 2
-    static let BlueProj  : UInt32 = 0x1 << 3
-    static let PowerUp   : UInt32 = 0x1 << 4
-    static let Border    : UInt32 = 0x1 << 5
-    static let All       : UInt32 = UINT32_MAX
-}
-
 class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  {
-    var levelNum:Int
-    var levelScore:Int = 0
-    var totalScore:Int
+    
+    //MARK: iVars
     let sceneManager:GameViewController
-    var totalSprites = 0
 
-    let otherLabel = SKLabelNode(fontNamed: "Futura")
     let pauseLabel = SKLabelNode(fontNamed: "Futura")
     let winLabel = SKLabelNode(fontNamed: "Futura")
 
+    //for udpates
     var lastUpdateTime: TimeInterval = 0
     var dt: TimeInterval = 0
     var spritesMoving = false
 
+    //player
     var redPlayer:Player
     var bluePlayer:Player
+    let playerSpeed = CGFloat(10)
     
+    //variables for inputs
     var playerBlueTouchCount = 0
     var playerBluePos:CGPoint = CGPoint(x: 100, y: 100)
     var playerRedTouchCount = 0
     var playerRedPos:CGPoint = CGPoint(x: 300, y: 100)
 
-    let playerSpeed = CGFloat(10)
+    //constants for ice attacks
     let iceShootTimer = CGFloat(3)
     let iceProjectileSpeed = CGFloat(200)
     let iceFanAngle = CGFloat(15)
     let iceFanCount = 3
     
+    //constants for fish attacks
     let fishProjectileSpeed = CGFloat(300)
     let fishTimer = CGFloat(6)
     let fishRapidFireCount = 3
     let fishOffsetDist:CGFloat = 75
     
+    //power ups
     let minTimeToSpawnPowerUp = CGFloat(15)
     let maxTimeToSpawnPowerUp = CGFloat(25)
-    
     var timeToSpawnPowerUp:CGFloat
     
+    //create a copy of each physics body
     let icePhysicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "iceLaser"), size: SKTexture(imageNamed: "iceLaser").size())
     let fishPhysicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "fish"), size: SKTexture(imageNamed: "fish").size())
     let powerUpPhysicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "icePowerUp"), size: SKTexture(imageNamed: "icePowerUp").size())
     
-    let projEmitter:SKEmitterNode? = SKEmitterNode(fileNamed: "ParticleDeath")
-    
+    //MARK: Property
     var gameLoopPaused:Bool = false {
         didSet {
-            print("gameLoopPaused=\(gameLoopPaused)")
+            //print("gameLoopPaused=\(gameLoopPaused)")
             gameLoopPaused ? runPauseAction() : runUnpauseAction()
         }
     }
     
-    // init
+    // MARK: Init
     init(size: CGSize, scaleMode:SKSceneScaleMode, levelNum:Int, totalScore:Int, sceneManager:GameViewController) {
+        
+        //set up variables
         timeToSpawnPowerUp = CGFloat.random(min: minTimeToSpawnPowerUp, max: maxTimeToSpawnPowerUp)
-        self.levelNum = levelNum
-        self.totalScore = totalScore
         self.sceneManager = sceneManager
         redPlayer = Player(isRed: true, maxLife: 5,
                            screenSize: size,
@@ -99,15 +91,20 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         pauseLabel.position = CGPoint(x:size.width/2, y:size.height/2)
         pauseLabel.alpha = 0.0
         self.addChild(self.pauseLabel)
-
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // lifecycle
+    deinit {
+        // todo clean up resources timers listeners etc
+    }
+    
+    //more initialization
     override func didMove(to view: SKView) {
+        
+        //set up red player
         redPlayer.setScale(0.24)
         redPlayer.position = CGPoint(x: size.width/2 + 425, y: size.height/2)
         addChild(redPlayer)
@@ -117,11 +114,12 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
             addChild(redPlayer.lives[i])
         }
         redPlayer.setAmmoBar(ammoBar: AmmoBar(position: CGPoint(x: size.width - 40, y: 60),
-                                              isRed: true, width: 40, height: 300))
+                                              isRed: true,
+                                              width: 40, height: 300))
         addChild(redPlayer.ammoBar!)
-        
         playerRedPos = redPlayer.position;
         
+        //set up blue player
         bluePlayer.setScale(0.32)
         bluePlayer.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
         addChild(bluePlayer)
@@ -131,20 +129,15 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
             addChild(bluePlayer.lives[i])
         }
         bluePlayer.setAmmoBar(ammoBar: AmmoBar(position: CGPoint(x: 40, y: size.height - 60),
-                                              isRed: false, width: 40, height: 300))
+                                              isRed: false,
+                                              width: 40, height: 300))
         addChild(bluePlayer.ammoBar!)
-        
         playerBluePos = bluePlayer.position;
         
+        //set up physics
         physicsWorld.gravity = CGVector.zero
         physicsWorld.contactDelegate = self
         
-        setupUI()
-        
-        spritesMoving = false
-        //physicsWorld.speed = 0.0
-        setupGestures()
-        drawLine()
         let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         borderBody.collisionBitMask = PhysicsCategory.BlueProj | PhysicsCategory.RedProj
         borderBody.categoryBitMask = PhysicsCategory.Border
@@ -154,12 +147,19 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         borderBody.isResting = true
         borderBody.mass = CGFloat.greatestFiniteMagnitude
         self.physicsBody = borderBody
+        
+        //more set up
+        setupUI()
+        spritesMoving = false
+        setupGestures()
+        drawLine()
     }
     
-    deinit {
-        // todo clean up resources timers listeners etc
+    // MARK: Helper functions for set up
+    private func setupUI(){
+        backgroundColor = GameData.hud.backgroundColor
     }
-    
+
     private func setupGestures(){
         let tap = UITapGestureRecognizer(target: self, action: #selector(togglePaused))
         tap.numberOfTapsRequired = 2
@@ -168,12 +168,19 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         view!.addGestureRecognizer(tap)
     }
     
+    func drawLine(){
+        var l:Line
+        l = Line(size:CGSize(width:size.width, height:size.height), lineWidth:5, strokeColor: SKColor.black, fillColor: SKColor.gray)
+        addChild(l)
+    }
+    
+    //MARK: Helper functions for pausing
     func togglePaused(){
         gameLoopPaused = !gameLoopPaused
     }
     
     private func runPauseAction() {
-        print(#function)
+        //print(#function)
         physicsWorld.speed = 0.0
         spritesMoving = false
         let fadeAction = SKAction.customAction(withDuration: 0.25, actionBlock: {
@@ -184,7 +191,6 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
             node.alpha = 1.0 - (percentDone * amountToFade)
             self.alpha = 0.09
             self.pauseLabel.alpha = 1.0
-
         })
         
         let pauseAction = SKAction.run({
@@ -201,13 +207,13 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     }
     
     private func runUnpauseAction() {
-        print(#function)
+        //print(#function)
         view?.isPaused = false
         lastUpdateTime = 0
         dt = 0
         spritesMoving = false
         self.pauseLabel.alpha = 0.0
-
+        
         
         let unPauseAction = SKAction.sequence([
             SKAction.fadeIn(withDuration: 1.0),
@@ -219,12 +225,16 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         unPauseAction.timingMode = .easeIn
         run(unPauseAction)
     }
-
+    
     // MARK: Input and touches
+    
+    //handle when touches begin
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
             if (location.x < size.width / 2.0) {
+                //blue side
+                
                 if (playerBlueTouchCount == 0)
                 {
                     playerBluePos = location
@@ -238,6 +248,8 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                     playerBlueTouchCount += 1;
                 }
             } else {
+                //red side
+                
                 if (playerRedTouchCount == 0)
                 {
                     playerRedPos = location
@@ -254,6 +266,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         }
     }
     
+    //handle moving touches
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
 
         let threshold = CGFloat(20)
@@ -261,12 +274,14 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         for touch in touches {
             let location = touch.location(in: self)
             if (location.x < size.width / 2.0) {
+                //only update to that position if it's smaller than a certain threshold
                 if (location - playerBluePos).magnitudeSqr() < thresholdSqr {
                     playerBluePos = location
                 } else {
                     playerBluePos = playerBluePos + (location - playerBluePos).normalized() * threshold
                 }
             } else {
+                //only update to that position if it's smaller than a certain threshold
                 if (location - playerRedPos).magnitudeSqr() < thresholdSqr {
                     playerRedPos = location
                 } else {
@@ -276,6 +291,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         }
     }
     
+    //handle when touches end
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
@@ -298,6 +314,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         }
     }
     
+    //handle when touches are cancelled
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
@@ -320,55 +337,51 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         }
     }
     
-    // MARK
-    
-    func drawLine(){
-        var l:Line
-        l = Line(size:CGSize(width:size.width, height:size.height), lineWidth:5, strokeColor: SKColor.black, fillColor: SKColor.gray)
-        addChild(l)
+    // MARK: Helper function for input handling
+    func shootFish(player: Player, location: CGPoint)
+    {
+        //player of pos
+        var playerPos:CGPoint
+        if (player.isRed) {
+            playerPos = playerRedPos
+        } else {
+            playerPos = playerBluePos
+        }
         
+        //shoots rapidly if has powerup
+        if(player.hasFishPowerUp) {
+            for n in 0..<fishRapidFireCount {
+                let offSet:CGPoint = (location - playerPos).normalized() * CGFloat(n) * fishOffsetDist
+                let firePosition:CGPoint = player.position + offSet;
+                
+                let f:FishProjectile = FishProjectile(position: firePosition, projectileSpeed: player.fishProjectileSpeed, fwd: (location - playerPos).normalized(), timer: player.fishTimer, isRed: player.isRed, fishPhysicsBody: fishPhysicsBody)
+                f.name = "fish"
+                addChild(f);
+                
+                f.setScale(0.5)
+            }
+        } else {
+            let f:FishProjectile = FishProjectile(position: playerPos, projectileSpeed: player.fishProjectileSpeed, fwd: (location - playerPos).normalized(), timer: player.fishTimer, isRed: player.isRed, fishPhysicsBody: fishPhysicsBody)
+            f.name = "fish"
+            addChild(f);
+            
+            f.setScale(0.5)
+        }
     }
     
-
-    
-    
-    private func setupUI(){
-        backgroundColor = GameData.hud.backgroundColor
-        //playableRect = getPlayableRectPhonePortrait(size: size)
-        /*
-         let fontSize = GameData.hud.fontSize
-         let fontColor = GameData.hud.fontColorWhite
-         let marginH = GameData.hud.marginH
-         let marginV = GameData.hud.marginV
-         
-         
-         levelLabel.fontColor = fontColor
-         levelLabel.fontSize = fontSize
-         levelLabel.position = CGPoint(x: marginH,y: playableRect.maxY - marginV)
-         levelLabel.verticalAlignmentMode = .top
-         levelLabel.horizontalAlignmentMode = .left
-         levelLabel.text = "Level: \(levelNum)"
-         addChild(levelLabel)
-         
-         scoreLabel.fontColor = fontColor
-         scoreLabel.fontSize = fontSize
-         
-         scoreLabel.verticalAlignmentMode = .top
-         scoreLabel.horizontalAlignmentMode = .left
-         // next 2 lines calculate the max width of scoreLabel
-         scoreLabel.text = "Score: 000"
-         let scoreLabelWidth = scoreLabel.frame.size.width
-         
-         // here is the starting text of scoreLabel
-         scoreLabel.text = "Score: \(levelScore)"
-         
-         scoreLabel.position = CGPoint(x: playableRect.maxX - scoreLabelWidth - marginH,y: playableRect.maxY - marginV)
-         addChild(scoreLabel)
-         */
+    // MARK: Update Loop
+    override func update(_ currentTime: TimeInterval) {
+        calculateDeltaTime(currentTime: currentTime)
         
+        let deltaTime = CGFloat(dt)
+        movePlayer(dt: deltaTime)
+        updateFish(dt: deltaTime)
+        shootIcicle(dt: deltaTime)
+        updateIcicle(dt: deltaTime)
+        updatePowerUpSpawn(dt: deltaTime)
     }
     
-    
+    // MARK: Functions in update loop
     func calculateDeltaTime(currentTime: TimeInterval) {
         if lastUpdateTime > 0 {
             dt = currentTime - lastUpdateTime
@@ -378,62 +391,13 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         lastUpdateTime = currentTime
     }
     
-    // events
-    
-    // game loop
-    override func update(_ currentTime: TimeInterval) {
-        calculateDeltaTime(currentTime: currentTime)
-        let deltaTime = CGFloat(dt)
-        updateFish(dt: deltaTime)
-        movePlayer(dt: deltaTime)
-        shootIcicle(dt: deltaTime)
-        updateIcicle(dt: deltaTime)
-        updatePowerUpSpawn(dt: deltaTime)
-        updatePowerUp()
+    //updates the player
+    func movePlayer(dt:CGFloat) {
+        redPlayer.UpdatePlayer(dt: dt, posToMoveTo: playerRedPos)
+        bluePlayer.UpdatePlayer(dt: dt, posToMoveTo: playerBluePos)
     }
     
-    func updatePowerUpSpawn(dt: CGFloat)
-    {
-        if timeToSpawnPowerUp < 0 {
-            timeToSpawnPowerUp = CGFloat.random(min: minTimeToSpawnPowerUp, max: maxTimeToSpawnPowerUp)
-            let position = CGPoint(x: size.width / 2, y: CGFloat.random(min: 80, max: size.height - 80))
-            
-            let p = PowerUp(position: position,
-                            physicsBody: powerUpPhysicsBody, type: getRandomPowerUpType())
-            
-            let shadow = Shadow(position: position)
-            let grow = SKAction.scale(by: 18, duration: 5)
-            let removeShadow = SKAction.removeFromParent()
-            let shadowAction = SKAction.sequence([grow, removeShadow])
-            
-            let wait = SKAction.wait(forDuration: TimeInterval(1.5))
-            let remove = SKAction.removeFromParent()
-            let eAction = SKAction.sequence([wait, remove])
-            
-            self.run(SKAction.sequence([SKAction.run({
-                                            self.addChild(shadow)
-                                            shadow.run(shadowAction)}),
-                                        SKAction.wait(forDuration: 5),
-                                        SKAction.run({
-                                            let e = SKEmitterNode(fileNamed: "Landing")
-                                            e?.position = p.position
-                                            e?.zPosition = p.zPosition - 1
-                                            self.addChild(e!)
-                                            self.addChild(p)
-                                            e?.run(eAction)})]))
-        } else {
-            timeToSpawnPowerUp -= dt
-        }
-    }
-    
-    func updatePowerUp() {
-//        enumerateChildNodes(withName: "powerUp", using: {
-//            node, stop in
-//            let s = node as! PowerUp
-//            s.update()
-//        })
-    }
-    
+    //updates the fishy
     func updateFish(dt: CGFloat) {
         enumerateChildNodes(withName: "fish", using: {
             node, stop in
@@ -442,6 +406,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         })
     }
     
+    //updates the icicles
     func updateIcicle(dt: CGFloat) {
         enumerateChildNodes(withName: "ice", using: {
             node, stop in
@@ -449,29 +414,28 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
             s.update(dt: dt)
             let halfWidth = s.frame.width/2
             
+            //detects if off-screen
             if s.position.x <= -halfWidth || s.position.x >= self.size.width + halfWidth {
                 s.removeFromParent()
             }
-            
         })
-            
     }
     
-    func movePlayer(dt:CGFloat) {
-        redPlayer.UpdatePlayer(dt: dt, posToMoveTo: playerRedPos)
-        bluePlayer.UpdatePlayer(dt: dt, posToMoveTo: playerBluePos)
-    }
-    
+    //updates shooting icicle
     func shootIcicle(dt: CGFloat) {
         shootIcicle(dt: dt, player: redPlayer)
         shootIcicle(dt: dt, player: bluePlayer)
     }
     
+    //shoots the icicle
     func shootIcicle(dt: CGFloat, player: Player)
     {
+        //check timer
         if (player.currShootTimer < 0)
         {
             player.currShootTimer = player.shootTimer
+            
+            //fans the icicles instead if there's power up
             if (player.hasIcePowerUp)
             {
                 let startAngle = -iceFanAngle / 2 * 3.14159 / 180.0
@@ -492,6 +456,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                     i.setScale(0.5)
                 }
             } else {
+                //shoots normally
                 var dir = CGPoint(x: 1, y: 0)
                 if (player.isRed) {
                     dir.x = -dir.x
@@ -511,39 +476,53 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         }
     }
     
-    func shootFish(player: Player, location: CGPoint)
-    {
-        var playerPos:CGPoint
-        if (player.isRed) {
-            playerPos = playerRedPos
-        } else {
-            playerPos = playerBluePos
-        }
+    //check if it's time to spawn power ups
+    func updatePowerUpSpawn(dt: CGFloat) {
         
-        if(player.hasFishPowerUp) {
-            for n in 0..<fishRapidFireCount {
-                let offSet:CGPoint = (location - playerPos).normalized() * CGFloat(n) * fishOffsetDist 
-                let firePosition:CGPoint = player.position + offSet;
-                
-                let f:FishProjectile = FishProjectile(position: firePosition, projectileSpeed: player.fishProjectileSpeed, fwd: (location - playerPos).normalized(), timer: player.fishTimer, isRed: player.isRed, fishPhysicsBody: fishPhysicsBody)
-                f.name = "fish"
-                addChild(f);
-                
-                f.setScale(0.5)
-            }
-        } else {
-            let f:FishProjectile = FishProjectile(position: playerPos, projectileSpeed: player.fishProjectileSpeed, fwd: (location - playerPos).normalized(), timer: player.fishTimer, isRed: player.isRed, fishPhysicsBody: fishPhysicsBody)
-            f.name = "fish"
-            addChild(f);
+        if timeToSpawnPowerUp < 0 {
+            //reset timer
+            timeToSpawnPowerUp = CGFloat.random(min: minTimeToSpawnPowerUp, max: maxTimeToSpawnPowerUp)
             
-            f.setScale(0.5)
+            let position = CGPoint(x: size.width / 2, y: CGFloat.random(min: 80, max: size.height - 80))
+            
+            //power up
+            let p = PowerUp(position: position,
+                            physicsBody: powerUpPhysicsBody, type: getRandomPowerUpType())
+            
+            //shadow and its actions
+            let shadow = Shadow(position: position)
+            let grow = SKAction.scale(by: 18, duration: 5)
+            let removeShadow = SKAction.removeFromParent()
+            let shadowAction = SKAction.sequence([grow, removeShadow])
+            
+            //emitter actions
+            let wait = SKAction.wait(forDuration: TimeInterval(1.5))
+            let remove = SKAction.removeFromParent()
+            let eAction = SKAction.sequence([wait, remove])
+            
+            //run the whole action as an animation of sorts
+            self.run(SKAction.sequence([SKAction.run({
+                self.addChild(shadow)
+                shadow.run(shadowAction)}),
+                                        SKAction.wait(forDuration: 5),
+                                        SKAction.run({
+                                            let e = SKEmitterNode(fileNamed: "Landing")
+                                            e?.position = p.position
+                                            e?.zPosition = p.zPosition - 1
+                                            self.addChild(e!)
+                                            self.addChild(p)
+                                            e?.run(eAction)})]))
+        } else {
+            timeToSpawnPowerUp -= dt
         }
     }
     
+    //MARK: Collision detection
     func didBegin(_ contact: SKPhysicsContact) {
         var firstBody:SKPhysicsBody
         var secondBody:SKPhysicsBody
         
+        //set ups the variables
         if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask) {
             firstBody = contact.bodyA
             secondBody = contact.bodyB
@@ -552,12 +531,14 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
             secondBody = contact.bodyA
         }
         
+        //opposing projectile collision handling
         if (firstBody.categoryBitMask == PhysicsCategory.RedProj &&
             secondBody.categoryBitMask == PhysicsCategory.BlueProj) {
             if let proj1 = firstBody.node as? Projectile,
                 let proj2 = secondBody.node as? Projectile {
                 if (proj1.isRed != proj2.isRed)
                 {
+                    //plays emitter and remove nodes
                     let emitter = SKEmitterNode(fileNamed: "ProjectileDeath")
                     emitter?.position = contact.contactPoint
 
@@ -573,6 +554,8 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                 }
             }
         }
+            
+        //handle projectile vs player
         else if (firstBody.categoryBitMask == PhysicsCategory.Player &&
             (secondBody.categoryBitMask == PhysicsCategory.RedProj ||
             secondBody.categoryBitMask == PhysicsCategory.BlueProj)) {
@@ -580,6 +563,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                 let proj = secondBody.node as? Projectile {
                 if (player.isRed != proj.isRed)
                 {
+                    //player takes damage, remove proj and play emitter
                     player.TakeDamage()
                     proj.removeFromParent()
                     
@@ -594,11 +578,14 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                 }
             }
         }
+            
+        //handles player vs power ups
         else if (firstBody.categoryBitMask == PhysicsCategory.Player &&
             secondBody.categoryBitMask == PhysicsCategory.PowerUp) {
             if let player = firstBody.node as? Player,
                 let powerUp = secondBody.node as? PowerUp {
 
+                //appropriately responds to different power ups
                 var timer:TimeInterval = 0.0
                 switch(powerUp.type)
                 {
@@ -617,6 +604,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                     break;
                 }
                 
+                //plays animation if it's not shield
                 if (powerUp.type != PowerUpType.Shield) {
                     let playerEmitter = SKEmitterNode(fileNamed: "PowerUpEffect")
                     playerEmitter?.position = player.position
@@ -629,6 +617,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                     addChild(playerEmitter!)
                 }
                 
+                //powerup collection emitter
                 let emitter = SKEmitterNode(fileNamed: "PowerUp")
                 emitter?.position = contact.contactPoint
 

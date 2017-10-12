@@ -18,7 +18,7 @@ class GameViewController: UIViewController {
     let screenSize = CGSize(width: 1080, height: 1920)
     let scaleMode = SKSceneScaleMode.aspectFill
     
-    // init
+    // MARK: Init
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,9 +30,6 @@ class GameViewController: UIViewController {
         skView.showsFPS = showDebugData
         skView.showsNodeCount = showDebugData
         skView.ignoresSiblingOrder = true
-        
-
-        
     }
     
     // scene management

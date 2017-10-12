@@ -14,11 +14,11 @@ class Player: SKSpriteNode{
     var life:Int
     var lives:[SKSpriteNode]
     var hasIcePowerUp = false
-    let icePowerUpMaxTimer = CGFloat(4)
+    let icePowerUpMaxTimer = CGFloat(6)
     var icePowerUpTimer:CGFloat = 0
     
     var hasFishPowerUp = false
-    let fishPowerUpMaxTimer = CGFloat(4)
+    let fishPowerUpMaxTimer = CGFloat(5)
     var fishPowerUpTimer:CGFloat = 0
     
     let maxFishAmmo = CGFloat(50)
@@ -149,8 +149,6 @@ class Player: SKSpriteNode{
             currFishAmmo = maxFishAmmo
         }
         
-        print(currFishAmmo)
-        
         if (hasIcePowerUp) {
             icePowerUpTimer -= dt
             if (icePowerUpTimer < 0) {
@@ -183,7 +181,6 @@ class Player: SKSpriteNode{
         }
         
         self.ammoBar = ammoBar
-        //ammoBar.run(SKAction.repeatForever(SKAction.scaleX(to: currFishAmmo / maxFishAmmo, duration: 0.25)))
     }
     
     func useUpFishAmmo(ammoCost: CGFloat) -> Bool {
