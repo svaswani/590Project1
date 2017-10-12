@@ -13,6 +13,8 @@
 		3F0957471F8FF2CB00546EB5 /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0957461F8FF2CB00546EB5 /* CGVector+Extensions.swift */; };
 		3F0957491F8FF6A200546EB5 /* PowerUp.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F0957481F8FF61E00546EB5 /* PowerUp.sks */; };
 		3F09574B1F8FF7DC00546EB5 /* PowerUpEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F09574A1F8FF7DC00546EB5 /* PowerUpEffect.sks */; };
+		3F09574D1F8FFAA600546EB5 /* Landing.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F09574C1F8FFAA600546EB5 /* Landing.sks */; };
+		3F09574F1F8FFCC600546EB5 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F09574E1F8FFCC600546EB5 /* Shadow.swift */; };
 		3F4842791F8EE09000E5679F /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4842781F8EE09000E5679F /* Player.swift */; };
 		3F48427B1F8EF18900E5679F /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F48427A1F8EF18900E5679F /* Projectile.swift */; };
 		DB2A89531F7952B200A13B8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89521F7952B200A13B8B /* AppDelegate.swift */; };
@@ -43,6 +45,8 @@
 		3F0957461F8FF2CB00546EB5 /* CGVector+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGVector+Extensions.swift"; sourceTree = "<group>"; };
 		3F0957481F8FF61E00546EB5 /* PowerUp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PowerUp.sks; sourceTree = "<group>"; };
 		3F09574A1F8FF7DC00546EB5 /* PowerUpEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PowerUpEffect.sks; sourceTree = "<group>"; };
+		3F09574C1F8FFAA600546EB5 /* Landing.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Landing.sks; sourceTree = "<group>"; };
+		3F09574E1F8FFCC600546EB5 /* Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
 		3F4842781F8EE09000E5679F /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3F48427A1F8EF18900E5679F /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
 		DB2A894F1F7952B200A13B8B /* ColdWar.swiftmodule */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = ColdWar.swiftmodule; path = "../Debug-iphoneos/ColdWar.swiftmodule"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,6 +160,8 @@
 				DB3B595C1F82B28400C19023 /* Line.swift */,
 				3F0957421F8FE49100546EB5 /* Hurt.sks */,
 				3F09574A1F8FF7DC00546EB5 /* PowerUpEffect.sks */,
+				3F09574C1F8FFAA600546EB5 /* Landing.sks */,
+				3F09574E1F8FFCC600546EB5 /* Shadow.swift */,
 			);
 			name = Sprite;
 			path = ColdWar;
@@ -242,6 +248,7 @@
 				3F09574B1F8FF7DC00546EB5 /* PowerUpEffect.sks in Resources */,
 				3F0957491F8FF6A200546EB5 /* PowerUp.sks in Resources */,
 				DB2A89631F7952B200A13B8B /* LaunchScreen.storyboard in Resources */,
+				3F09574D1F8FFAA600546EB5 /* Landing.sks in Resources */,
 				DB2A89571F7952B200A13B8B /* Actions.sks in Resources */,
 				3F0957431F8FE49100546EB5 /* Hurt.sks in Resources */,
 			);
@@ -254,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F09574F1F8FFCC600546EB5 /* Shadow.swift in Sources */,
 				DB2A89A21F7954E900A13B8B /* LevelFinishScene.swift in Sources */,
 				DB2A89591F7952B200A13B8B /* GameScene.swift in Sources */,
 				3F0957471F8FF2CB00546EB5 /* CGVector+Extensions.swift in Sources */,

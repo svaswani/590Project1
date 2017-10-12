@@ -21,7 +21,7 @@ class FishProjectile:Projectile {
 
         super.init(position: position, projectileSpeed: projectileSpeed, fwd: fwd, isRed: isRed, texture: texture, physicsBody: fishPhysicsBody)
         self.physicsBody?.collisionBitMask = PhysicsCategory.Border
-        self.physicsBody?.restitution = 1
+        self.physicsBody?.restitution = 0.2
         self.physicsBody?.mass = 0.1
         self.physicsBody?.friction = 0
         

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Foundation
 import SpriteKit
 
 class Line:SKShapeNode {
@@ -19,7 +18,6 @@ class Line:SKShapeNode {
         
         let topHalf = CGPoint(x:size.width/2, y:0)
         let bottomHalf = CGPoint(x:size.width/2, y:size.height)
-        
         
         let pathToDraw = CGMutablePath()
         pathToDraw.move(to: topHalf)
@@ -35,6 +33,4 @@ class Line:SKShapeNode {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-
 }

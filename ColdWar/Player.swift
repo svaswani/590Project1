@@ -163,6 +163,10 @@ class Player: SKSpriteNode{
     }
     
     func SetPlayerEmitter(emitter: SKEmitterNode?) {
+        if playerEmitter != nil {
+            playerEmitter?.removeFromParent()
+            playerEmitter = nil
+        }
         playerEmitter = emitter
     }
     

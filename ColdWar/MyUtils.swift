@@ -114,5 +114,14 @@ func getScreenPhysicalAspectRatioPortrait()->CGFloat{
 }
 
 func getRandomPowerUpType() -> PowerUpType {
-    return PowerUpType.Fish
+    let randNum = arc4random_uniform(3)
+    switch (randNum)
+    {
+    case 0:
+        return PowerUpType.Fish
+    case 1:
+        return PowerUpType.Ice
+    default:
+        return PowerUpType.Shield
+    }
 }

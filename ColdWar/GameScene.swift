@@ -24,7 +24,6 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     var levelScore:Int = 0
     var totalScore:Int
     let sceneManager:GameViewController
-    //var playableRect = CGRect.zero
     var totalSprites = 0
 
     let otherLabel = SKLabelNode(fontNamed: "Futura")
@@ -387,10 +386,31 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     {
         if timeToSpawnPowerUp < 0 {
             timeToSpawnPowerUp = CGFloat.random(min: minTimeToSpawnPowerUp, max: maxTimeToSpawnPowerUp)
-            let p = PowerUp(position: CGPoint(x: size.width / 2, y: CGFloat.random(min: 30, max: 80)),
+            let position = CGPoint(x: size.width / 2, y: CGFloat.random(min: 80, max: size.height - 80))
+            
+            let p = PowerUp(position: position,
                             physicsBody: powerUpPhysicsBody, type: getRandomPowerUpType())
-            p.name = "powerUp"
-            addChild(p)
+            
+            let shadow = Shadow(position: position)
+            let grow = SKAction.scale(by: 18, duration: 5)
+            let removeShadow = SKAction.removeFromParent()
+            let shadowAction = SKAction.sequence([grow, removeShadow])
+            
+            let wait = SKAction.wait(forDuration: TimeInterval(1.5))
+            let remove = SKAction.removeFromParent()
+            let eAction = SKAction.sequence([wait, remove])
+            
+            self.run(SKAction.sequence([SKAction.run({
+                                            self.addChild(shadow)
+                                            shadow.run(shadowAction)}),
+                                        SKAction.wait(forDuration: 5),
+                                        SKAction.run({
+                                            let e = SKEmitterNode(fileNamed: "Landing")
+                                            e?.position = p.position
+                                            e?.zPosition = p.zPosition - 1
+                                            self.addChild(e!)
+                                            self.addChild(p)
+                                            e?.run(eAction)})]))
         } else {
             timeToSpawnPowerUp -= dt
         }
@@ -533,7 +553,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
 
                     addChild(emitter!)
                     
-                    let wait = SKAction.wait(forDuration: TimeInterval(0.25))
+                    let wait = SKAction.wait(forDuration: TimeInterval((emitter?.particleLifetime)!))
                     let remove = SKAction.removeFromParent()
                     emitter?.run(SKAction.sequence([wait, remove]))
                     
@@ -602,7 +622,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                 let emitter = SKEmitterNode(fileNamed: "PowerUp")
                 emitter?.position = contact.contactPoint
 
-                let wait = SKAction.wait(forDuration: TimeInterval(0.25))
+                let wait = SKAction.wait(forDuration: TimeInterval((emitter?.particleLifetime)!))
                 let remove = SKAction.removeFromParent()
                 emitter?.run(SKAction.sequence([wait, remove]))
                 
