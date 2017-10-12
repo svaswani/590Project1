@@ -10,9 +10,9 @@ import Foundation
 import SpriteKit
 
 class IceProjectile : Projectile {
-    init(position:CGPoint, projectileSpeed:CGFloat, fwd:CGPoint, isRed:Bool) {
+    init(position:CGPoint, projectileSpeed:CGFloat, fwd:CGPoint, isRed:Bool, icePhysicsBody: SKPhysicsBody) {
         let texture = SKTexture(imageNamed: "iceLaser")
-        super.init(position: position, projectileSpeed: projectileSpeed, fwd: fwd, isRed: isRed, texture: texture)
+        super.init(position: position, projectileSpeed: projectileSpeed, fwd: fwd, isRed: isRed, texture: texture, physicsBody: icePhysicsBody)
         
 
     }

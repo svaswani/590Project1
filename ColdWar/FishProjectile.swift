@@ -12,11 +12,11 @@ import SpriteKit
 class FishProjectile:Projectile {
     var timer:CGFloat
     
-    init(position:CGPoint, projectileSpeed:CGFloat, fwd:CGPoint, timer:CGFloat, isRed: Bool) {
+    init(position:CGPoint, projectileSpeed:CGFloat, fwd:CGPoint, timer:CGFloat, isRed: Bool, fishPhysicsBody: SKPhysicsBody) {
         let texture = SKTexture(imageNamed: "fish")
         self.timer = timer;
 
-        super.init(position: position, projectileSpeed: projectileSpeed, fwd: fwd, isRed: isRed, texture: texture)
+        super.init(position: position, projectileSpeed: projectileSpeed, fwd: fwd, isRed: isRed, texture: texture, physicsBody: fishPhysicsBody)
     }
     
     required init?(coder aDecoder: NSCoder) {

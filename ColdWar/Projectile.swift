@@ -15,7 +15,8 @@ class Projectile : SKSpriteNode {
     var velocity:CGPoint = CGPoint.zero // speed with a direction
     var isRed:Bool = false
     
-    init(position:CGPoint, projectileSpeed:CGFloat, fwd:CGPoint, isRed:Bool, texture: SKTexture) {
+   
+    init(position:CGPoint, projectileSpeed:CGFloat, fwd:CGPoint, isRed:Bool, texture: SKTexture, physicsBody: SKPhysicsBody) {
         super.init(texture: texture, color: UIColor.clear, size: (texture.size()))
         
         self.position = position;
@@ -23,8 +24,7 @@ class Projectile : SKSpriteNode {
         self.fwd = fwd
         self.isRed = isRed
         
-      
-        self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
+        self.physicsBody = SKPhysicsBody(bodies: [physicsBody])
         self.physicsBody?.isDynamic = true
         if (isRed) {
             self.physicsBody?.categoryBitMask = PhysicsCategory.RedProj
@@ -36,7 +36,7 @@ class Projectile : SKSpriteNode {
             self.physicsBody?.collisionBitMask = PhysicsCategory.None
         }
         
-        self.physicsBody?.usesPreciseCollisionDetection = true
+        self.physicsBody?.usesPreciseCollisionDetection = false
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,7 +48,7 @@ class Projectile : SKSpriteNode {
         velocity = fwd * projectileSpeed
         position = position + velocity * dt
         
-        zRotation = -atan2(fwd.y, fwd.x)
+        zRotation = atan2(fwd.y, fwd.x)
     }
 }
 

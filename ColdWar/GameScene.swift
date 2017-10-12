@@ -44,11 +44,17 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
 
     let playerSpeed = CGFloat(10)
     let iceShootTimer = CGFloat(3)
-    let iceProjectileSpeed = CGFloat(300)
-    let fishProjectileSpeed = CGFloat(450)
+    let iceProjectileSpeed = CGFloat(200)
+    let iceFanAngle = CGFloat(15)
+    let iceFanCount = 3
+    
+    let fishProjectileSpeed = CGFloat(300)
     let fishTimer = CGFloat(6)
     let fishRapidFireCount = 3
-    let fishOffsetDist:CGFloat = 50
+    let fishOffsetDist:CGFloat = 75
+    
+    let icePhysicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "iceLaser"), size: SKTexture(imageNamed: "iceLaser").size())
+    let fishPhysicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "fish"), size: SKTexture(imageNamed: "fish").size())
     
     var gameLoopPaused:Bool = false {
         didSet {
@@ -389,24 +395,47 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     }
     
     func shootIcicle(dt: CGFloat) {
-        if (redPlayer.currShootTimer < 0)
+        shootIcicle(dt: dt, player: redPlayer)
+        shootIcicle(dt: dt, player: bluePlayer)
+    }
+    
+    func shootIcicle(dt: CGFloat, player: Player)
+    {
+        if (player.currShootTimer < 0)
         {
-            redPlayer.currShootTimer = redPlayer.shootTimer
-            let i = IceProjectile(position: redPlayer.position, projectileSpeed: redPlayer.iceProjectileSpeed, fwd: CGPoint(x: -1, y:0), isRed:true)
-            i.name = "ice"
-            addChild(i);
+            player.currShootTimer = player.shootTimer
+            if (player.hasIcePowerUp)
+            {
+                let startAngle = -iceFanAngle / 2 * 3.14159 / 180.0
+                for n in 0..<iceFanCount {
+                    let angle = startAngle + (iceFanAngle / CGFloat(iceFanCount - 1)) * CGFloat(n) * 3.14159 / 180.0
+                    var dir = CGPoint(x: cos(angle), y: sin(angle))
+                    if (player.isRed) {
+                        dir.x = -dir.x
+                    }
+                    
+                    let i = IceProjectile(position: player.position,
+                                          projectileSpeed: player.iceProjectileSpeed,
+                                          fwd: dir, isRed:player.isRed,
+                                          icePhysicsBody: icePhysicsBody)
+                    i.name = "ice"
+                    addChild(i);
+                }
+            } else {
+                var dir = CGPoint(x: 1, y: 0)
+                if (player.isRed) {
+                    dir.x = -dir.x
+                }
+                
+                let i = IceProjectile(position: player.position,
+                                      projectileSpeed: player.iceProjectileSpeed,
+                                      fwd: dir, isRed:player.isRed,
+                                      icePhysicsBody: icePhysicsBody)
+                i.name = "ice"
+                addChild(i);
+            }
         } else {
-            redPlayer.currShootTimer -= dt;
-        }
-        
-        if (bluePlayer.currShootTimer < 0)
-        {
-            bluePlayer.currShootTimer = bluePlayer.shootTimer
-            let i = IceProjectile(position: bluePlayer.position, projectileSpeed: bluePlayer.iceProjectileSpeed, fwd: CGPoint(x: 1, y:0), isRed:false)
-            i.name = "ice"
-            addChild(i);
-        } else {
-            bluePlayer.currShootTimer -= dt;
+            player.currShootTimer -= dt
         }
     }
     
@@ -420,16 +449,16 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         }
         
         if(player.hasFishPowerUp) {
-            for n in 1...fishRapidFireCount {
+            for n in 0..<fishRapidFireCount {
                 let offSet:CGPoint = (location - playerPos).normalized() * CGFloat(n) * fishOffsetDist 
                 let firePosition:CGPoint = player.position + offSet;
                 
-                let f:FishProjectile = FishProjectile(position: firePosition, projectileSpeed: player.fishProjectileSpeed, fwd: (location - playerPos).normalized(), timer: player.fishTimer, isRed: player.isRed)
+                let f:FishProjectile = FishProjectile(position: firePosition, projectileSpeed: player.fishProjectileSpeed, fwd: (location - playerPos).normalized(), timer: player.fishTimer, isRed: player.isRed, fishPhysicsBody: fishPhysicsBody)
                 f.name = "fish"
                 addChild(f);
             }
         } else {
-            let f:FishProjectile = FishProjectile(position: playerPos, projectileSpeed: player.fishProjectileSpeed, fwd: (location - playerPos).normalized(), timer: player.fishTimer, isRed: player.isRed)
+            let f:FishProjectile = FishProjectile(position: playerPos, projectileSpeed: player.fishProjectileSpeed, fwd: (location - playerPos).normalized(), timer: player.fishTimer, isRed: player.isRed, fishPhysicsBody: fishPhysicsBody)
             f.name = "fish"
             addChild(f);
         }
@@ -453,7 +482,6 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                 let proj2 = secondBody.node as? Projectile {
                 if (proj1.isRed != proj2.isRed)
                 {
-                    print("Projectile collision")
                     proj1.removeFromParent()
                     proj2.removeFromParent()
                 }

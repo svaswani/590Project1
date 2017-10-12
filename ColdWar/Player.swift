@@ -13,14 +13,21 @@ class Player: SKSpriteNode{
     
     var life:Int
     var lives:[SKSpriteNode]
+    var hasIcePowerUp = false
+    let icePowerUpMaxTimer = CGFloat(4)
+    var icePowerUpTimer:CGFloat = 0
     
+    var hasFishPowerUp = false
+    let fishPowerUpMaxTimer = CGFloat(4)
+    var fishPowerUpTimer:CGFloat = 0
     
+    var hasShield = false
     
     var baseIceProjectileSpeed:CGFloat
     var iceProjectileSpeed:CGFloat {
         get {
-            if (false) {
-                return (baseIceProjectileSpeed * 1.2)
+            if (hasIcePowerUp) {
+                return (baseIceProjectileSpeed * 2.1)
             } else {
                 return baseIceProjectileSpeed
             }
@@ -30,8 +37,8 @@ class Player: SKSpriteNode{
     var baseFishProjectileSpeed:CGFloat
     var fishProjectileSpeed:CGFloat {
         get {
-            if (false) {
-                return (baseFishProjectileSpeed * 1.2)
+            if (hasFishPowerUp) {
+                return (baseFishProjectileSpeed * 1.5)
             } else {
                 return baseFishProjectileSpeed
             }
@@ -41,8 +48,8 @@ class Player: SKSpriteNode{
     var baseFishTimer:CGFloat
     var fishTimer:CGFloat {
         get {
-            if (false) {
-                return (baseFishTimer * 1.5)
+            if (hasFishPowerUp) {
+                return (baseFishTimer * 1.25)
             } else {
                 return baseFishTimer
             }
@@ -53,20 +60,10 @@ class Player: SKSpriteNode{
     var currShootTimer:CGFloat
     var shootTimer:CGFloat {
         get {
-            if (false) {
-                return baseShootTimer * 0.8
+            if (hasIcePowerUp) {
+                return baseShootTimer * 0.55
             } else {
                 return baseShootTimer
-            }
-        }
-    }
-    
-    var hasFishPowerUp:Bool {
-        get {
-            if (false) {
-                return true
-            } else {
-                return false
             }
         }
     }
@@ -121,6 +118,12 @@ class Player: SKSpriteNode{
     }
     
     func TakeDamage() {
+        if (hasShield)
+        {
+            hasShield = false
+            return
+        }
+        
         life -= 1;
         
         //remove hearts
@@ -141,6 +144,19 @@ class Player: SKSpriteNode{
     
     func UpdatePlayer(dt:CGFloat, posToMoveTo:CGPoint) {
         position = position + (posToMoveTo - position) * playerSpeed * dt;
+        
+        if (hasFishPowerUp) {
+            fishPowerUpTimer -= dt
+            if (fishPowerUpTimer < 0) {
+                hasFishPowerUp = false
+            }
+        }
+        
+        if (hasIcePowerUp) {
+            icePowerUpTimer -= dt
+            if (icePowerUpTimer < 0) {
+                hasIcePowerUp = false
+            }
+        }
     }
-    
 }
