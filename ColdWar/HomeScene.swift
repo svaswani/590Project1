@@ -38,8 +38,8 @@ class HomeScene: SKScene {
         label3.fontSize = 20
 
         label.position = CGPoint(x:size.width/2, y:size.height/2 + 100)
-        label2.position = CGPoint(x:size.width/2, y:size.height/2 - 150)
-        label3.position = CGPoint(x:size.width/2, y:size.height/2 - 180)
+        label2.position = CGPoint(x:size.width/2, y:size.height/2 - 120)
+        label3.position = CGPoint(x:size.width/2, y:size.height/2 - 160)
         
         label.zPosition = 1
         label2.zPosition = 1
