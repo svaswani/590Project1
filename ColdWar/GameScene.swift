@@ -14,6 +14,7 @@ struct PhysicsCategory {
     static let Player    : UInt32 = 0x1 << 1
     static let RedProj   : UInt32 = 0x1 << 2
     static let BlueProj  : UInt32 = 0x1 << 3
+    static let Border    : UInt32 = 0x1 << 4
     static let All       : UInt32 = UINT32_MAX
 }
 
@@ -22,7 +23,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     var levelScore:Int = 0
     var totalScore:Int
     let sceneManager:GameViewController
-    var playableRect = CGRect.zero
+    //var playableRect = CGRect.zero
     var totalSprites = 0
 
     let otherLabel = SKLabelNode(fontNamed: "Futura")
@@ -41,7 +42,6 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     var playerRedTouchCount = 0
     var playerRedPos:CGPoint = CGPoint(x: 300, y: 100)
 
-
     let playerSpeed = CGFloat(10)
     let iceShootTimer = CGFloat(3)
     let iceProjectileSpeed = CGFloat(200)
@@ -56,6 +56,8 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     let icePhysicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "iceLaser"), size: SKTexture(imageNamed: "iceLaser").size())
     let fishPhysicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "fish"), size: SKTexture(imageNamed: "fish").size())
     
+    let projEmitter:SKEmitterNode? = SKEmitterNode(fileNamed: "ParticleDeath")
+    
     var gameLoopPaused:Bool = false {
         didSet {
             print("gameLoopPaused=\(gameLoopPaused)")
@@ -65,6 +67,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     
     // init
     init(size: CGSize, scaleMode:SKSceneScaleMode, levelNum:Int, totalScore:Int, sceneManager:GameViewController) {
+
         self.levelNum = levelNum
         self.totalScore = totalScore
         self.sceneManager = sceneManager
@@ -85,7 +88,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                             fishTimer: fishTimer);
         
         super.init(size: size)
-        self.scaleMode = scaleMode
+
         self.pauseLabel.text = "Paused"
         pauseLabel.position = CGPoint(x:size.width/2, y:size.height/2)
         pauseLabel.alpha = 0.0
@@ -104,6 +107,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         addChild(redPlayer)
         for i in 0..<redPlayer.lives.count {
             redPlayer.lives[i].setScale(0.02)
+            redPlayer.lives[i].position = CGPoint(x: size.width - 120 + CGFloat(i * 40), y: size.height - 40)
             addChild(redPlayer.lives[i])
         }
         
@@ -114,6 +118,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         addChild(bluePlayer)
         for i in 0..<bluePlayer.lives.count {
             bluePlayer.lives[i].setScale(0.02)
+            bluePlayer.lives[i].position = CGPoint(x: 40 + CGFloat(i * 40), y: 40)
             addChild(bluePlayer.lives[i])
         }
         
@@ -128,6 +133,15 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         //physicsWorld.speed = 0.0
         setupGestures()
         drawLine()
+        let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        borderBody.collisionBitMask = PhysicsCategory.BlueProj | PhysicsCategory.RedProj
+        borderBody.categoryBitMask = PhysicsCategory.Border
+        borderBody.friction = 0
+        borderBody.restitution = 1
+        borderBody.isDynamic = true
+        borderBody.isResting = true
+        borderBody.mass = CGFloat.greatestFiniteMagnitude
+        self.physicsBody = borderBody
     }
     
     deinit {
@@ -286,7 +300,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     
     private func setupUI(){
         backgroundColor = GameData.hud.backgroundColor
-        playableRect = getPlayableRectPhonePortrait(size: size)
+        //playableRect = getPlayableRectPhonePortrait(size: size)
         /*
          let fontSize = GameData.hud.fontSize
          let fontColor = GameData.hud.fontColorWhite
@@ -347,26 +361,26 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
             node, stop in
             let s = node as! FishProjectile
             s.update(dt: dt)
-            s.setScale(0.5)
-            let halfWidth = s.frame.width/2
-            let halfHeight = s.frame.height/2
+            //s.setScale(0.5)
+            //let halfWidth = s.frame.width/2
+            //let halfHeight = s.frame.height/2
 
             if (s.timer < 0) {
                 s.removeFromParent()
             }
             
 
-            if s.position.x <= halfWidth || s.position.x >= self.size.width - halfWidth {
-                s.reflectX()
-                s.update(dt: dt)
-            }
-            
-            //print("\(s.position.y) is between \(self.playableRect.minY + halfHeight) & \(self.playableRect.maxY - halfHeight)")
-            //print("\(s.position.y) & \(self.playableRect.maxY - halfHeight)")
-            if s.position.y <= self.playableRect.minY + halfHeight || s.position.y >= self.playableRect.maxY - halfHeight {
-                s.reflectY()
-                s.update(dt:dt)
-            }
+//            if s.position.x <= halfWidth || s.position.x >= self.size.width - halfWidth {
+//                s.reflectX()
+//                s.update(dt: dt)
+//            }
+//            
+//            //print("\(s.position.y) is between \(self.playableRect.minY + halfHeight) & \(self.playableRect.maxY - halfHeight)")
+//            //print("\(s.position.y) & \(self.playableRect.maxY - halfHeight)")
+//            if s.position.y <= self.playableRect.minY + halfHeight || s.position.y >= self.playableRect.maxY - halfHeight {
+//                s.reflectY()
+//                s.update(dt:dt)
+//            }
  
         })
     }
@@ -377,7 +391,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
             let s = node as! IceProjectile
             s.update(dt: dt)
             
-            s.setScale(0.5)
+            //s.setScale(0.5)
             
             let halfWidth = s.frame.width/2
             
@@ -420,6 +434,8 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                                           icePhysicsBody: icePhysicsBody)
                     i.name = "ice"
                     addChild(i);
+                    
+                    i.setScale(0.5)
                 }
             } else {
                 var dir = CGPoint(x: 1, y: 0)
@@ -433,6 +449,8 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                                       icePhysicsBody: icePhysicsBody)
                 i.name = "ice"
                 addChild(i);
+                
+                i.setScale(0.5)
             }
         } else {
             player.currShootTimer -= dt
@@ -456,11 +474,15 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                 let f:FishProjectile = FishProjectile(position: firePosition, projectileSpeed: player.fishProjectileSpeed, fwd: (location - playerPos).normalized(), timer: player.fishTimer, isRed: player.isRed, fishPhysicsBody: fishPhysicsBody)
                 f.name = "fish"
                 addChild(f);
+                
+                f.setScale(0.5)
             }
         } else {
             let f:FishProjectile = FishProjectile(position: playerPos, projectileSpeed: player.fishProjectileSpeed, fwd: (location - playerPos).normalized(), timer: player.fishTimer, isRed: player.isRed, fishPhysicsBody: fishPhysicsBody)
             f.name = "fish"
             addChild(f);
+            
+            f.setScale(0.5)
         }
     }
     
@@ -482,8 +504,18 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                 let proj2 = secondBody.node as? Projectile {
                 if (proj1.isRed != proj2.isRed)
                 {
+                    let emitter = SKEmitterNode(fileNamed: "ParticleDeath")
+                    emitter?.position = (proj1.position + proj2.position) / 2
+
+                    addChild(emitter!)
+                    
+                    let wait = SKAction.wait(forDuration: TimeInterval(0.25))
+                    let remove = SKAction.removeFromParent()
+                    emitter?.run(SKAction.sequence([wait, remove]))
+                    
                     proj1.removeFromParent()
                     proj2.removeFromParent()
+                    
                 }
             }
         }
@@ -497,6 +529,13 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                     player.TakeDamage()
                     proj.removeFromParent()
                 }
+            }
+        }
+        else if ((firstBody.categoryBitMask == PhysicsCategory.RedProj ||
+                firstBody.categoryBitMask == PhysicsCategory.BlueProj) &&
+                secondBody.categoryBitMask == PhysicsCategory.Border) {
+            if let proj = firstBody.node as? FishProjectile {
+                //proj.reflectX()
             }
         }
     }

@@ -97,12 +97,6 @@ class Player: SKSpriteNode{
         for i in 0..<maxLife
         {
             lives.append(SKSpriteNode(texture: lifeTexture));
-            if (!isRed)
-            {
-                lives[i].position = CGPoint(x: screenSize.width/2 - 500 + CGFloat(i * 40), y: screenSize.height - 600)
-            } else {
-                lives[i].position = CGPoint(x: screenSize.width/2 + 420 + CGFloat(i * 40), y: screenSize.height - 600)
-            }
         }
 
         super.init(texture: texture, color: UIColor.clear, size: (texture.size()))

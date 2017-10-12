@@ -29,6 +29,9 @@ class GameViewController: UIViewController {
         skView.ignoresSiblingOrder = true
         skView.showsFPS = showDebugData
         skView.showsNodeCount = showDebugData
+        skView.ignoresSiblingOrder = true
+        
+
         
     }
     
@@ -41,6 +44,9 @@ class GameViewController: UIViewController {
     
     func loadGameScene(levelNum:Int, totalScore:Int) {
         gameScene = GameScene(size:screenSize, scaleMode: scaleMode, levelNum: levelNum, totalScore: totalScore, sceneManager: self)
+               
+        gameScene?.scaleMode = .aspectFit
+        gameScene?.size = skView.bounds.size
         
         //let reveal = SKTransition.flipHorizontal(withDuration: 1.0)
         let reveal = SKTransition.doorsOpenHorizontal(withDuration: 1)
