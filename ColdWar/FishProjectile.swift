@@ -9,26 +9,14 @@
 import Foundation
 import SpriteKit
 
-class FishProjectile:SKSpriteNode {
-    var projectileSpeed:CGFloat = 300.0
-    var fwd:CGPoint = CGPoint(x:0.0, y:1.0) // north/up
-    var velocity:CGPoint = CGPoint.zero // speed with a direction
-    var timer:CGFloat = 0;
+class FishProjectile:Projectile {
+    var timer:CGFloat
     
-    init(position:CGPoint, projectileSpeed:CGFloat, fwd:CGPoint, timer:CGFloat) {
+    init(position:CGPoint, projectileSpeed:CGFloat, fwd:CGPoint, timer:CGFloat, isRed: Bool) {
         let texture = SKTexture(imageNamed: "fish")
-        super.init(texture: texture, color: UIColor.clear, size: (texture.size()))
-
         self.timer = timer;
-        self.position = position;
-        self.projectileSpeed = projectileSpeed
-        self.fwd = fwd
-        
-        self.physicsBody = SKPhysicsBody(rectangleOf: texture.size())
-        self.physicsBody?.isDynamic = false
-        self.physicsBody?.categoryBitMask = PhysicsCategory.All
-        self.physicsBody?.contactTestBitMask = PhysicsCategory.All
-        self.physicsBody?.usesPreciseCollisionDetection = true
+
+        super.init(position: position, projectileSpeed: projectileSpeed, fwd: fwd, isRed: isRed, texture: texture)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,12 +24,12 @@ class FishProjectile:SKSpriteNode {
     }
     
     // methods
-    func update(dt:CGFloat) {
-        velocity = fwd * projectileSpeed
-        position = position + velocity * dt
+    
+    override func update(dt: CGFloat) {
+        timer -= dt
+        super.update(dt: dt);
         
-        timer -= dt;
-        zRotation = -atan2(-fwd.y, fwd.x)
+        zRotation = atan2(fwd.y, fwd.x)
     }
     
     func reflectX() {

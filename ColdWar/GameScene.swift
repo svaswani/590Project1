@@ -10,25 +10,21 @@ import SpriteKit
 import GameplayKit
 
 struct PhysicsCategory {
-    static let None      : UInt32 = 0
-    //static let Player    : UInt32 = 1     // 1
-    //static let Projectile: UInt32 = 2
-    static let All       : UInt32 = UInt32.max
+    static let None      : UInt32 = 0x1 << 0
+    static let Player    : UInt32 = 0x1 << 1
+    static let RedProj   : UInt32 = 0x1 << 2
+    static let BlueProj  : UInt32 = 0x1 << 3
+    static let All       : UInt32 = UINT32_MAX
 }
 
 class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  {
     var levelNum:Int
-    var levelScore:Int = 0 //{
-    //didSet {
-    //    scoreLabel.text = "Score: \(levelScore)"
-    //}
-    //}
+    var levelScore:Int = 0
     var totalScore:Int
     let sceneManager:GameViewController
     var playableRect = CGRect.zero
     var totalSprites = 0
-    //let levelLabel = SKLabelNode(fontNamed: "Futura")
-    //let scoreLabel = SKLabelNode(fontNamed: "Futura")
+
     let otherLabel = SKLabelNode(fontNamed: "Futura")
     let pauseLabel = SKLabelNode(fontNamed: "Futura")
     let winLabel = SKLabelNode(fontNamed: "Futura")
@@ -36,39 +32,23 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     var lastUpdateTime: TimeInterval = 0
     var dt: TimeInterval = 0
     var spritesMoving = false
-    var tapCount = 0 // 3 taps and game is over
-    let playerBlue = SKSpriteNode(imageNamed: "bluePenguin")
-    let playerRed = SKSpriteNode(imageNamed: "redPenguin")
-    let iceLaser = SKSpriteNode(imageNamed: "iceLaser")
-    let fish = SKSpriteNode(imageNamed: "fish")
-    let blueLife1 = SKSpriteNode(imageNamed: "heart")
-    let blueLife2 = SKSpriteNode(imageNamed: "heart")
-    let blueLife3 = SKSpriteNode(imageNamed: "heart")
-    let redLife1 = SKSpriteNode(imageNamed: "heart")
-    let redLife2 = SKSpriteNode(imageNamed: "heart")
-    let redLife3 = SKSpriteNode(imageNamed: "heart")
-    
-    let playerRedSpeed = CGFloat(0.2);
-    let playerBlueSpeed = CGFloat(0.2);
 
-
+    var redPlayer:Player
+    var bluePlayer:Player
     
     var playerBlueTouchCount = 0
     var playerBluePos:CGPoint = CGPoint(x: 100, y: 100)
-    
     var playerRedTouchCount = 0
     var playerRedPos:CGPoint = CGPoint(x: 300, y: 100)
-    
-    var blueLife1Pos:CGPoint = CGPoint(x:10, y:10)
-    var blueLife2Pos:CGPoint = CGPoint(x:10, y:10)
-    var blueLife3Pos:CGPoint = CGPoint(x:10, y:10)
-    
-    var redLife1Pos:CGPoint = CGPoint(x:10, y:10)
-    var redLife2Pos:CGPoint = CGPoint(x:10, y:10)
-    var redLife3Pos:CGPoint = CGPoint(x:10, y:10)
 
-    
-    var shootTimer:CGFloat = CGFloat(3)
+
+    let playerSpeed = CGFloat(10)
+    let iceShootTimer = CGFloat(3)
+    let iceProjectileSpeed = CGFloat(300)
+    let fishProjectileSpeed = CGFloat(450)
+    let fishTimer = CGFloat(6)
+    let fishRapidFireCount = 3
+    let fishOffsetDist:CGFloat = 50
     
     var gameLoopPaused:Bool = false {
         didSet {
@@ -77,54 +57,27 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         }
     }
     
-    var redHealth:Int = 3 {
-        didSet {
-            switch (oldValue) {
-            case 3:
-                redLife3.removeFromParent()
-                break;
-            case 2:
-                redLife2.removeFromParent()
-                break;
-            case 1:
-                redLife1.removeFromParent()
-                winLabel.text = "Blue wins!"
-                physicsWorld.speed = 0
-                winLabel.position = CGPoint(x: size.width / 2, y: size.height / 2)
-                addChild(winLabel)
-                break;
-                
-            default:break;
-            }
-        }
-    }
-    
-    var blueHealth : Int = 3{
-        didSet {
-            switch(oldValue) {
-            case 3:
-                blueLife3.removeFromParent()
-                break;
-            case 2:
-                blueLife2.removeFromParent()
-                break;
-            case 1:
-                blueLife1.removeFromParent()
-                winLabel.text = "Red wins!"
-                physicsWorld.speed = 0
-                winLabel.position = CGPoint(x: size.width / 2, y: size.height / 2)
-                addChild(winLabel)
-                break;
-            default:break;
-            }
-        }
-    }
-    
     // init
     init(size: CGSize, scaleMode:SKSceneScaleMode, levelNum:Int, totalScore:Int, sceneManager:GameViewController) {
         self.levelNum = levelNum
         self.totalScore = totalScore
         self.sceneManager = sceneManager
+        redPlayer = Player(isRed: true, maxLife: 3,
+                           screenSize: size,
+                           playerSpeed: playerSpeed,
+                           iceShootTimer: iceShootTimer,
+                           iceProjectileSpeed: iceProjectileSpeed,
+                           fishProjectileSpeed: fishProjectileSpeed,
+                           fishTimer: fishTimer);
+        
+        bluePlayer = Player(isRed: false, maxLife: 3,
+                            screenSize: size,
+                            playerSpeed: playerSpeed,
+                            iceShootTimer: iceShootTimer,
+                            iceProjectileSpeed: iceProjectileSpeed,
+                            fishProjectileSpeed: fishProjectileSpeed,
+                            fishTimer: fishTimer);
+        
         super.init(size: size)
         self.scaleMode = scaleMode
         self.pauseLabel.text = "Paused"
@@ -140,131 +93,42 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     
     // lifecycle
     override func didMove(to view: SKView) {
+        redPlayer.setScale(0.24)
+        redPlayer.position = CGPoint(x: size.width/2 + 425, y: size.height/2)
+        addChild(redPlayer)
+        for i in 0..<redPlayer.lives.count {
+            redPlayer.lives[i].setScale(0.02)
+            addChild(redPlayer.lives[i])
+        }
+        
+        playerRedPos = redPlayer.position;
+        
+        bluePlayer.setScale(0.32)
+        bluePlayer.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
+        addChild(bluePlayer)
+        for i in 0..<bluePlayer.lives.count {
+            bluePlayer.lives[i].setScale(0.02)
+            addChild(bluePlayer.lives[i])
+        }
+        
+        playerBluePos = bluePlayer.position;
+        
         physicsWorld.gravity = CGVector.zero
         physicsWorld.contactDelegate = self
         
         setupUI()
-        playerBlue.setScale(0.32)
-        playerBluePos = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
-        
-        playerBlue.physicsBody = SKPhysicsBody(rectangleOf: playerBlue.size)
-        playerBlue.physicsBody?.isDynamic = false
-        playerBlue.physicsBody?.categoryBitMask = PhysicsCategory.All
-        playerBlue.physicsBody?.contactTestBitMask = PhysicsCategory.All
-        addChild(playerBlue)
-        
-        playerRed.setScale(0.24)
-        playerRedPos = CGPoint(x: size.width/2 + 425, y: size.height/2)
-        
-        playerRed.physicsBody = SKPhysicsBody(rectangleOf: playerRed.size)
-        playerRed.physicsBody?.isDynamic = false
-        playerRed.physicsBody?.categoryBitMask = PhysicsCategory.All
-        playerRed.physicsBody?.contactTestBitMask = PhysicsCategory.All
-        addChild(playerRed)
-        
-        blueLife1.setScale(0.02)
-        blueLife1Pos = CGPoint(x: size.width/2 - 500, y: size.height - 600)
-        blueLife1.position = blueLife1Pos
-        addChild(blueLife1)
-        
-        blueLife2.setScale(0.02)
-        blueLife2Pos = CGPoint(x: size.width/2 - 460, y: size.height - 600)
-        blueLife2.position = blueLife2Pos
-        addChild(blueLife2)
-        
-        blueLife3.setScale(0.02)
-        blueLife3Pos = CGPoint(x: size.width/2 - 420, y: size.height - 600)
-        blueLife3.position = blueLife3Pos
-        addChild(blueLife3)
-        
-        redLife1.setScale(0.02)
-        redLife1Pos = CGPoint(x: size.width/2 + 420, y: size.height - 600)
-        redLife1.position = redLife1Pos
-        addChild(redLife1)
-        
-        redLife2.setScale(0.02)
-        redLife2Pos = CGPoint(x: size.width/2 + 460, y: size.height - 600)
-        redLife2.position = redLife2Pos
-        addChild(redLife2)
-        
-        redLife3.setScale(0.02)
-        redLife3Pos = CGPoint(x: size.width/2 + 500, y: size.height - 600)
-        redLife3.position = redLife3Pos
-        addChild(redLife3)
         
         spritesMoving = false
         //physicsWorld.speed = 0.0
         setupGestures()
         drawLine()
-        
-
     }
     
     deinit {
         // todo clean up resources timers listeners etc
     }
     
-    // helpers
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            let location = touch.location(in: self)
-            if (location.x < size.width / 2.0) {
-                //print("Blue player \(playerBlueTouchCount)")
-                
-                if (playerBlueTouchCount > 0) {
-
-                    let f:FishProjectile = FishProjectile(position: location, projectileSpeed: 300, fwd: (location - playerBluePos).normalized(), timer: CGFloat(6))
-                    f.name = "fish"
-                    addChild(f);
-                    print((location - playerBluePos).normalized())
-                    playerBlueTouchCount += 1;
-
-                } else {
-                    playerBluePos = location
-                    playerBlueTouchCount = 1;
-                }
-                
-                
-                
-            } else {
-                //print("Red Player \(playerRedTouchCount)")
-                
-                if (playerRedTouchCount > 0) {
-
-                    let f:FishProjectile = FishProjectile(position: location, projectileSpeed: 300, fwd: (location - playerRedPos).normalized(), timer: CGFloat(6))
-                    f.name = "fish"
-                    addChild(f);
-                    
-                    playerRedTouchCount += 1;
-
-                    print((location - playerRedPos).normalized())
-                } else {
-                    playerRedPos = location
-                    playerRedTouchCount = 1;
-                    
-                }
-            }
-        }
-        
-        tapCount = tapCount + 1
-        return;
-        /*
-        if tapCount < 3 {
-            return
-        }
-        
-        if levelNum < GameData.maxLevel {
-            let results = LevelResults(levelNum: levelNum, levelScore: levelScore, totalScore: totalScore, msg: "You finished level \(levelNum)")
-            sceneManager.loadLevelFishedScene(results: results)
-        } else {
-            let results = LevelResults(levelNum: levelNum, levelScore: levelScore, totalScore: totalScore, msg: "You finished level \(levelNum)")
-            sceneManager.loadGameOverScene(results: results)
-        }
-        */
-    }
-    
     private func setupGestures(){
-        // taps
         let tap = UITapGestureRecognizer(target: self, action: #selector(togglePaused))
         tap.numberOfTapsRequired = 2
         tap.numberOfTouchesRequired = 3
@@ -273,7 +137,6 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     }
     
     func togglePaused(){
-
         gameLoopPaused = !gameLoopPaused
     }
     
@@ -325,33 +188,85 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         run(unPauseAction)
     }
 
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        var currTouchRed = 0;
-        var currTouchBlue = 0;
-        
+    // MARK: Input and touches
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
-            
-            
             let location = touch.location(in: self)
             if (location.x < size.width / 2.0) {
-                
-                if (currTouchBlue < 1) {
-                    //print("Blue player \(location)")
-                    currTouchBlue = 1;
-
+                if (playerBlueTouchCount == 0)
+                {
+                    playerBluePos = location
+                    playerBlueTouchCount = 1;
+                }
+                else
+                {
+                    shootFish(player: bluePlayer, location: location)
+                    playerBlueTouchCount += 1;
+                }
+            } else {
+                if (playerRedTouchCount == 0)
+                {
+                    playerRedPos = location
+                    playerRedTouchCount = 1;
+                }
+                else
+                {
+                    shootFish(player: redPlayer, location: location)
+                    playerRedTouchCount += 1;
+                }
+            }
+        }
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let location = touch.location(in: self)
+            if (location.x < size.width / 2.0) {
+                if (playerBlueTouchCount == 1) {
                     playerBluePos = location;
                 }
             } else {
-                
-                if (currTouchRed < 1) {
-                    //print("Red Player \(location)")
-                    currTouchRed = 1;
+                if (playerRedTouchCount == 1) {
                     playerRedPos = location;
                 }
             }
             
         }
     }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let location = touch.location(in: self)
+            if (location.x < size.width / 2.0) {
+                if (playerBlueTouchCount > 0) {
+                    playerBlueTouchCount -= 1;
+                }
+                
+            } else {
+                if (playerRedTouchCount > 0) {
+                    playerRedTouchCount -= 1;
+                }
+            }
+        }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let location = touch.location(in: self)
+            if (location.x < size.width / 2.0) {
+                if (playerBlueTouchCount > 0) {
+                    playerBlueTouchCount -= 1;
+                }
+                
+            } else {
+                if (playerRedTouchCount > 0) {
+                    playerRedTouchCount -= 1;
+                }
+            }
+        }
+    }
+    
+    // MARK
     
     func drawLine(){
         var l:Line
@@ -360,25 +275,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            let location = touch.location(in: self)
-            if (location.x < size.width / 2.0) {
-                //print("Blue player \(location)")
-                
-                if (playerBlueTouchCount > 0) {
-                    playerBlueTouchCount -= 1;
-                }
-                
-            } else {
-                //print("Red Player \(location)")
-                
-                if (playerRedTouchCount > 0) {
-                    playerRedTouchCount -= 1;
-                }
-            }
-        }
-    }
+
     
     
     private func setupUI(){
@@ -477,8 +374,6 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
             s.setScale(0.5)
             
             let halfWidth = s.frame.width/2
-            //print("Icicile: \(s.physicsBody?.collisionBitMask)")
-            //print("Player: \(self.playerBlue.physicsBody?.contactTestBitMask)")
             
             if s.position.x <= -halfWidth || s.position.x >= self.size.width + halfWidth {
                 s.removeFromParent()
@@ -489,67 +384,90 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     }
     
     func movePlayer(dt:CGFloat) {
-        playerRed.position = playerRed.position + (playerRedPos - playerRed.position) * playerRedSpeed;
-        playerBlue.position = playerBlue.position + (playerBluePos - playerBlue.position) * playerBlueSpeed;
+        redPlayer.UpdatePlayer(dt: dt, posToMoveTo: playerRedPos)
+        bluePlayer.UpdatePlayer(dt: dt, posToMoveTo: playerBluePos)
     }
     
     func shootIcicle(dt: CGFloat) {
-        if shootTimer < 0 {
-            shootTimer = 3;
-            let i = IceProjectile(position: playerRedPos, projectileSpeed: 300, fwd: CGPoint(x: -1, y:0), isRed:true)
+        if (redPlayer.currShootTimer < 0)
+        {
+            redPlayer.currShootTimer = redPlayer.shootTimer
+            let i = IceProjectile(position: redPlayer.position, projectileSpeed: redPlayer.iceProjectileSpeed, fwd: CGPoint(x: -1, y:0), isRed:true)
             i.name = "ice"
             addChild(i);
-            
-            let i2 = IceProjectile(position: playerBluePos, projectileSpeed: 300, fwd: CGPoint(x: 1, y: 0), isRed:false)
-            i2.name = "ice"
-            addChild(i2);
-            
-            
         } else {
-            shootTimer -= dt;
+            redPlayer.currShootTimer -= dt;
+        }
+        
+        if (bluePlayer.currShootTimer < 0)
+        {
+            bluePlayer.currShootTimer = bluePlayer.shootTimer
+            let i = IceProjectile(position: bluePlayer.position, projectileSpeed: bluePlayer.iceProjectileSpeed, fwd: CGPoint(x: 1, y:0), isRed:false)
+            i.name = "ice"
+            addChild(i);
+        } else {
+            bluePlayer.currShootTimer -= dt;
+        }
+    }
+    
+    func shootFish(player: Player, location: CGPoint)
+    {
+        var playerPos:CGPoint
+        if (player.isRed) {
+            playerPos = playerRedPos
+        } else {
+            playerPos = playerBluePos
+        }
+        
+        if(player.hasFishPowerUp) {
+            for n in 1...fishRapidFireCount {
+                let offSet:CGPoint = (location - playerPos).normalized() * CGFloat(n) * fishOffsetDist 
+                let firePosition:CGPoint = player.position + offSet;
+                
+                let f:FishProjectile = FishProjectile(position: firePosition, projectileSpeed: player.fishProjectileSpeed, fwd: (location - playerPos).normalized(), timer: player.fishTimer, isRed: player.isRed)
+                f.name = "fish"
+                addChild(f);
+            }
+        } else {
+            let f:FishProjectile = FishProjectile(position: playerPos, projectileSpeed: player.fishProjectileSpeed, fwd: (location - playerPos).normalized(), timer: player.fishTimer, isRed: player.isRed)
+            f.name = "fish"
+            addChild(f);
         }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        var firstBody: SKPhysicsBody = contact.bodyA
-        var secondBody: SKPhysicsBody = contact.bodyB
+        var firstBody:SKPhysicsBody
+        var secondBody:SKPhysicsBody
         
-        
-        //print("First: \(firstBody.categoryBitMask) Second: \(secondBody.categoryBitMask)")
-        if (firstBody.node?.name != "ice") {
+        if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask) {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+        } else {
             firstBody = contact.bodyB
             secondBody = contact.bodyA
         }
         
-        
-        //print("firstBody: \(firstBody.categoryBitMask)")
-        if (firstBody.node?.name == "ice") {
-            
-            if (secondBody.node?.name == "ice") {
-                if let proj1 = secondBody.node as? IceProjectile,
-                    let proj2 = firstBody.node as? IceProjectile {
-                    print("Ice hits ice")
+        if (firstBody.categoryBitMask == PhysicsCategory.RedProj &&
+            secondBody.categoryBitMask == PhysicsCategory.BlueProj) {
+            if let proj1 = firstBody.node as? Projectile,
+                let proj2 = secondBody.node as? Projectile {
+                if (proj1.isRed != proj2.isRed)
+                {
+                    print("Projectile collision")
                     proj1.removeFromParent()
                     proj2.removeFromParent()
                 }
-            } else {
-                print("Ice hits penguin?")
-                if let player = secondBody.node as? SKSpriteNode,
-                    let projectile = firstBody.node as? IceProjectile {
-                    if(player.position.x > size.width / 2) {
-                        if (!projectile.isRed) {
-                            print("Player Red gets hurt")
-                            projectile.removeFromParent()
-                            redHealth -= 1
-                        }
-                    } else {
-                        if (projectile.isRed) {
-                            print("Player Blue gets hurt")
-                            projectile.removeFromParent()
-                            blueHealth -= 1
-                        }
-                        
-                    }
+            }
+        }
+        else if (firstBody.categoryBitMask == PhysicsCategory.Player &&
+            (secondBody.categoryBitMask == PhysicsCategory.RedProj ||
+            secondBody.categoryBitMask == PhysicsCategory.BlueProj)) {
+            if let player = firstBody.node as? Player,
+                let proj = secondBody.node as? Projectile {
+                if (player.isRed != proj.isRed)
+                {
+                    player.TakeDamage()
+                    proj.removeFromParent()
                 }
             }
         }
