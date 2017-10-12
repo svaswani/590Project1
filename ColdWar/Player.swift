@@ -21,8 +21,12 @@ class Player: SKSpriteNode{
     let fishPowerUpMaxTimer = CGFloat(4)
     var fishPowerUpTimer:CGFloat = 0
     
-    var playerEmitter:SKEmitterNode? = nil
+    let maxFishAmmo = CGFloat(50)
+    var currFishAmmo:CGFloat
+    let fishRechargeRate = CGFloat(5)
     
+    var ammoBar:AmmoBar? = nil
+    var playerEmitter:SKEmitterNode? = nil
     var hasShield = false
     
     var baseIceProjectileSpeed:CGFloat
@@ -81,6 +85,7 @@ class Player: SKSpriteNode{
         self.isRed = isRed
         life = maxLife
         self.playerSpeed = playerSpeed
+        currFishAmmo = maxFishAmmo
         baseShootTimer = iceShootTimer
         currShootTimer = iceShootTimer
         baseIceProjectileSpeed = iceProjectileSpeed
@@ -109,6 +114,7 @@ class Player: SKSpriteNode{
         self.physicsBody?.contactTestBitMask = PhysicsCategory.All
         self.physicsBody?.collisionBitMask = PhysicsCategory.None
     }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -122,32 +128,28 @@ class Player: SKSpriteNode{
         
         life -= 1;
         
-        //remove hearts
-        switch (life)
-        {
-            case 2:
-                lives[2].removeFromParent();
-                break;
-            case 1:
-                lives[1].removeFromParent();
-                break;
-            case 0:
-                lives[0].removeFromParent();
-                break;
-            default: break;
+        if life >= 0 {
+            lives[life].removeFromParent();
         }
     }
     
     func UpdatePlayer(dt:CGFloat, posToMoveTo:CGPoint) {
         position = position + (posToMoveTo - position) * playerSpeed * dt;
         
+        currFishAmmo += fishRechargeRate * dt
         if (hasFishPowerUp) {
             fishPowerUpTimer -= dt
+            currFishAmmo += fishRechargeRate * dt
             if (fishPowerUpTimer < 0) {
-                
                 hasFishPowerUp = false
             }
         }
+        
+        if (currFishAmmo > maxFishAmmo) {
+            currFishAmmo = maxFishAmmo
+        }
+        
+        print(currFishAmmo)
         
         if (hasIcePowerUp) {
             icePowerUpTimer -= dt
@@ -160,6 +162,10 @@ class Player: SKSpriteNode{
         {
             playerEmitter?.position = position
         }
+        
+        if (ammoBar != nil) {
+            ammoBar?.xScale = currFishAmmo / maxFishAmmo
+        }
     }
     
     func SetPlayerEmitter(emitter: SKEmitterNode?) {
@@ -170,5 +176,23 @@ class Player: SKSpriteNode{
         playerEmitter = emitter
     }
     
+    func setAmmoBar(ammoBar: AmmoBar) {
+        if self.ammoBar != nil {
+            ammoBar.removeFromParent()
+            self.ammoBar = nil
+        }
+        
+        self.ammoBar = ammoBar
+        //ammoBar.run(SKAction.repeatForever(SKAction.scaleX(to: currFishAmmo / maxFishAmmo, duration: 0.25)))
+    }
     
+    func useUpFishAmmo(ammoCost: CGFloat) -> Bool {
+        if (currFishAmmo > ammoCost)
+        {
+            currFishAmmo -= ammoCost
+            return true
+        }
+        
+        return false
+    }
 }

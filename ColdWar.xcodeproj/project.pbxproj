@@ -15,6 +15,7 @@
 		3F09574B1F8FF7DC00546EB5 /* PowerUpEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F09574A1F8FF7DC00546EB5 /* PowerUpEffect.sks */; };
 		3F09574D1F8FFAA600546EB5 /* Landing.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F09574C1F8FFAA600546EB5 /* Landing.sks */; };
 		3F09574F1F8FFCC600546EB5 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F09574E1F8FFCC600546EB5 /* Shadow.swift */; };
+		3F0957511F900AF200546EB5 /* AmmoBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0957501F900AF200546EB5 /* AmmoBar.swift */; };
 		3F4842791F8EE09000E5679F /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4842781F8EE09000E5679F /* Player.swift */; };
 		3F48427B1F8EF18900E5679F /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F48427A1F8EF18900E5679F /* Projectile.swift */; };
 		DB2A89531F7952B200A13B8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89521F7952B200A13B8B /* AppDelegate.swift */; };
@@ -47,6 +48,7 @@
 		3F09574A1F8FF7DC00546EB5 /* PowerUpEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PowerUpEffect.sks; sourceTree = "<group>"; };
 		3F09574C1F8FFAA600546EB5 /* Landing.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Landing.sks; sourceTree = "<group>"; };
 		3F09574E1F8FFCC600546EB5 /* Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
+		3F0957501F900AF200546EB5 /* AmmoBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmmoBar.swift; sourceTree = "<group>"; };
 		3F4842781F8EE09000E5679F /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3F48427A1F8EF18900E5679F /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
 		DB2A894F1F7952B200A13B8B /* ColdWar.swiftmodule */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = ColdWar.swiftmodule; path = "../Debug-iphoneos/ColdWar.swiftmodule"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +164,7 @@
 				3F09574A1F8FF7DC00546EB5 /* PowerUpEffect.sks */,
 				3F09574C1F8FFAA600546EB5 /* Landing.sks */,
 				3F09574E1F8FFCC600546EB5 /* Shadow.swift */,
+				3F0957501F900AF200546EB5 /* AmmoBar.swift */,
 			);
 			name = Sprite;
 			path = ColdWar;
@@ -276,6 +279,7 @@
 				DB2A89A01F7954C400A13B8B /* HomeScene.swift in Sources */,
 				DB2A899A1F79542D00A13B8B /* CGPoint+Extensions.swift in Sources */,
 				DBC5BC211F79FD48000D717F /* IceProjectile.swift in Sources */,
+				3F0957511F900AF200546EB5 /* AmmoBar.swift in Sources */,
 				3F48427B1F8EF18900E5679F /* Projectile.swift in Sources */,
 				DB2A899E1F79549000A13B8B /* GameOverScene.swift in Sources */,
 				3F4842791F8EE09000E5679F /* Player.swift in Sources */,

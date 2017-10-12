@@ -53,8 +53,8 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     let fishRapidFireCount = 3
     let fishOffsetDist:CGFloat = 75
     
-    let minTimeToSpawnPowerUp = CGFloat(1)
-    let maxTimeToSpawnPowerUp = CGFloat(2)
+    let minTimeToSpawnPowerUp = CGFloat(15)
+    let maxTimeToSpawnPowerUp = CGFloat(25)
     
     var timeToSpawnPowerUp:CGFloat
     
@@ -77,7 +77,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         self.levelNum = levelNum
         self.totalScore = totalScore
         self.sceneManager = sceneManager
-        redPlayer = Player(isRed: true, maxLife: 3,
+        redPlayer = Player(isRed: true, maxLife: 5,
                            screenSize: size,
                            playerSpeed: playerSpeed,
                            iceShootTimer: iceShootTimer,
@@ -85,7 +85,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                            fishProjectileSpeed: fishProjectileSpeed,
                            fishTimer: fishTimer);
         
-        bluePlayer = Player(isRed: false, maxLife: 3,
+        bluePlayer = Player(isRed: false, maxLife: 5,
                             screenSize: size,
                             playerSpeed: playerSpeed,
                             iceShootTimer: iceShootTimer,
@@ -113,9 +113,12 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         addChild(redPlayer)
         for i in 0..<redPlayer.lives.count {
             redPlayer.lives[i].setScale(0.02)
-            redPlayer.lives[i].position = CGPoint(x: size.width - 120 + CGFloat(i * 40), y: size.height - 40)
+            redPlayer.lives[i].position = CGPoint(x: size.width - 40 - CGFloat(i * 40), y: size.height - 40)
             addChild(redPlayer.lives[i])
         }
+        redPlayer.setAmmoBar(ammoBar: AmmoBar(position: CGPoint(x: size.width - 40, y: 60),
+                                              isRed: true, width: 40, height: 300))
+        addChild(redPlayer.ammoBar!)
         
         playerRedPos = redPlayer.position;
         
@@ -127,6 +130,9 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
             bluePlayer.lives[i].position = CGPoint(x: 40 + CGFloat(i * 40), y: 40)
             addChild(bluePlayer.lives[i])
         }
+        bluePlayer.setAmmoBar(ammoBar: AmmoBar(position: CGPoint(x: 40, y: size.height - 60),
+                                              isRed: false, width: 40, height: 300))
+        addChild(bluePlayer.ammoBar!)
         
         playerBluePos = bluePlayer.position;
         
@@ -226,7 +232,9 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                 }
                 else if (playerBlueTouchCount == 1)
                 {
-                    shootFish(player: bluePlayer, location: location)
+                    if (bluePlayer.useUpFishAmmo(ammoCost: 10)) {
+                        shootFish(player: bluePlayer, location: location)
+                    }
                     playerBlueTouchCount += 1;
                 }
             } else {
@@ -237,7 +245,9 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                 }
                 else if (playerRedTouchCount == 1)
                 {
-                    shootFish(player: redPlayer, location: location)
+                    if (redPlayer.useUpFishAmmo(ammoCost: 10)) {
+                        shootFish(player: redPlayer, location: location)
+                    }
                     playerRedTouchCount += 1;
                 }
             }
