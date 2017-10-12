@@ -52,7 +52,7 @@
 		3F0957521F90142700546EB5 /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		3F4842781F8EE09000E5679F /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3F48427A1F8EF18900E5679F /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
-		DB2A894F1F7952B200A13B8B /* ColdWar.swiftmodule */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = ColdWar.swiftmodule; path = "../Debug-iphoneos/ColdWar.swiftmodule"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB2A894F1F7952B200A13B8B /* ColdWar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColdWar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB2A89521F7952B200A13B8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB2A89541F7952B200A13B8B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = ColdWar/GameScene.sks; sourceTree = "<group>"; };
 		DB2A89561F7952B200A13B8B /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Actions.sks; path = ColdWar/Actions.sks; sourceTree = "<group>"; };
@@ -107,7 +107,7 @@
 		DB2A89501F7952B200A13B8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DB2A894F1F7952B200A13B8B /* ColdWar.swiftmodule */,
+				DB2A894F1F7952B200A13B8B /* ColdWar.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -201,7 +201,7 @@
 			);
 			name = ColdWar;
 			productName = ColdWar;
-			productReference = DB2A894F1F7952B200A13B8B /* ColdWar.swiftmodule */;
+			productReference = DB2A894F1F7952B200A13B8B /* ColdWar.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -216,7 +216,7 @@
 				TargetAttributes = {
 					DB2A894E1F7952B200A13B8B = {
 						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = 9KRWQ3BBM5;
+						DevelopmentTeam = 5WMSVF3JT7;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -408,11 +408,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
-				DEVELOPMENT_TEAM = 9KRWQ3BBM5;
+				DEVELOPMENT_TEAM = 5WMSVF3JT7;
 				INFOPLIST_FILE = ColdWar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tanatb.ColdWar;
+				PRODUCT_BUNDLE_IDENTIFIER = com.svaswani.ColdWar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -422,11 +422,11 @@
 		DB2A89691F7952B200A13B8B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = 9KRWQ3BBM5;
+				DEVELOPMENT_TEAM = 5WMSVF3JT7;
 				INFOPLIST_FILE = ColdWar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tanatb.ColdWar;
+				PRODUCT_BUNDLE_IDENTIFIER = com.svaswani.ColdWar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 2;
