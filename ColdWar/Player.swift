@@ -21,6 +21,8 @@ class Player: SKSpriteNode{
     let fishPowerUpMaxTimer = CGFloat(4)
     var fishPowerUpTimer:CGFloat = 0
     
+    var playerEmitter:SKEmitterNode? = nil
+    
     var hasShield = false
     
     var baseIceProjectileSpeed:CGFloat
@@ -94,7 +96,7 @@ class Player: SKSpriteNode{
         
         let lifeTexture = SKTexture(imageNamed: "heart");
         lives = [];
-        for i in 0..<maxLife
+        for _ in 0..<maxLife
         {
             lives.append(SKSpriteNode(texture: lifeTexture));
         }
@@ -142,6 +144,7 @@ class Player: SKSpriteNode{
         if (hasFishPowerUp) {
             fishPowerUpTimer -= dt
             if (fishPowerUpTimer < 0) {
+                
                 hasFishPowerUp = false
             }
         }
@@ -152,5 +155,16 @@ class Player: SKSpriteNode{
                 hasIcePowerUp = false
             }
         }
+        
+        if (playerEmitter != nil)
+        {
+            playerEmitter?.position = position
+        }
     }
+    
+    func SetPlayerEmitter(emitter: SKEmitterNode?) {
+        playerEmitter = emitter
+    }
+    
+    
 }

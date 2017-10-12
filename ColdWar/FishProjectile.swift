@@ -13,7 +13,10 @@ class FishProjectile:Projectile {
     var timer:CGFloat
     
     init(position:CGPoint, projectileSpeed:CGFloat, fwd:CGPoint, timer:CGFloat, isRed: Bool, fishPhysicsBody: SKPhysicsBody) {
-        let texture = SKTexture(imageNamed: "fish")
+        var texture = SKTexture(imageNamed: "fish")
+        if (isRed) {
+            texture = SKTexture(imageNamed: "redFish")
+        } 
         self.timer = timer;
 
         super.init(position: position, projectileSpeed: projectileSpeed, fwd: fwd, isRed: isRed, texture: texture, physicsBody: fishPhysicsBody)
@@ -34,10 +37,13 @@ class FishProjectile:Projectile {
     
     override func update(dt: CGFloat) {
         timer -= dt
-        //super.update(dt: dt);
         
         fwd = CGPoint(x: (self.physicsBody?.velocity.dx)!, y: (self.physicsBody?.velocity.dy)!)
         zRotation = atan2(fwd.y, fwd.x)
+        
+        if (timer < 0) {
+            removeFromParent()
+        }
     }
     
     func reflectX() {

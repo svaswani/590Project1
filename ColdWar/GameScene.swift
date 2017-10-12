@@ -14,7 +14,8 @@ struct PhysicsCategory {
     static let Player    : UInt32 = 0x1 << 1
     static let RedProj   : UInt32 = 0x1 << 2
     static let BlueProj  : UInt32 = 0x1 << 3
-    static let Border    : UInt32 = 0x1 << 4
+    static let PowerUp   : UInt32 = 0x1 << 4
+    static let Border    : UInt32 = 0x1 << 5
     static let All       : UInt32 = UINT32_MAX
 }
 
@@ -53,8 +54,14 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     let fishRapidFireCount = 3
     let fishOffsetDist:CGFloat = 75
     
+    let minTimeToSpawnPowerUp = CGFloat(1)
+    let maxTimeToSpawnPowerUp = CGFloat(2)
+    
+    var timeToSpawnPowerUp:CGFloat
+    
     let icePhysicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "iceLaser"), size: SKTexture(imageNamed: "iceLaser").size())
     let fishPhysicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "fish"), size: SKTexture(imageNamed: "fish").size())
+    let powerUpPhysicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "icePowerUp"), size: SKTexture(imageNamed: "icePowerUp").size())
     
     let projEmitter:SKEmitterNode? = SKEmitterNode(fileNamed: "ParticleDeath")
     
@@ -67,7 +74,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     
     // init
     init(size: CGSize, scaleMode:SKSceneScaleMode, levelNum:Int, totalScore:Int, sceneManager:GameViewController) {
-
+        timeToSpawnPowerUp = CGFloat.random(min: minTimeToSpawnPowerUp, max: maxTimeToSpawnPowerUp)
         self.levelNum = levelNum
         self.totalScore = totalScore
         self.sceneManager = sceneManager
@@ -218,7 +225,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                     playerBluePos = location
                     playerBlueTouchCount = 1;
                 }
-                else
+                else if (playerBlueTouchCount == 1)
                 {
                     shootFish(player: bluePlayer, location: location)
                     playerBlueTouchCount += 1;
@@ -229,7 +236,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                     playerRedPos = location
                     playerRedTouchCount = 1;
                 }
-                else
+                else if (playerRedTouchCount == 1)
                 {
                     shootFish(player: redPlayer, location: location)
                     playerRedTouchCount += 1;
@@ -239,18 +246,24 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+
+        let threshold = CGFloat(20)
+        let thresholdSqr = threshold * threshold
         for touch in touches {
             let location = touch.location(in: self)
             if (location.x < size.width / 2.0) {
-                if (playerBlueTouchCount == 1) {
-                    playerBluePos = location;
+                if (location - playerBluePos).magnitudeSqr() < thresholdSqr {
+                    playerBluePos = location
+                } else {
+                    playerBluePos = playerBluePos + (location - playerBluePos).normalized() * threshold
                 }
             } else {
-                if (playerRedTouchCount == 1) {
-                    playerRedPos = location;
+                if (location - playerRedPos).magnitudeSqr() < thresholdSqr {
+                    playerRedPos = location
+                } else {
+                    playerRedPos = playerRedPos + (location - playerRedPos).normalized() * threshold
                 }
             }
-            
         }
     }
     
@@ -258,11 +271,17 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         for touch in touches {
             let location = touch.location(in: self)
             if (location.x < size.width / 2.0) {
+                if (playerBlueTouchCount > 2) {
+                    playerBlueTouchCount = 2
+                }
                 if (playerBlueTouchCount > 0) {
                     playerBlueTouchCount -= 1;
                 }
                 
             } else {
+                if (playerRedTouchCount > 2) {
+                    playerRedTouchCount = 2
+                }
                 if (playerRedTouchCount > 0) {
                     playerRedTouchCount -= 1;
                 }
@@ -274,11 +293,17 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         for touch in touches {
             let location = touch.location(in: self)
             if (location.x < size.width / 2.0) {
+                if (playerBlueTouchCount > 2) {
+                    playerBlueTouchCount = 2
+                }
                 if (playerBlueTouchCount > 0) {
                     playerBlueTouchCount -= 1;
                 }
                 
             } else {
+                if (playerRedTouchCount > 2) {
+                    playerRedTouchCount = 2
+                }
                 if (playerRedTouchCount > 0) {
                     playerRedTouchCount -= 1;
                 }
@@ -349,11 +374,34 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     // game loop
     override func update(_ currentTime: TimeInterval) {
         calculateDeltaTime(currentTime: currentTime)
-        updateFish(dt: CGFloat(dt))
-        movePlayer(dt: CGFloat(dt))
-        
-        shootIcicle(dt: CGFloat(dt))
-        updateIcicle(dt: CGFloat(dt))
+        let deltaTime = CGFloat(dt)
+        updateFish(dt: deltaTime)
+        movePlayer(dt: deltaTime)
+        shootIcicle(dt: deltaTime)
+        updateIcicle(dt: deltaTime)
+        updatePowerUpSpawn(dt: deltaTime)
+        updatePowerUp()
+    }
+    
+    func updatePowerUpSpawn(dt: CGFloat)
+    {
+        if timeToSpawnPowerUp < 0 {
+            timeToSpawnPowerUp = CGFloat.random(min: minTimeToSpawnPowerUp, max: maxTimeToSpawnPowerUp)
+            let p = PowerUp(position: CGPoint(x: size.width / 2, y: CGFloat.random(min: 30, max: 80)),
+                            physicsBody: powerUpPhysicsBody, type: getRandomPowerUpType())
+            p.name = "powerUp"
+            addChild(p)
+        } else {
+            timeToSpawnPowerUp -= dt
+        }
+    }
+    
+    func updatePowerUp() {
+//        enumerateChildNodes(withName: "powerUp", using: {
+//            node, stop in
+//            let s = node as! PowerUp
+//            s.update()
+//        })
     }
     
     func updateFish(dt: CGFloat) {
@@ -361,27 +409,6 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
             node, stop in
             let s = node as! FishProjectile
             s.update(dt: dt)
-            //s.setScale(0.5)
-            //let halfWidth = s.frame.width/2
-            //let halfHeight = s.frame.height/2
-
-            if (s.timer < 0) {
-                s.removeFromParent()
-            }
-            
-
-//            if s.position.x <= halfWidth || s.position.x >= self.size.width - halfWidth {
-//                s.reflectX()
-//                s.update(dt: dt)
-//            }
-//            
-//            //print("\(s.position.y) is between \(self.playableRect.minY + halfHeight) & \(self.playableRect.maxY - halfHeight)")
-//            //print("\(s.position.y) & \(self.playableRect.maxY - halfHeight)")
-//            if s.position.y <= self.playableRect.minY + halfHeight || s.position.y >= self.playableRect.maxY - halfHeight {
-//                s.reflectY()
-//                s.update(dt:dt)
-//            }
- 
         })
     }
     
@@ -390,9 +417,6 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
             node, stop in
             let s = node as! IceProjectile
             s.update(dt: dt)
-            
-            //s.setScale(0.5)
-            
             let halfWidth = s.frame.width/2
             
             if s.position.x <= -halfWidth || s.position.x >= self.size.width + halfWidth {
@@ -504,8 +528,8 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                 let proj2 = secondBody.node as? Projectile {
                 if (proj1.isRed != proj2.isRed)
                 {
-                    let emitter = SKEmitterNode(fileNamed: "ParticleDeath")
-                    emitter?.position = (proj1.position + proj2.position) / 2
+                    let emitter = SKEmitterNode(fileNamed: "ProjectileDeath")
+                    emitter?.position = contact.contactPoint
 
                     addChild(emitter!)
                     
@@ -528,14 +552,66 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                 {
                     player.TakeDamage()
                     proj.removeFromParent()
+                    
+                    let emitter = SKEmitterNode(fileNamed: "Hurt")
+                    emitter?.position = contact.contactPoint
+                    
+                    addChild(emitter!)
+                    
+                    let wait = SKAction.wait(forDuration: TimeInterval(1))
+                    let remove = SKAction.removeFromParent()
+                    emitter?.run(SKAction.sequence([wait, remove]))
                 }
             }
         }
-        else if ((firstBody.categoryBitMask == PhysicsCategory.RedProj ||
-                firstBody.categoryBitMask == PhysicsCategory.BlueProj) &&
-                secondBody.categoryBitMask == PhysicsCategory.Border) {
-            if let proj = firstBody.node as? FishProjectile {
-                //proj.reflectX()
+        else if (firstBody.categoryBitMask == PhysicsCategory.Player &&
+            secondBody.categoryBitMask == PhysicsCategory.PowerUp) {
+            if let player = firstBody.node as? Player,
+                let powerUp = secondBody.node as? PowerUp {
+
+                var timer:TimeInterval = 0.0
+                switch(powerUp.type)
+                {
+                case PowerUpType.Fish:
+                    player.hasFishPowerUp = true
+                    player.fishPowerUpTimer = player.fishPowerUpMaxTimer
+                    timer = TimeInterval(player.fishPowerUpTimer)
+                    break;
+                case PowerUpType.Ice:
+                    player.hasIcePowerUp = true
+                    player.icePowerUpTimer = player.icePowerUpMaxTimer
+                    timer = TimeInterval(player.icePowerUpTimer)
+                    break;
+                case PowerUpType.Shield:
+                    player.hasShield = true
+                    break;
+                }
+                
+                if (powerUp.type != PowerUpType.Shield) {
+                    let playerEmitter = SKEmitterNode(fileNamed: "PowerUpEffect")
+                    playerEmitter?.position = player.position
+                    playerEmitter?.zPosition = player.zPosition - 1
+                    let playerWait = SKAction.wait(forDuration: timer)
+                    let playerRemove = SKAction.removeFromParent()
+                    playerEmitter?.run(SKAction.sequence([playerWait, playerRemove]))
+                    
+                    player.SetPlayerEmitter(emitter: playerEmitter)
+                    addChild(playerEmitter!)
+                }
+                
+                let emitter = SKEmitterNode(fileNamed: "PowerUp")
+                emitter?.position = contact.contactPoint
+
+                let wait = SKAction.wait(forDuration: TimeInterval(0.25))
+                let remove = SKAction.removeFromParent()
+                emitter?.run(SKAction.sequence([wait, remove]))
+                
+                if emitter != nil
+                {
+                    addChild(emitter!)
+                }
+                
+                powerUp.removeFromParent()
             }
         }
     }

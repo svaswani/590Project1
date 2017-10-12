@@ -113,3 +113,6 @@ func getScreenPhysicalAspectRatioPortrait()->CGFloat{
     return UIScreen.main.nativeBounds.width / UIScreen.main.nativeBounds.height
 }
 
+func getRandomPowerUpType() -> PowerUpType {
+    return PowerUpType.Fish
+}

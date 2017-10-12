@@ -38,4 +38,8 @@ extension CGPoint {
         return self / length()
     }
     
+    func magnitudeSqr() -> CGFloat {
+        return (x*x + y*y)
+    }
+    
 }
