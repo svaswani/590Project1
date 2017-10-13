@@ -8,11 +8,11 @@
 
 import SpriteKit
 class HomeScene: SKScene {
-    // ivars
+    //MARK: iVars
     let sceneManager:GameViewController
     let button:SKLabelNode = SKLabelNode(fontNamed: GameData.font.mainFont)
     
-    // init
+    // MARK: Init
     init(size: CGSize, scaleMode:SKSceneScaleMode, sceneManager:GameViewController) {
         self.sceneManager = sceneManager
         super.init(size: size)
@@ -23,6 +23,7 @@ class HomeScene: SKScene {
         fatalError("init(coder: ) has not been implemented")
     }
     
+    // MARK: Helper functions for set up and input and touches
     override func didMove(to view: SKView) {
         
         backgroundColor = GameData.scene.backgroundColor
@@ -50,10 +51,6 @@ class HomeScene: SKScene {
         button.fontSize = 100
         addChild(button)
         
-        let backgroundMusic = SKAudioNode(fileNamed: "background")
-        backgroundMusic.autoplayLooped = true
-        print(backgroundMusic)
-        addChild(backgroundMusic)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

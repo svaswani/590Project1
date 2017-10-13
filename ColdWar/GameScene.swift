@@ -157,9 +157,11 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         setupGestures()
         //drawLine()
         
-        let backgroundMusic = SKAudioNode(fileNamed: "background")
-        backgroundMusic.autoplayLooped = true
-        addChild(backgroundMusic)
+        // background music
+        let music = SKAudioNode(fileNamed: "coldwarBackground")
+        music.autoplayLooped = true
+        print(music)
+        addChild(music)
 
         
     }

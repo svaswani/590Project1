@@ -25,6 +25,7 @@ class LevelFinishScene: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Helper functions for set up
     override func didMove(to view: SKView){
         backgroundColor = GameData.scene.backgroundColor
         
