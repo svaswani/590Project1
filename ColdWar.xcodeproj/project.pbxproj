@@ -407,6 +407,7 @@
 		DB2A89681F7952B200A13B8B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				DEVELOPMENT_TEAM = 5WMSVF3JT7;
 				INFOPLIST_FILE = ColdWar/Info.plist;
@@ -422,6 +423,7 @@
 		DB2A89691F7952B200A13B8B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 5WMSVF3JT7;
 				INFOPLIST_FILE = ColdWar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
