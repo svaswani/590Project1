@@ -38,8 +38,10 @@
 		DB3B595D1F82B28400C19023 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3B595C1F82B28400C19023 /* Line.swift */; };
 		DBAAAA001F9045AF00B02F64 /* background.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DBAAA9FF1F9045AF00B02F64 /* background.mp3 */; };
 		DBAAAA021F90464400B02F64 /* pew.wav in Resources */ = {isa = PBXBuildFile; fileRef = DBAAAA011F90464400B02F64 /* pew.wav */; };
+		DBAAAA041F9154F100B02F64 /* InstructionsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAAAA031F9154F100B02F64 /* InstructionsScene.swift */; };
 		DBC5BC1F1F79F348000D717F /* FishProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC5BC1E1F79F348000D717F /* FishProjectile.swift */; };
 		DBC5BC211F79FD48000D717F /* IceProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC5BC201F79FD48000D717F /* IceProjectile.swift */; };
+		DBD428B21F916124007E9A0B /* SnowtopCaps.otf in Resources */ = {isa = PBXBuildFile; fileRef = DBD428B11F916124007E9A0B /* SnowtopCaps.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,8 +78,10 @@
 		DB3B595C1F82B28400C19023 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		DBAAA9FF1F9045AF00B02F64 /* background.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background.mp3; sourceTree = "<group>"; };
 		DBAAAA011F90464400B02F64 /* pew.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pew.wav; sourceTree = "<group>"; };
+		DBAAAA031F9154F100B02F64 /* InstructionsScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionsScene.swift; sourceTree = "<group>"; };
 		DBC5BC1E1F79F348000D717F /* FishProjectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FishProjectile.swift; sourceTree = "<group>"; };
 		DBC5BC201F79FD48000D717F /* IceProjectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IceProjectile.swift; sourceTree = "<group>"; };
+		DBD428B11F916124007E9A0B /* SnowtopCaps.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SnowtopCaps.otf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,7 @@
 		DB2A89461F7952B100A13B8B = {
 			isa = PBXGroup;
 			children = (
+				DBD428B01F916119007E9A0B /* Fonts */,
 				DB3B59631F90400C00C19023 /* Sounds */,
 				DB2A89541F7952B200A13B8B /* GameScene.sks */,
 				DB2A89561F7952B200A13B8B /* Actions.sks */,
@@ -147,6 +152,7 @@
 				DB2A899D1F79549000A13B8B /* GameOverScene.swift */,
 				DB2A899F1F7954C400A13B8B /* HomeScene.swift */,
 				DB2A89A11F7954E900A13B8B /* LevelFinishScene.swift */,
+				DBAAAA031F9154F100B02F64 /* InstructionsScene.swift */,
 			);
 			name = Scene;
 			path = ColdWar;
@@ -199,6 +205,14 @@
 				DBAAAA011F90464400B02F64 /* pew.wav */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		DBD428B01F916119007E9A0B /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				DBD428B11F916124007E9A0B /* SnowtopCaps.otf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,6 +284,7 @@
 				3F1A56811F913B0800FEB3A2 /* PenguinDeath.sks in Resources */,
 				3F0957491F8FF6A200546EB5 /* PowerUp.sks in Resources */,
 				DB2A89631F7952B200A13B8B /* LaunchScreen.storyboard in Resources */,
+				DBD428B21F916124007E9A0B /* SnowtopCaps.otf in Resources */,
 				DBAAAA001F9045AF00B02F64 /* background.mp3 in Resources */,
 				3F09574D1F8FFAA600546EB5 /* Landing.sks in Resources */,
 				DB2A89571F7952B200A13B8B /* Actions.sks in Resources */,
@@ -302,6 +317,7 @@
 				3F0957511F900AF200546EB5 /* AmmoBar.swift in Sources */,
 				3F48427B1F8EF18900E5679F /* Projectile.swift in Sources */,
 				DB2A899E1F79549000A13B8B /* GameOverScene.swift in Sources */,
+				DBAAAA041F9154F100B02F64 /* InstructionsScene.swift in Sources */,
 				3F4842791F8EE09000E5679F /* Player.swift in Sources */,
 				DB2A89531F7952B200A13B8B /* AppDelegate.swift in Sources */,
 			);

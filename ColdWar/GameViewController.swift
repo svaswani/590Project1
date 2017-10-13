@@ -61,6 +61,17 @@ class GameViewController: UIViewController {
     func loadGameOverScene(player:String) {
         gameScene = nil
         let scene = GameOverScene(size:screenSize, sceneManager: self, player: player)
+        scene.scaleMode = .aspectFit
+        scene.size = skView.bounds.size
+        let reveal = SKTransition.crossFade(withDuration: 1)
+        skView.presentScene(scene, transition: reveal)
+    }
+    
+    func loadInstructionsScene() {
+        gameScene = nil
+        let scene = Instructions(size: screenSize, sceneManager: self)
+        scene.scaleMode = .aspectFit
+        scene.size = skView.bounds.size
         let reveal = SKTransition.crossFade(withDuration: 1)
         skView.presentScene(scene, transition: reveal)
     }
