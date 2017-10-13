@@ -21,12 +21,13 @@ class Player: SKSpriteNode{
     let fishPowerUpMaxTimer = CGFloat(6)
     var fishPowerUpTimer:CGFloat = 0
     
-    let maxFishAmmo = CGFloat(50)
+    let maxFishAmmo = CGFloat(75)
     var currFishAmmo:CGFloat
-    let fishRechargeRate = CGFloat(5)
+    let fishRechargeRate = CGFloat(7.5)
     
     var ammoBar:AmmoBar? = nil
     var playerEmitter:SKEmitterNode? = nil
+    var playerShield:SKSpriteNode? = nil
     var hasShield = false
     
     var baseIceProjectileSpeed:CGFloat
@@ -125,6 +126,10 @@ class Player: SKSpriteNode{
         if (hasShield)
         {
             hasShield = false
+            if (playerShield != nil) {
+                playerShield?.removeFromParent()
+                playerShield = nil
+            }
             return
         }
         
@@ -158,14 +163,10 @@ class Player: SKSpriteNode{
             }
         }
         
-        if (playerEmitter != nil)
-        {
-            playerEmitter?.position = position
-        }
+        playerShield?.position = self.position
+        playerEmitter?.position = self.position
+        ammoBar?.xScale = currFishAmmo / maxFishAmmo
         
-        if (ammoBar != nil) {
-            ammoBar?.xScale = currFishAmmo / maxFishAmmo
-        }
     }
     
     func SetPlayerEmitter(emitter: SKEmitterNode?) {
@@ -174,6 +175,14 @@ class Player: SKSpriteNode{
             playerEmitter = nil
         }
         playerEmitter = emitter
+    }
+    
+    func SetPlayerShield(shield: SKSpriteNode?) {
+        if playerShield != nil {
+            playerShield?.removeFromParent()
+            playerShield = nil
+        }
+        playerShield = shield
     }
     
     func setAmmoBar(ammoBar: AmmoBar) {

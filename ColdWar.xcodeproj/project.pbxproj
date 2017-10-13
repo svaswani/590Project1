@@ -17,6 +17,7 @@
 		3F09574F1F8FFCC600546EB5 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F09574E1F8FFCC600546EB5 /* Shadow.swift */; };
 		3F0957511F900AF200546EB5 /* AmmoBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0957501F900AF200546EB5 /* AmmoBar.swift */; };
 		3F0957531F90142700546EB5 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0957521F90142700546EB5 /* GameData.swift */; };
+		3F1A56811F913B0800FEB3A2 /* PenguinDeath.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F1A56801F913B0800FEB3A2 /* PenguinDeath.sks */; };
 		3F4842791F8EE09000E5679F /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4842781F8EE09000E5679F /* Player.swift */; };
 		3F48427B1F8EF18900E5679F /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F48427A1F8EF18900E5679F /* Projectile.swift */; };
 		DB2A89531F7952B200A13B8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89521F7952B200A13B8B /* AppDelegate.swift */; };
@@ -52,6 +53,7 @@
 		3F09574E1F8FFCC600546EB5 /* Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
 		3F0957501F900AF200546EB5 /* AmmoBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmmoBar.swift; sourceTree = "<group>"; };
 		3F0957521F90142700546EB5 /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
+		3F1A56801F913B0800FEB3A2 /* PenguinDeath.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PenguinDeath.sks; sourceTree = "<group>"; };
 		3F4842781F8EE09000E5679F /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3F48427A1F8EF18900E5679F /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
 		DB2A894F1F7952B200A13B8B /* ColdWar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColdWar.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +164,7 @@
 		DB2A89A41F79551B00A13B8B /* SpriteAndEmitter */ = {
 			isa = PBXGroup;
 			children = (
+				3F1A56801F913B0800FEB3A2 /* PenguinDeath.sks */,
 				3F0957481F8FF61E00546EB5 /* PowerUp.sks */,
 				3F0957401F8FE3EB00546EB5 /* ProjectileDeath.sks */,
 				DB3B595C1F82B28400C19023 /* Line.swift */,
@@ -264,6 +267,7 @@
 				DBAAAA021F90464400B02F64 /* pew.wav in Resources */,
 				DB2A89601F7952B200A13B8B /* Assets.xcassets in Resources */,
 				3F09574B1F8FF7DC00546EB5 /* PowerUpEffect.sks in Resources */,
+				3F1A56811F913B0800FEB3A2 /* PenguinDeath.sks in Resources */,
 				3F0957491F8FF6A200546EB5 /* PowerUp.sks in Resources */,
 				DB2A89631F7952B200A13B8B /* LaunchScreen.storyboard in Resources */,
 				DBAAAA001F9045AF00B02F64 /* background.mp3 in Resources */,

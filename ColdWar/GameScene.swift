@@ -46,8 +46,8 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     let fishOffsetDist:CGFloat = 75
     
     //power ups
-    let minTimeToSpawnPowerUp = CGFloat(15)
-    let maxTimeToSpawnPowerUp = CGFloat(25)
+    let minTimeToSpawnPowerUp = CGFloat(10)
+    let maxTimeToSpawnPowerUp = CGFloat(15)
     var timeToSpawnPowerUp:CGFloat
     
     //create a copy of each physics body
@@ -522,7 +522,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
             
             //shadow and its actions
             let shadow = Shadow(position: position)
-            let grow = SKAction.scale(by: 18, duration: 5)
+            let grow = SKAction.scale(by: 18, duration: 3)
             let removeShadow = SKAction.removeFromParent()
             let shadowAction = SKAction.sequence([grow, removeShadow])
             
@@ -535,7 +535,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
             self.run(SKAction.sequence([SKAction.run({
                 self.addChild(shadow)
                 shadow.run(shadowAction)}),
-                                        SKAction.wait(forDuration: 5),
+                                        SKAction.wait(forDuration: 3),
                                         SKAction.run({
                                             let e = SKEmitterNode(fileNamed: "Landing")
                                             e?.position = p.position
@@ -653,6 +653,11 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                     timer = TimeInterval(player.icePowerUpTimer)
                     break;
                 case PowerUpType.Shield:
+                    let shield = SKSpriteNode(imageNamed: "shield")
+                    shield.zPosition = SpriteLayer.FrontParticles
+                    player.SetPlayerShield(shield: shield)
+                    addChild(shield)
+                    
                     player.hasShield = true
                     break;
                 }
