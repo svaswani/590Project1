@@ -157,6 +157,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         let backgroundMusic = SKAudioNode(fileNamed: "background")
         backgroundMusic.autoplayLooped = true
         addChild(backgroundMusic)
+        
     }
     
     // MARK: Helper functions for set up
@@ -495,6 +496,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
             //power up
             let p = PowerUp(position: position,
                             physicsBody: powerUpPhysicsBody, type: getRandomPowerUpType())
+            p.setScale(0.50)
             
             //shadow and its actions
             let shadow = Shadow(position: position)
