@@ -29,7 +29,7 @@ class PowerUp : SKSpriteNode {
             texture = SKTexture(imageNamed: "fishPowerUp")
             break;
         case PowerUpType.Shield:
-            texture = SKTexture(imageNamed: "sheildPowerUp")
+            texture = SKTexture(imageNamed: "shieldPowerUp")
             break;
         }
         
