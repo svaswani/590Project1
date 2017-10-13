@@ -153,6 +153,10 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         spritesMoving = false
         setupGestures()
         drawLine()
+        
+        let backgroundMusic = SKAudioNode(fileNamed: "background")
+        backgroundMusic.autoplayLooped = true
+        addChild(backgroundMusic)
     }
     
     // MARK: Helper functions for set up
@@ -367,6 +371,9 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
             
             f.setScale(0.5)
         }
+        
+        run(SKAction.playSoundFileNamed("pew", waitForCompletion: false))
+
     }
     
     // MARK: Update Loop
