@@ -42,7 +42,7 @@ class GameOverScene: SKScene {
         
         let label4 = SKLabelNode(fontNamed: GameData.font.mainFont)
         label4.text = "Tap to play again"
-        label4.fontColor = UIColor.red
+        label4.fontColor = UIColor.purple
         label4.fontSize = 70
         label4.position = CGPoint(x:size.width/2, y:size.height/2 - 300)
         addChild(label4)
