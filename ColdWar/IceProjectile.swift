@@ -11,7 +11,10 @@ import SpriteKit
 
 class IceProjectile : Projectile {
     init(position:CGPoint, projectileSpeed:CGFloat, fwd:CGPoint, isRed:Bool, icePhysicsBody: SKPhysicsBody) {
-        let texture = SKTexture(imageNamed: "iceLaser")
+        var texture = SKTexture(imageNamed: "iceLaser")
+        if (isRed) {
+            texture = SKTexture(imageNamed: "redIceLaser")
+        }
         super.init(position: position, projectileSpeed: projectileSpeed, fwd: fwd, isRed: isRed, texture: texture, physicsBody: icePhysicsBody)
         
 
