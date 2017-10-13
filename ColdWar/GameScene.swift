@@ -576,7 +576,13 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                     //player takes damage, remove proj and play emitter
                     if player.life == 1 {
                         player.TakeDamage()
-                        sceneManager.loadGameOverScene()
+                        print(bluePlayer.life)
+                        if bluePlayer.life == 0 {
+                            sceneManager.loadGameOverScene(player: "Red Player")
+                        }
+                        if redPlayer.life == 0 {
+                            sceneManager.loadGameOverScene(player: "Blue Player")
+                        }
 
                     }
                     else if player.life > 0 {

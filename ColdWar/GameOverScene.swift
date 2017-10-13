@@ -11,12 +11,14 @@ class GameOverScene: SKScene {
     // MARK: - ivars -
     let sceneManager:GameViewController
     let button:SKLabelNode = SKLabelNode(fontNamed: GameData.font.mainFont)
+    var player:String = "foo"
     
     // MARK: - Initialization -
-    init(size: CGSize, won: Bool, sceneManager:GameViewController) {
+    init(size: CGSize, sceneManager:GameViewController, player: String) {
         self.sceneManager = sceneManager
         super.init(size: size)
         self.scaleMode = scaleMode
+        self.player = player
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -32,6 +34,12 @@ class GameOverScene: SKScene {
         label.fontSize = 100
         label.position = CGPoint(x:size.width/2, y:size.height/2 + 300)
         addChild(label)
+        
+        let label2 = SKLabelNode(fontNamed: GameData.font.mainFont)
+        label2.text = " \(player) won!"
+        label2.fontSize = 70
+        label2.position = CGPoint(x:size.width/2, y:size.height/2 - 100)
+        addChild(label2)
         
         let label4 = SKLabelNode(fontNamed: GameData.font.mainFont)
         label4.text = "Tap to play again"
