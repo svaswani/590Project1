@@ -117,7 +117,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                                               isRed: true,
                                               width: 40, height: 300))
         addChild(redPlayer.ammoBar!)
-        playerRedPos = redPlayer.position;
+        playerRedPos = redPlayer.position; 
         
         //set up blue player
         bluePlayer.setScale(0.50)
