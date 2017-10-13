@@ -49,6 +49,11 @@ class HomeScene: SKScene {
         button.position = CGPoint(x:size.width/2, y: size.height/2 - 160)
         button.fontSize = 100
         addChild(button)
+        
+        let backgroundMusic = SKAudioNode(fileNamed: "background")
+        backgroundMusic.autoplayLooped = true
+        print(backgroundMusic)
+        addChild(backgroundMusic)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

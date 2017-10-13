@@ -36,8 +36,8 @@
 		DB2A89A91F79555100A13B8B /* LevelResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89A81F79555100A13B8B /* LevelResults.swift */; };
 		DB2A89AE1F7955EF00A13B8B /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89AD1F7955EF00A13B8B /* MyUtils.swift */; };
 		DB3B595D1F82B28400C19023 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3B595C1F82B28400C19023 /* Line.swift */; };
-		DBAAAA001F9045AF00B02F64 /* background.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DBAAA9FF1F9045AF00B02F64 /* background.mp3 */; };
-		DBAAAA021F90464400B02F64 /* pew.wav in Resources */ = {isa = PBXBuildFile; fileRef = DBAAAA011F90464400B02F64 /* pew.wav */; };
+		DB3D5B191F9164FA005858EC /* background.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DBAAA9FF1F9045AF00B02F64 /* background.mp3 */; };
+		DB3D5B1A1F9164FE005858EC /* pew.wav in Resources */ = {isa = PBXBuildFile; fileRef = DBAAAA011F90464400B02F64 /* pew.wav */; };
 		DBAAAA041F9154F100B02F64 /* InstructionsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAAAA031F9154F100B02F64 /* InstructionsScene.swift */; };
 		DBC5BC1F1F79F348000D717F /* FishProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC5BC1E1F79F348000D717F /* FishProjectile.swift */; };
 		DBC5BC211F79FD48000D717F /* IceProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC5BC201F79FD48000D717F /* IceProjectile.swift */; };
@@ -278,16 +278,16 @@
 				3F0957411F8FE3EB00546EB5 /* ProjectileDeath.sks in Resources */,
 				DB2A895E1F7952B200A13B8B /* Main.storyboard in Resources */,
 				DB2A89551F7952B200A13B8B /* GameScene.sks in Resources */,
-				DBAAAA021F90464400B02F64 /* pew.wav in Resources */,
 				DB2A89601F7952B200A13B8B /* Assets.xcassets in Resources */,
 				3F09574B1F8FF7DC00546EB5 /* PowerUpEffect.sks in Resources */,
 				3F1A56811F913B0800FEB3A2 /* PenguinDeath.sks in Resources */,
 				3F0957491F8FF6A200546EB5 /* PowerUp.sks in Resources */,
 				DB2A89631F7952B200A13B8B /* LaunchScreen.storyboard in Resources */,
 				DBD428B21F916124007E9A0B /* SnowtopCaps.otf in Resources */,
-				DBAAAA001F9045AF00B02F64 /* background.mp3 in Resources */,
 				3F09574D1F8FFAA600546EB5 /* Landing.sks in Resources */,
 				DB2A89571F7952B200A13B8B /* Actions.sks in Resources */,
+				DB3D5B1A1F9164FE005858EC /* pew.wav in Resources */,
+				DB3D5B191F9164FA005858EC /* background.mp3 in Resources */,
 				3F0957431F8FE49100546EB5 /* Hurt.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
