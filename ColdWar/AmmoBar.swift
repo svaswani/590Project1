@@ -41,6 +41,7 @@ class AmmoBar:SKShapeNode {
         
         self.lineWidth = 1
 
+        self.zPosition = SpriteLayer.HUD
     }
     
     required init?(coder aDecoder: NSCoder) {

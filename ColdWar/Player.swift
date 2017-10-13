@@ -14,11 +14,11 @@ class Player: SKSpriteNode{
     var life:Int
     var lives:[SKSpriteNode]
     var hasIcePowerUp = false
-    let icePowerUpMaxTimer = CGFloat(6)
+    let icePowerUpMaxTimer = CGFloat(7)
     var icePowerUpTimer:CGFloat = 0
     
     var hasFishPowerUp = false
-    let fishPowerUpMaxTimer = CGFloat(5)
+    let fishPowerUpMaxTimer = CGFloat(6)
     var fishPowerUpTimer:CGFloat = 0
     
     let maxFishAmmo = CGFloat(50)
@@ -113,6 +113,8 @@ class Player: SKSpriteNode{
         self.physicsBody?.categoryBitMask = PhysicsCategory.Player
         self.physicsBody?.contactTestBitMask = PhysicsCategory.All
         self.physicsBody?.collisionBitMask = PhysicsCategory.None
+        
+        self.zPosition = SpriteLayer.Entities
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -28,6 +28,8 @@ class Line:SKShapeNode {
         self.strokeColor = strokeColor
         self.lineWidth = lineWidth
         self.fillColor = fillColor
+        
+        self.zPosition = SpriteLayer.HUD
     }
     
     required init?(coder aDecoder: NSCoder) {

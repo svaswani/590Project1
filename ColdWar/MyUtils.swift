@@ -36,3 +36,11 @@ struct PhysicsCategory {
     static let Border    : UInt32 = 0x1 << 5
     static let All       : UInt32 = UINT32_MAX
 }
+
+struct SpriteLayer {
+    static let Background     : CGFloat = 1
+    static let BackParticles  : CGFloat = 2
+    static let Entities       : CGFloat = 3
+    static let FrontParticles : CGFloat = 4
+    static let HUD            : CGFloat = 5
+}

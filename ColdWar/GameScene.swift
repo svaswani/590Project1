@@ -34,14 +34,14 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     var playerRedPos:CGPoint = CGPoint(x: 300, y: 100)
 
     //constants for ice attacks
-    let iceShootTimer = CGFloat(3)
-    let iceProjectileSpeed = CGFloat(200)
+    let iceShootTimer = CGFloat(2)
+    let iceProjectileSpeed = CGFloat(250)
     let iceFanAngle = CGFloat(15)
     let iceFanCount = 3
     
     //constants for fish attacks
-    let fishProjectileSpeed = CGFloat(300)
-    let fishTimer = CGFloat(6)
+    let fishProjectileSpeed = CGFloat(350)
+    let fishTimer = CGFloat(7)
     let fishRapidFireCount = 3
     let fishOffsetDist:CGFloat = 75
     
@@ -90,6 +90,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         self.pauseLabel.text = "Paused"
         pauseLabel.position = CGPoint(x:size.width/2, y:size.height/2)
         pauseLabel.alpha = 0.0
+        pauseLabel.zPosition = SpriteLayer.HUD
         self.addChild(self.pauseLabel)
     }
     
@@ -111,6 +112,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         for i in 0..<redPlayer.lives.count {
             redPlayer.lives[i].setScale(0.02)
             redPlayer.lives[i].position = CGPoint(x: size.width - 40 - CGFloat(i * 40), y: size.height - 40)
+            redPlayer.lives[i].zPosition = SpriteLayer.HUD
             addChild(redPlayer.lives[i])
         }
         redPlayer.setAmmoBar(ammoBar: AmmoBar(position: CGPoint(x: size.width - 40, y: 60),
@@ -126,6 +128,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         for i in 0..<bluePlayer.lives.count {
             bluePlayer.lives[i].setScale(0.02)
             bluePlayer.lives[i].position = CGPoint(x: 40 + CGFloat(i * 40), y: 40)
+            bluePlayer.lives[i].zPosition = SpriteLayer.HUD
             addChild(bluePlayer.lives[i])
         }
         bluePlayer.setAmmoBar(ammoBar: AmmoBar(position: CGPoint(x: 40, y: size.height - 60),
@@ -152,7 +155,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         setupUI()
         spritesMoving = false
         setupGestures()
-        drawLine()
+        //drawLine()
         
         let backgroundMusic = SKAudioNode(fileNamed: "background")
         backgroundMusic.autoplayLooped = true
@@ -164,6 +167,11 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     // MARK: Helper functions for set up
     private func setupUI(){
         backgroundColor = GameData.hud.backgroundColor
+        let bg = SKSpriteNode(imageNamed: "background")
+        bg.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        bg.size = size
+        bg.zPosition = SpriteLayer.Background
+        addChild(bg)
     }
 
     private func setupGestures(){
@@ -233,12 +241,25 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     }
     
     // MARK: Input and touches
+    func ifBlueTouch(location: CGPoint) -> Bool {
+        if (location.x < size.width / 2 - 50) {
+            return true
+        }
+        return false
+    }
+    
+    func ifRedTouch(location: CGPoint) -> Bool {
+        if (location.x > size.width / 2 + 50) {
+            return true
+        }
+        return false
+    }
     
     //handle when touches begin
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-            if (location.x < size.width / 2.0) {
+            if (ifBlueTouch(location: location)) {
                 //blue side
                 
                 if (playerBlueTouchCount == 0)
@@ -253,7 +274,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                     }
                     playerBlueTouchCount += 1;
                 }
-            } else {
+            } else if ifRedTouch(location: location){
                 //red side
                 
                 if (playerRedTouchCount == 0)
@@ -279,14 +300,14 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         let thresholdSqr = threshold * threshold
         for touch in touches {
             let location = touch.location(in: self)
-            if (location.x < size.width / 2.0) {
+            if (ifBlueTouch(location: location)) {
                 //only update to that position if it's smaller than a certain threshold
                 if (location - playerBluePos).magnitudeSqr() < thresholdSqr {
                     playerBluePos = location
                 } else {
                     playerBluePos = playerBluePos + (location - playerBluePos).normalized() * threshold
                 }
-            } else {
+            } else if ifRedTouch(location: location) {
                 //only update to that position if it's smaller than a certain threshold
                 if (location - playerRedPos).magnitudeSqr() < thresholdSqr {
                     playerRedPos = location
@@ -301,7 +322,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-            if (location.x < size.width / 2.0) {
+            if (ifBlueTouch(location: location)) {
                 if (playerBlueTouchCount > 2) {
                     playerBlueTouchCount = 2
                 }
@@ -309,7 +330,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                     playerBlueTouchCount -= 1;
                 }
                 
-            } else {
+            } else if ifRedTouch(location: location){
                 if (playerRedTouchCount > 2) {
                     playerRedTouchCount = 2
                 }
@@ -324,7 +345,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-            if (location.x < size.width / 2.0) {
+            if (ifBlueTouch(location: location)) {
                 if (playerBlueTouchCount > 2) {
                     playerBlueTouchCount = 2
                 }
@@ -518,7 +539,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                                         SKAction.run({
                                             let e = SKEmitterNode(fileNamed: "Landing")
                                             e?.position = p.position
-                                            e?.zPosition = p.zPosition - 1
+                                            e?.zPosition = SpriteLayer.BackParticles
                                             self.addChild(e!)
                                             self.addChild(p)
                                             e?.run(eAction)})]))
@@ -551,7 +572,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                     //plays emitter and remove nodes
                     let emitter = SKEmitterNode(fileNamed: "ProjectileDeath")
                     emitter?.position = contact.contactPoint
-
+                    emitter?.zPosition = SpriteLayer.BackParticles
                     addChild(emitter!)
                     
                     let wait = SKAction.wait(forDuration: TimeInterval((emitter?.particleLifetime)!))
@@ -574,32 +595,39 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                 if (player.isRed != proj.isRed)
                 {
                     //player takes damage, remove proj and play emitter
-                    if player.life == 1 {
-                        player.TakeDamage()
-                        print(bluePlayer.life)
+                    var emitter = SKEmitterNode(fileNamed: "Hurt")
+
+                    
+                    player.TakeDamage()
+                    proj.removeFromParent()
+                    
+                   
+                    if player.life == 0 {
+                        emitter = SKEmitterNode(fileNamed: "PenguinDeath")
+                        player.removeFromParent()
+                        physicsWorld.speed = 0
+                        var action:SKAction? = nil
                         if bluePlayer.life == 0 {
-                            sceneManager.loadGameOverScene(player: "Red Player")
+                            action = SKAction.run {
+                                self.sceneManager.loadGameOverScene(player: "Red Player")
+                            }
+                            
                         }
                         if redPlayer.life == 0 {
-                            sceneManager.loadGameOverScene(player: "Blue Player")
+                            action = SKAction.run {
+                                self.sceneManager.loadGameOverScene(player: "Blue Player")
+                            }
                         }
-
+                        
+                        self.run(SKAction.sequence([SKAction.wait(forDuration: 2), action!]))
                     }
-                    else if player.life > 0 {
-                        player.TakeDamage()
-                        print(player.life)
-                        proj.removeFromParent()
-                        
-                        let emitter = SKEmitterNode(fileNamed: "Hurt")
-                        emitter?.position = contact.contactPoint
-                        
-                        addChild(emitter!)
-                        
-                        let wait = SKAction.wait(forDuration: TimeInterval(1))
-                        let remove = SKAction.removeFromParent()
-                        emitter?.run(SKAction.sequence([wait, remove]))
-                    }
-
+                    
+                    emitter?.position = contact.contactPoint
+                    emitter?.zPosition = SpriteLayer.BackParticles
+                    let wait = SKAction.wait(forDuration: TimeInterval((emitter?.particleLifetime)!))
+                    let remove = SKAction.removeFromParent()
+                    emitter?.run(SKAction.sequence([wait, remove]))
+                    addChild(emitter!)
                 }
             }
         }
@@ -633,7 +661,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                 if (powerUp.type != PowerUpType.Shield) {
                     let playerEmitter = SKEmitterNode(fileNamed: "PowerUpEffect")
                     playerEmitter?.position = player.position
-                    playerEmitter?.zPosition = player.zPosition - 1
+                    playerEmitter?.zPosition = SpriteLayer.BackParticles
                     let playerWait = SKAction.wait(forDuration: timer)
                     let playerRemove = SKAction.removeFromParent()
                     playerEmitter?.run(SKAction.sequence([playerWait, playerRemove]))
@@ -646,6 +674,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                 let emitter = SKEmitterNode(fileNamed: "PowerUp")
                 emitter?.position = contact.contactPoint
 
+                emitter?.zPosition = SpriteLayer.BackParticles
                 let wait = SKAction.wait(forDuration: TimeInterval((emitter?.particleLifetime)!))
                 let remove = SKAction.removeFromParent()
                 emitter?.run(SKAction.sequence([wait, remove]))

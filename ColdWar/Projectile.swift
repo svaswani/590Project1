@@ -37,6 +37,8 @@ class Projectile : SKSpriteNode {
         }
         
         self.physicsBody?.usesPreciseCollisionDetection = false
+        
+        self.zPosition = SpriteLayer.Entities
     }
     
     required init?(coder aDecoder: NSCoder) {

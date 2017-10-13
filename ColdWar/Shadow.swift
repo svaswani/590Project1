@@ -23,6 +23,8 @@ class Shadow:SKShapeNode {
         self.strokeColor = UIColor.black
         self.lineWidth = lineWidth
         self.fillColor = UIColor.black
+        
+        self.zPosition = SpriteLayer.BackParticles
     }
     
     required init?(coder aDecoder: NSCoder) {

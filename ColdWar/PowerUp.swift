@@ -53,7 +53,7 @@ class PowerUp : SKSpriteNode {
         
         self.physicsBody?.angularVelocity = CGFloat.random(min: 0, max: 10)
         
-        
+        self.zPosition = SpriteLayer.Entities
     }
     
     required init?(coder aDecoder: NSCoder) {
