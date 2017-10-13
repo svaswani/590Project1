@@ -105,7 +105,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
     override func didMove(to view: SKView) {
         
         //set up red player
-        redPlayer.setScale(3.00)
+        redPlayer.setScale(0.50)
         redPlayer.position = CGPoint(x: size.width/2 + 425, y: size.height/2)
         addChild(redPlayer)
         for i in 0..<redPlayer.lives.count {
@@ -120,7 +120,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         playerRedPos = redPlayer.position;
         
         //set up blue player
-        bluePlayer.setScale(3.00)
+        bluePlayer.setScale(0.50)
         bluePlayer.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
         addChild(bluePlayer)
         for i in 0..<bluePlayer.lives.count {
