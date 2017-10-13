@@ -157,6 +157,7 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
         let backgroundMusic = SKAudioNode(fileNamed: "background")
         backgroundMusic.autoplayLooped = true
         addChild(backgroundMusic)
+
         
     }
     
@@ -573,17 +574,26 @@ class GameScene: SKScene,UIGestureRecognizerDelegate, SKPhysicsContactDelegate  
                 if (player.isRed != proj.isRed)
                 {
                     //player takes damage, remove proj and play emitter
-                    player.TakeDamage()
-                    proj.removeFromParent()
-                    
-                    let emitter = SKEmitterNode(fileNamed: "Hurt")
-                    emitter?.position = contact.contactPoint
-                    
-                    addChild(emitter!)
-                    
-                    let wait = SKAction.wait(forDuration: TimeInterval(1))
-                    let remove = SKAction.removeFromParent()
-                    emitter?.run(SKAction.sequence([wait, remove]))
+                    if player.life == 1 {
+                        player.TakeDamage()
+                        sceneManager.loadGameOverScene()
+
+                    }
+                    else if player.life > 0 {
+                        player.TakeDamage()
+                        print(player.life)
+                        proj.removeFromParent()
+                        
+                        let emitter = SKEmitterNode(fileNamed: "Hurt")
+                        emitter?.position = contact.contactPoint
+                        
+                        addChild(emitter!)
+                        
+                        let wait = SKAction.wait(forDuration: TimeInterval(1))
+                        let remove = SKAction.removeFromParent()
+                        emitter?.run(SKAction.sequence([wait, remove]))
+                    }
+
                 }
             }
         }
