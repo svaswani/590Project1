@@ -31,7 +31,7 @@ class HomeScene: SKScene {
         
         label.text = "Cold War"
         label2.text = "This is a two player game. \n Drag to move with one finger. \n Tap with another finger to shoot."
-        label3.text = "Avoid enemy projectiles. \n Collect power ups. \n The first to lose 3 lives is out."
+        label3.text = "Avoid enemy projectiles. \n Collect power ups. \n The first to lose 5 lives is out."
         
         label.fontSize = 200
         label2.fontSize = 18

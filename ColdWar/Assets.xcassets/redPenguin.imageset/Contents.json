@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "redPenguin.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "redPenguin.png",
       "scale" : "2x"
     },
     {
