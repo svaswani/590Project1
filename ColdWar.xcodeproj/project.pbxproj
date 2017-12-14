@@ -7,81 +7,77 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3F0957411F8FE3EB00546EB5 /* ProjectileDeath.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F0957401F8FE3EB00546EB5 /* ProjectileDeath.sks */; };
-		3F0957431F8FE49100546EB5 /* Hurt.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F0957421F8FE49100546EB5 /* Hurt.sks */; };
-		3F0957451F8FED7400546EB5 /* PowerUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0957441F8FED7400546EB5 /* PowerUp.swift */; };
-		3F0957471F8FF2CB00546EB5 /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0957461F8FF2CB00546EB5 /* CGVector+Extensions.swift */; };
-		3F0957491F8FF6A200546EB5 /* PowerUp.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F0957481F8FF61E00546EB5 /* PowerUp.sks */; };
-		3F09574B1F8FF7DC00546EB5 /* PowerUpEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F09574A1F8FF7DC00546EB5 /* PowerUpEffect.sks */; };
-		3F09574D1F8FFAA600546EB5 /* Landing.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F09574C1F8FFAA600546EB5 /* Landing.sks */; };
-		3F09574F1F8FFCC600546EB5 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F09574E1F8FFCC600546EB5 /* Shadow.swift */; };
-		3F0957511F900AF200546EB5 /* AmmoBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0957501F900AF200546EB5 /* AmmoBar.swift */; };
-		3F0957531F90142700546EB5 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0957521F90142700546EB5 /* GameData.swift */; };
-		3F1A56811F913B0800FEB3A2 /* PenguinDeath.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F1A56801F913B0800FEB3A2 /* PenguinDeath.sks */; };
-		3F4842791F8EE09000E5679F /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4842781F8EE09000E5679F /* Player.swift */; };
-		3F48427B1F8EF18900E5679F /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F48427A1F8EF18900E5679F /* Projectile.swift */; };
+		3F63C3D11FE201E600A5CDA6 /* SnowtopCaps.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3F63C3D01FE201E600A5CDA6 /* SnowtopCaps.otf */; };
+		3F63C3D51FE2024500A5CDA6 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C3D21FE2024500A5CDA6 /* CGFloat+Extensions.swift */; };
+		3F63C3D61FE2024500A5CDA6 /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C3D31FE2024500A5CDA6 /* CGPoint+Extensions.swift */; };
+		3F63C3D71FE2024500A5CDA6 /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C3D41FE2024500A5CDA6 /* CGVector+Extensions.swift */; };
+		3F63C3DD1FE2028000A5CDA6 /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C3D81FE2028000A5CDA6 /* HomeScene.swift */; };
+		3F63C3DE1FE2028000A5CDA6 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C3D91FE2028000A5CDA6 /* GameScene.swift */; };
+		3F63C3DF1FE2028000A5CDA6 /* LevelFinishScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C3DA1FE2028000A5CDA6 /* LevelFinishScene.swift */; };
+		3F63C3E01FE2028000A5CDA6 /* InstructionsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C3DB1FE2028000A5CDA6 /* InstructionsScene.swift */; };
+		3F63C3E11FE2028000A5CDA6 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C3DC1FE2028000A5CDA6 /* GameOverScene.swift */; };
+		3F63C3E91FE202B800A5CDA6 /* Hurt.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F63C3E31FE202B800A5CDA6 /* Hurt.sks */; };
+		3F63C3EA1FE202B800A5CDA6 /* PenguinDeath.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F63C3E41FE202B800A5CDA6 /* PenguinDeath.sks */; };
+		3F63C3EB1FE202B800A5CDA6 /* PowerUp.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F63C3E51FE202B800A5CDA6 /* PowerUp.sks */; };
+		3F63C3EC1FE202B800A5CDA6 /* PowerUpEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F63C3E61FE202B800A5CDA6 /* PowerUpEffect.sks */; };
+		3F63C3ED1FE202B800A5CDA6 /* ProjectileDeath.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F63C3E71FE202B800A5CDA6 /* ProjectileDeath.sks */; };
+		3F63C3EE1FE202B800A5CDA6 /* Landing.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F63C3E81FE202B800A5CDA6 /* Landing.sks */; };
+		3F63C3F21FE202E600A5CDA6 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C3EF1FE202E600A5CDA6 /* Shadow.swift */; };
+		3F63C3F31FE202E600A5CDA6 /* AmmoBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C3F01FE202E600A5CDA6 /* AmmoBar.swift */; };
+		3F63C3F41FE202E600A5CDA6 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C3F11FE202E600A5CDA6 /* Line.swift */; };
+		3F63C3FC1FE2032200A5CDA6 /* FishProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C3F71FE2032200A5CDA6 /* FishProjectile.swift */; };
+		3F63C3FD1FE2032200A5CDA6 /* IceProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C3F81FE2032200A5CDA6 /* IceProjectile.swift */; };
+		3F63C3FE1FE2032200A5CDA6 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C3F91FE2032200A5CDA6 /* Player.swift */; };
+		3F63C3FF1FE2032200A5CDA6 /* PowerUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C3FA1FE2032200A5CDA6 /* PowerUp.swift */; };
+		3F63C4001FE2032200A5CDA6 /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C3FB1FE2032200A5CDA6 /* Projectile.swift */; };
+		3F63C4041FE2041800A5CDA6 /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C4011FE2041800A5CDA6 /* MyUtils.swift */; };
+		3F63C4051FE2041800A5CDA6 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C4021FE2041800A5CDA6 /* GameData.swift */; };
+		3F63C4061FE2041800A5CDA6 /* LevelResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C4031FE2041800A5CDA6 /* LevelResults.swift */; };
 		DB2A89531F7952B200A13B8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89521F7952B200A13B8B /* AppDelegate.swift */; };
-		DB2A89551F7952B200A13B8B /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = DB2A89541F7952B200A13B8B /* GameScene.sks */; };
-		DB2A89571F7952B200A13B8B /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = DB2A89561F7952B200A13B8B /* Actions.sks */; };
-		DB2A89591F7952B200A13B8B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89581F7952B200A13B8B /* GameScene.swift */; };
 		DB2A895B1F7952B200A13B8B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A895A1F7952B200A13B8B /* GameViewController.swift */; };
 		DB2A895E1F7952B200A13B8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB2A895C1F7952B200A13B8B /* Main.storyboard */; };
 		DB2A89601F7952B200A13B8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB2A895F1F7952B200A13B8B /* Assets.xcassets */; };
 		DB2A89631F7952B200A13B8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB2A89611F7952B200A13B8B /* LaunchScreen.storyboard */; };
-		DB2A899A1F79542D00A13B8B /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89981F79542D00A13B8B /* CGPoint+Extensions.swift */; };
-		DB2A899B1F79542D00A13B8B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89991F79542D00A13B8B /* CGFloat+Extensions.swift */; };
-		DB2A899E1F79549000A13B8B /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A899D1F79549000A13B8B /* GameOverScene.swift */; };
-		DB2A89A01F7954C400A13B8B /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A899F1F7954C400A13B8B /* HomeScene.swift */; };
-		DB2A89A21F7954E900A13B8B /* LevelFinishScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89A11F7954E900A13B8B /* LevelFinishScene.swift */; };
-		DB2A89A91F79555100A13B8B /* LevelResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89A81F79555100A13B8B /* LevelResults.swift */; };
-		DB2A89AE1F7955EF00A13B8B /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A89AD1F7955EF00A13B8B /* MyUtils.swift */; };
 		DB2B3CBF1F91686B003D0BDC /* pew.wav in Resources */ = {isa = PBXBuildFile; fileRef = DB2B3CBE1F91686B003D0BDC /* pew.wav */; };
 		DB2B3CC11F916876003D0BDC /* coldwarBackground.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DB2B3CC01F916876003D0BDC /* coldwarBackground.mp3 */; };
-		DB3B595D1F82B28400C19023 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3B595C1F82B28400C19023 /* Line.swift */; };
-		DBAAAA041F9154F100B02F64 /* InstructionsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAAAA031F9154F100B02F64 /* InstructionsScene.swift */; };
-		DBC5BC1F1F79F348000D717F /* FishProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC5BC1E1F79F348000D717F /* FishProjectile.swift */; };
-		DBC5BC211F79FD48000D717F /* IceProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC5BC201F79FD48000D717F /* IceProjectile.swift */; };
-		DBD428B21F916124007E9A0B /* SnowtopCaps.otf in Resources */ = {isa = PBXBuildFile; fileRef = DBD428B11F916124007E9A0B /* SnowtopCaps.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3F0957401F8FE3EB00546EB5 /* ProjectileDeath.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ProjectileDeath.sks; sourceTree = "<group>"; };
-		3F0957421F8FE49100546EB5 /* Hurt.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Hurt.sks; sourceTree = "<group>"; };
-		3F0957441F8FED7400546EB5 /* PowerUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerUp.swift; sourceTree = "<group>"; };
-		3F0957461F8FF2CB00546EB5 /* CGVector+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGVector+Extensions.swift"; sourceTree = "<group>"; };
-		3F0957481F8FF61E00546EB5 /* PowerUp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PowerUp.sks; sourceTree = "<group>"; };
-		3F09574A1F8FF7DC00546EB5 /* PowerUpEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PowerUpEffect.sks; sourceTree = "<group>"; };
-		3F09574C1F8FFAA600546EB5 /* Landing.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Landing.sks; sourceTree = "<group>"; };
-		3F09574E1F8FFCC600546EB5 /* Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
-		3F0957501F900AF200546EB5 /* AmmoBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmmoBar.swift; sourceTree = "<group>"; };
-		3F0957521F90142700546EB5 /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
-		3F1A56801F913B0800FEB3A2 /* PenguinDeath.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PenguinDeath.sks; sourceTree = "<group>"; };
-		3F4842781F8EE09000E5679F /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		3F48427A1F8EF18900E5679F /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
+		3F63C3D01FE201E600A5CDA6 /* SnowtopCaps.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SnowtopCaps.otf; path = ColdWar/Fonts/SnowtopCaps.otf; sourceTree = "<group>"; };
+		3F63C3D21FE2024500A5CDA6 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGFloat+Extensions.swift"; path = "Lib/CGFloat+Extensions.swift"; sourceTree = "<group>"; };
+		3F63C3D31FE2024500A5CDA6 /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGPoint+Extensions.swift"; path = "Lib/CGPoint+Extensions.swift"; sourceTree = "<group>"; };
+		3F63C3D41FE2024500A5CDA6 /* CGVector+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGVector+Extensions.swift"; path = "Lib/CGVector+Extensions.swift"; sourceTree = "<group>"; };
+		3F63C3D81FE2028000A5CDA6 /* HomeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeScene.swift; path = Scenes/HomeScene.swift; sourceTree = "<group>"; };
+		3F63C3D91FE2028000A5CDA6 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameScene.swift; path = Scenes/GameScene.swift; sourceTree = "<group>"; };
+		3F63C3DA1FE2028000A5CDA6 /* LevelFinishScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LevelFinishScene.swift; path = Scenes/LevelFinishScene.swift; sourceTree = "<group>"; };
+		3F63C3DB1FE2028000A5CDA6 /* InstructionsScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InstructionsScene.swift; path = Scenes/InstructionsScene.swift; sourceTree = "<group>"; };
+		3F63C3DC1FE2028000A5CDA6 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameOverScene.swift; path = Scenes/GameOverScene.swift; sourceTree = "<group>"; };
+		3F63C3E31FE202B800A5CDA6 /* Hurt.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Hurt.sks; path = ColdWar/Emitters/Hurt.sks; sourceTree = "<group>"; };
+		3F63C3E41FE202B800A5CDA6 /* PenguinDeath.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = PenguinDeath.sks; path = ColdWar/Emitters/PenguinDeath.sks; sourceTree = "<group>"; };
+		3F63C3E51FE202B800A5CDA6 /* PowerUp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = PowerUp.sks; path = ColdWar/Emitters/PowerUp.sks; sourceTree = "<group>"; };
+		3F63C3E61FE202B800A5CDA6 /* PowerUpEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = PowerUpEffect.sks; path = ColdWar/Emitters/PowerUpEffect.sks; sourceTree = "<group>"; };
+		3F63C3E71FE202B800A5CDA6 /* ProjectileDeath.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = ProjectileDeath.sks; path = ColdWar/Emitters/ProjectileDeath.sks; sourceTree = "<group>"; };
+		3F63C3E81FE202B800A5CDA6 /* Landing.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Landing.sks; path = ColdWar/Emitters/Landing.sks; sourceTree = "<group>"; };
+		3F63C3EF1FE202E600A5CDA6 /* Shadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shadow.swift; path = Sprites/Shadow.swift; sourceTree = "<group>"; };
+		3F63C3F01FE202E600A5CDA6 /* AmmoBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AmmoBar.swift; path = Sprites/AmmoBar.swift; sourceTree = "<group>"; };
+		3F63C3F11FE202E600A5CDA6 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Line.swift; path = Sprites/Line.swift; sourceTree = "<group>"; };
+		3F63C3F71FE2032200A5CDA6 /* FishProjectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FishProjectile.swift; path = Nodes/FishProjectile.swift; sourceTree = "<group>"; };
+		3F63C3F81FE2032200A5CDA6 /* IceProjectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IceProjectile.swift; path = Nodes/IceProjectile.swift; sourceTree = "<group>"; };
+		3F63C3F91FE2032200A5CDA6 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Player.swift; path = Nodes/Player.swift; sourceTree = "<group>"; };
+		3F63C3FA1FE2032200A5CDA6 /* PowerUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PowerUp.swift; path = Nodes/PowerUp.swift; sourceTree = "<group>"; };
+		3F63C3FB1FE2032200A5CDA6 /* Projectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Projectile.swift; path = Nodes/Projectile.swift; sourceTree = "<group>"; };
+		3F63C4011FE2041800A5CDA6 /* MyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyUtils.swift; path = Misc/MyUtils.swift; sourceTree = "<group>"; };
+		3F63C4021FE2041800A5CDA6 /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameData.swift; path = Misc/GameData.swift; sourceTree = "<group>"; };
+		3F63C4031FE2041800A5CDA6 /* LevelResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LevelResults.swift; path = Misc/LevelResults.swift; sourceTree = "<group>"; };
 		DB2A894F1F7952B200A13B8B /* ColdWar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColdWar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB2A89521F7952B200A13B8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DB2A89541F7952B200A13B8B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = ColdWar/GameScene.sks; sourceTree = "<group>"; };
-		DB2A89561F7952B200A13B8B /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Actions.sks; path = ColdWar/Actions.sks; sourceTree = "<group>"; };
-		DB2A89581F7952B200A13B8B /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		DB2A895A1F7952B200A13B8B /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		DB2A895D1F7952B200A13B8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DB2A895F1F7952B200A13B8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ColdWar/Assets.xcassets; sourceTree = "<group>"; };
 		DB2A89621F7952B200A13B8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DB2A89641F7952B200A13B8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ColdWar/Info.plist; sourceTree = "<group>"; };
-		DB2A89981F79542D00A13B8B /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
-		DB2A89991F79542D00A13B8B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
-		DB2A899D1F79549000A13B8B /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
-		DB2A899F1F7954C400A13B8B /* HomeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
-		DB2A89A11F7954E900A13B8B /* LevelFinishScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelFinishScene.swift; sourceTree = "<group>"; };
-		DB2A89A81F79555100A13B8B /* LevelResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelResults.swift; sourceTree = "<group>"; };
-		DB2A89AD1F7955EF00A13B8B /* MyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
-		DB2B3CBE1F91686B003D0BDC /* pew.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pew.wav; sourceTree = "<group>"; };
-		DB2B3CC01F916876003D0BDC /* coldwarBackground.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = coldwarBackground.mp3; sourceTree = "<group>"; };
-		DB3B595C1F82B28400C19023 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
-		DBAAAA031F9154F100B02F64 /* InstructionsScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionsScene.swift; sourceTree = "<group>"; };
-		DBC5BC1E1F79F348000D717F /* FishProjectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FishProjectile.swift; sourceTree = "<group>"; };
-		DBC5BC201F79FD48000D717F /* IceProjectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IceProjectile.swift; sourceTree = "<group>"; };
-		DBD428B11F916124007E9A0B /* SnowtopCaps.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SnowtopCaps.otf; sourceTree = "<group>"; };
+		DB2B3CBE1F91686B003D0BDC /* pew.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = pew.wav; path = ColdWar/Sounds/pew.wav; sourceTree = SOURCE_ROOT; };
+		DB2B3CC01F916876003D0BDC /* coldwarBackground.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = coldwarBackground.mp3; path = ColdWar/Sounds/coldwarBackground.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,13 +91,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F63C3E21FE202A300A5CDA6 /* Emitters */ = {
+			isa = PBXGroup;
+			children = (
+				3F63C3E31FE202B800A5CDA6 /* Hurt.sks */,
+				3F63C3E81FE202B800A5CDA6 /* Landing.sks */,
+				3F63C3E41FE202B800A5CDA6 /* PenguinDeath.sks */,
+				3F63C3E51FE202B800A5CDA6 /* PowerUp.sks */,
+				3F63C3E61FE202B800A5CDA6 /* PowerUpEffect.sks */,
+				3F63C3E71FE202B800A5CDA6 /* ProjectileDeath.sks */,
+			);
+			name = Emitters;
+			sourceTree = "<group>";
+		};
 		DB2A89461F7952B100A13B8B = {
 			isa = PBXGroup;
 			children = (
+				3F63C3E21FE202A300A5CDA6 /* Emitters */,
 				DB2B3CBD1F91685B003D0BDC /* Sounds */,
 				DBD428B01F916119007E9A0B /* Fonts */,
-				DB2A89541F7952B200A13B8B /* GameScene.sks */,
-				DB2A89561F7952B200A13B8B /* Actions.sks */,
 				DB2A895C1F7952B200A13B8B /* Main.storyboard */,
 				DB2A895F1F7952B200A13B8B /* Assets.xcassets */,
 				DB2A89611F7952B200A13B8B /* LaunchScreen.storyboard */,
@@ -110,8 +118,8 @@
 				DB2A89971F79541400A13B8B /* Lib */,
 				DB2A89A31F7954FA00A13B8B /* VC */,
 				DB2A899C1F79543F00A13B8B /* Scene */,
-				DB2A89A41F79551B00A13B8B /* SpriteAndEmitter */,
-				DB2A89A71F79554100A13B8B /* Model */,
+				DB2A89A41F79551B00A13B8B /* Sprites */,
+				DB2A89A71F79554100A13B8B /* Nodes */,
 				DB2A89501F7952B200A13B8B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -127,9 +135,10 @@
 		DB2A89511F7952B200A13B8B /* ColdWar */ = {
 			isa = PBXGroup;
 			children = (
-				3F0957521F90142700546EB5 /* GameData.swift */,
+				3F63C4021FE2041800A5CDA6 /* GameData.swift */,
+				3F63C4031FE2041800A5CDA6 /* LevelResults.swift */,
+				3F63C4011FE2041800A5CDA6 /* MyUtils.swift */,
 				DB2A89521F7952B200A13B8B /* AppDelegate.swift */,
-				DB2A89AD1F7955EF00A13B8B /* MyUtils.swift */,
 			);
 			path = ColdWar;
 			sourceTree = "<group>";
@@ -137,9 +146,9 @@
 		DB2A89971F79541400A13B8B /* Lib */ = {
 			isa = PBXGroup;
 			children = (
-				DB2A89981F79542D00A13B8B /* CGPoint+Extensions.swift */,
-				DB2A89991F79542D00A13B8B /* CGFloat+Extensions.swift */,
-				3F0957461F8FF2CB00546EB5 /* CGVector+Extensions.swift */,
+				3F63C3D21FE2024500A5CDA6 /* CGFloat+Extensions.swift */,
+				3F63C3D31FE2024500A5CDA6 /* CGPoint+Extensions.swift */,
+				3F63C3D41FE2024500A5CDA6 /* CGVector+Extensions.swift */,
 			);
 			name = Lib;
 			path = ColdWar;
@@ -148,11 +157,11 @@
 		DB2A899C1F79543F00A13B8B /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				DB2A89581F7952B200A13B8B /* GameScene.swift */,
-				DB2A899D1F79549000A13B8B /* GameOverScene.swift */,
-				DB2A899F1F7954C400A13B8B /* HomeScene.swift */,
-				DB2A89A11F7954E900A13B8B /* LevelFinishScene.swift */,
-				DBAAAA031F9154F100B02F64 /* InstructionsScene.swift */,
+				3F63C3DC1FE2028000A5CDA6 /* GameOverScene.swift */,
+				3F63C3D91FE2028000A5CDA6 /* GameScene.swift */,
+				3F63C3D81FE2028000A5CDA6 /* HomeScene.swift */,
+				3F63C3DB1FE2028000A5CDA6 /* InstructionsScene.swift */,
+				3F63C3DA1FE2028000A5CDA6 /* LevelFinishScene.swift */,
 			);
 			name = Scene;
 			path = ColdWar;
@@ -167,34 +176,27 @@
 			path = ColdWar;
 			sourceTree = "<group>";
 		};
-		DB2A89A41F79551B00A13B8B /* SpriteAndEmitter */ = {
+		DB2A89A41F79551B00A13B8B /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
-				3F1A56801F913B0800FEB3A2 /* PenguinDeath.sks */,
-				3F0957481F8FF61E00546EB5 /* PowerUp.sks */,
-				3F0957401F8FE3EB00546EB5 /* ProjectileDeath.sks */,
-				DB3B595C1F82B28400C19023 /* Line.swift */,
-				3F0957421F8FE49100546EB5 /* Hurt.sks */,
-				3F09574A1F8FF7DC00546EB5 /* PowerUpEffect.sks */,
-				3F09574C1F8FFAA600546EB5 /* Landing.sks */,
-				3F09574E1F8FFCC600546EB5 /* Shadow.swift */,
-				3F0957501F900AF200546EB5 /* AmmoBar.swift */,
+				3F63C3F01FE202E600A5CDA6 /* AmmoBar.swift */,
+				3F63C3F11FE202E600A5CDA6 /* Line.swift */,
+				3F63C3EF1FE202E600A5CDA6 /* Shadow.swift */,
 			);
-			name = SpriteAndEmitter;
+			name = Sprites;
 			path = ColdWar;
 			sourceTree = "<group>";
 		};
-		DB2A89A71F79554100A13B8B /* Model */ = {
+		DB2A89A71F79554100A13B8B /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				DBC5BC201F79FD48000D717F /* IceProjectile.swift */,
-				DBC5BC1E1F79F348000D717F /* FishProjectile.swift */,
-				DB2A89A81F79555100A13B8B /* LevelResults.swift */,
-				3F4842781F8EE09000E5679F /* Player.swift */,
-				3F48427A1F8EF18900E5679F /* Projectile.swift */,
-				3F0957441F8FED7400546EB5 /* PowerUp.swift */,
+				3F63C3F71FE2032200A5CDA6 /* FishProjectile.swift */,
+				3F63C3F81FE2032200A5CDA6 /* IceProjectile.swift */,
+				3F63C3F91FE2032200A5CDA6 /* Player.swift */,
+				3F63C3FA1FE2032200A5CDA6 /* PowerUp.swift */,
+				3F63C3FB1FE2032200A5CDA6 /* Projectile.swift */,
 			);
-			name = Model;
+			name = Nodes;
 			path = ColdWar;
 			sourceTree = "<group>";
 		};
@@ -210,7 +212,7 @@
 		DBD428B01F916119007E9A0B /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				DBD428B11F916124007E9A0B /* SnowtopCaps.otf */,
+				3F63C3D01FE201E600A5CDA6 /* SnowtopCaps.otf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -247,7 +249,7 @@
 				TargetAttributes = {
 					DB2A894E1F7952B200A13B8B = {
 						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = 5WMSVF3JT7;
+						DevelopmentTeam = 9KRWQ3BBM5;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -275,20 +277,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F0957411F8FE3EB00546EB5 /* ProjectileDeath.sks in Resources */,
+				3F63C3ED1FE202B800A5CDA6 /* ProjectileDeath.sks in Resources */,
 				DB2B3CBF1F91686B003D0BDC /* pew.wav in Resources */,
 				DB2A895E1F7952B200A13B8B /* Main.storyboard in Resources */,
-				DB2A89551F7952B200A13B8B /* GameScene.sks in Resources */,
+				3F63C3E91FE202B800A5CDA6 /* Hurt.sks in Resources */,
+				3F63C3D11FE201E600A5CDA6 /* SnowtopCaps.otf in Resources */,
+				3F63C3EE1FE202B800A5CDA6 /* Landing.sks in Resources */,
 				DB2A89601F7952B200A13B8B /* Assets.xcassets in Resources */,
-				3F09574B1F8FF7DC00546EB5 /* PowerUpEffect.sks in Resources */,
-				3F1A56811F913B0800FEB3A2 /* PenguinDeath.sks in Resources */,
-				3F0957491F8FF6A200546EB5 /* PowerUp.sks in Resources */,
 				DB2A89631F7952B200A13B8B /* LaunchScreen.storyboard in Resources */,
-				DBD428B21F916124007E9A0B /* SnowtopCaps.otf in Resources */,
-				3F09574D1F8FFAA600546EB5 /* Landing.sks in Resources */,
+				3F63C3EA1FE202B800A5CDA6 /* PenguinDeath.sks in Resources */,
+				3F63C3EC1FE202B800A5CDA6 /* PowerUpEffect.sks in Resources */,
 				DB2B3CC11F916876003D0BDC /* coldwarBackground.mp3 in Resources */,
-				DB2A89571F7952B200A13B8B /* Actions.sks in Resources */,
-				3F0957431F8FE49100546EB5 /* Hurt.sks in Resources */,
+				3F63C3EB1FE202B800A5CDA6 /* PowerUp.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,26 +299,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F09574F1F8FFCC600546EB5 /* Shadow.swift in Sources */,
-				3F0957531F90142700546EB5 /* GameData.swift in Sources */,
-				DB2A89A21F7954E900A13B8B /* LevelFinishScene.swift in Sources */,
-				DB2A89591F7952B200A13B8B /* GameScene.swift in Sources */,
-				3F0957471F8FF2CB00546EB5 /* CGVector+Extensions.swift in Sources */,
-				3F0957451F8FED7400546EB5 /* PowerUp.swift in Sources */,
-				DBC5BC1F1F79F348000D717F /* FishProjectile.swift in Sources */,
-				DB2A899B1F79542D00A13B8B /* CGFloat+Extensions.swift in Sources */,
-				DB2A89A91F79555100A13B8B /* LevelResults.swift in Sources */,
-				DB3B595D1F82B28400C19023 /* Line.swift in Sources */,
+				3F63C3FD1FE2032200A5CDA6 /* IceProjectile.swift in Sources */,
+				3F63C4041FE2041800A5CDA6 /* MyUtils.swift in Sources */,
+				3F63C3DF1FE2028000A5CDA6 /* LevelFinishScene.swift in Sources */,
+				3F63C4051FE2041800A5CDA6 /* GameData.swift in Sources */,
+				3F63C3D71FE2024500A5CDA6 /* CGVector+Extensions.swift in Sources */,
+				3F63C3FE1FE2032200A5CDA6 /* Player.swift in Sources */,
+				3F63C4061FE2041800A5CDA6 /* LevelResults.swift in Sources */,
+				3F63C3FC1FE2032200A5CDA6 /* FishProjectile.swift in Sources */,
+				3F63C3FF1FE2032200A5CDA6 /* PowerUp.swift in Sources */,
+				3F63C3F31FE202E600A5CDA6 /* AmmoBar.swift in Sources */,
+				3F63C3E11FE2028000A5CDA6 /* GameOverScene.swift in Sources */,
+				3F63C3F21FE202E600A5CDA6 /* Shadow.swift in Sources */,
 				DB2A895B1F7952B200A13B8B /* GameViewController.swift in Sources */,
-				DB2A89AE1F7955EF00A13B8B /* MyUtils.swift in Sources */,
-				DB2A89A01F7954C400A13B8B /* HomeScene.swift in Sources */,
-				DB2A899A1F79542D00A13B8B /* CGPoint+Extensions.swift in Sources */,
-				DBC5BC211F79FD48000D717F /* IceProjectile.swift in Sources */,
-				3F0957511F900AF200546EB5 /* AmmoBar.swift in Sources */,
-				3F48427B1F8EF18900E5679F /* Projectile.swift in Sources */,
-				DB2A899E1F79549000A13B8B /* GameOverScene.swift in Sources */,
-				DBAAAA041F9154F100B02F64 /* InstructionsScene.swift in Sources */,
-				3F4842791F8EE09000E5679F /* Player.swift in Sources */,
+				3F63C4001FE2032200A5CDA6 /* Projectile.swift in Sources */,
+				3F63C3D51FE2024500A5CDA6 /* CGFloat+Extensions.swift in Sources */,
+				3F63C3E01FE2028000A5CDA6 /* InstructionsScene.swift in Sources */,
+				3F63C3DE1FE2028000A5CDA6 /* GameScene.swift in Sources */,
+				3F63C3D61FE2024500A5CDA6 /* CGPoint+Extensions.swift in Sources */,
+				3F63C3DD1FE2028000A5CDA6 /* HomeScene.swift in Sources */,
+				3F63C3F41FE202E600A5CDA6 /* Line.swift in Sources */,
 				DB2A89531F7952B200A13B8B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -443,12 +443,11 @@
 		DB2A89681F7952B200A13B8B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 5WMSVF3JT7;
+				DEVELOPMENT_TEAM = 9KRWQ3BBM5;
 				INFOPLIST_FILE = ColdWar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.svaswani.ColdWar;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tanatb.ColdWar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -458,12 +457,11 @@
 		DB2A89691F7952B200A13B8B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 5WMSVF3JT7;
+				DEVELOPMENT_TEAM = 9KRWQ3BBM5;
 				INFOPLIST_FILE = ColdWar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.svaswani.ColdWar;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tanatb.ColdWar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 2;
